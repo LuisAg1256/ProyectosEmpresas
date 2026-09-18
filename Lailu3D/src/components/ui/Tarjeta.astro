@@ -1,0 +1,44 @@
+---
+/**
+ * Tarjeta de estudio: superficie blanca, contorno estructural, padding de 24px.
+ * La elevacion es tonal (`elev-*`), no una sombra pesada.
+ *
+ * Con `etiqueta` dibuja la cabecera con hairline inferior que pide el sistema.
+ */
+interface Props {
+  etiqueta?: string;
+  elevacion?: 1 | 2 | 3;
+  /** Convierte la tarjeta en enlace (tarjetas de producto y de servicio). */
+  href?: string;
+  class?: string;
+}
+
+const {
+  etiqueta,
+  elevacion = 2,
+  href,
+  class: clase = '',
+} = Astro.props;
+
+/** Literales: Tailwind escanea clases completas, una interpolada no se genera. */
+const elevaciones = { 1: 'elev-1', 2: 'elev-2', 3: 'elev-3' } as const;
+
+const base = `${elevaciones[elevacion]} rounded-lg p-6`;
+const interactiva = href
+  ? 'block transition-colors hover:border-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background'
+  : '';
+const clases = [base, interactiva, clase].filter(Boolean).join(' ');
+
+const Etiqueta = href ? 'a' : 'div';
+---
+
+<Etiqueta class={clases} href={href}>
+  {
+    etiqueta && (
+      <p class="mb-4 border-b border-outline-variant pb-3 font-display text-label-md uppercase text-on-surface-variant">
+        {etiqueta}
+      </p>
+    )
+  }
+  <slot />
+</Etiqueta>

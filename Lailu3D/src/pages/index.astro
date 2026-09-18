@@ -1,11 +1,349 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import { getCollection } from 'astro:content';
+import logoMark from '../assets/brand/logo-mark.svg';
 import Layout from '../layouts/Layout.astro';
+import Seccion from '../components/ui/Seccion.astro';
+import Tarjeta from '../components/ui/Tarjeta.astro';
+import Boton from '../components/ui/Boton.astro';
+import Chip from '../components/ui/Chip.astro';
+import TarjetaProducto from '../components/TarjetaProducto.astro';
+import IconoWhatsApp from '../components/ui/IconoWhatsApp.astro';
+import { site, idiomaPorDefecto, type Idioma } from '../config/site';
+import { waGeneral, waServicio } from '../lib/whatsapp';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const idioma = (Astro.currentLocale ?? idiomaPorDefecto) as Idioma;
+
+/**
+ * Destacados del catalogo. Se marcan con `destacado: true` en el frontmatter
+ * del producto: la landing no mantiene su propia lista.
+ */
+const destacados = (await getCollection('productos'))
+  .filter((p) => p.data.destacado)
+  .sort((a, b) => a.data.orden - b.data.orden)
+  .slice(0, 4);
+
+const servicios = [
+  {
+    titulo: 'Impresión 3D personalizada',
+    texto:
+      'Figuras, prototipos, repuestos y piezas decorativas en PLA. Desde una unidad hasta tiradas pequeñas.',
+    chips: ['FDM', 'PLA', 'Bajo cotización'],
+  },
+  {
+    titulo: 'Grabado y corte láser',
+    texto:
+      'Grabado de nombres, logos y diseños sobre madera, acrílico y cuero. Corte de piezas planas a medida.',
+    chips: ['Madera', 'Acrílico', 'A medida'],
+  },
+  {
+    titulo: 'Modelado 3D desde tu idea',
+    texto:
+      'No necesitas un archivo listo. Nos mandas un boceto, una foto o una referencia y nosotros modelamos la pieza.',
+    chips: ['Boceto', 'Foto', 'Referencia'],
+  },
+  {
+    titulo: 'Lámparas retrato (litofanía)',
+    texto:
+      'Tu fotografía convertida en una lámpara: al encenderla aparece la imagen con todos sus grises. El regalo que más nos piden.',
+    chips: ['Regalo', 'Litofanía', 'Personalizado'],
+  },
+];
+
+const pasos = [
+  {
+    numero: '01',
+    titulo: 'Cuéntanos la idea',
+    texto:
+      'Descripción, medidas aproximadas, cantidad y una referencia visual si la tienes. Con eso ya podemos trabajar.',
+  },
+  {
+    numero: '02',
+    titulo: 'Cotizamos por WhatsApp',
+    texto:
+      'No hay tarifa fija: el precio depende de la pieza, el material y el tiempo de impresión. Te damos un número claro antes de empezar.',
+  },
+  {
+    numero: '03',
+    titulo: 'Producimos y entregamos',
+    texto:
+      'Confirmas, fabricamos y coordinamos la entrega en Loja o Cuenca. Te vamos mostrando los avances.',
+  },
+];
+
+/** Placeholders: se reemplazan por fotografías reales de trabajos entregados. */
+const trabajos = [
+  { titulo: 'Llaveros personalizados', categoria: 'Impresión 3D' },
+  { titulo: 'Lámpara retrato', categoria: 'Litofanía' },
+  { titulo: 'Figuras y juguetes', categoria: 'Impresión 3D' },
+  { titulo: 'Placa grabada en madera', categoria: 'Láser' },
+  { titulo: 'Repuesto a medida', categoria: 'Modelado' },
+  { titulo: 'Señalética en acrílico', categoria: 'Corte láser' },
+];
+
+const waIdea = waGeneral(idioma, '/');
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  titulo="Impresión 3D personalizada"
+  descripcion="Impresiones 3D bajo cotización, grabado y corte láser, filamentos y figuras. Loja y Cuenca, Ecuador."
+>
+  {/* --- Hero --- */}
+  <section class="px-margin-mobile py-16 md:px-margin md:py-24">
+    <div
+      class="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[1.1fr_0.9fr]"
+    >
+      <div>
+        <p class="font-display text-label-md uppercase text-primary">
+          {site.sucursales.join(' · ')} — Ecuador
+        </p>
+
+        <h1
+          class="mt-4 text-display-lg-mobile md:text-display-lg text-on-surface"
+        >
+          Lo que imaginas, fabricado.
+        </h1>
+
+        <p class="mt-6 max-w-xl text-body-lg text-on-surface-variant">
+          Impresión 3D personalizada, grabado y corte láser. Traes una idea, un
+          boceto o una foto; nosotros la convertimos en una pieza real.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Boton href={waIdea} externo tamano="lg">
+            <IconoWhatsApp class="size-5" />
+            Cotizar mi idea
+          </Boton>
+          <Boton href="/productos" variante="secondary" tamano="lg">
+            Ver catálogo
+          </Boton>
+        </div>
+
+        <p class="mt-6 text-body-sm text-on-surface-variant">
+          Cotizamos por WhatsApp, pieza por pieza. El sitio no procesa pagos en
+          línea.
+        </p>
+      </div>
+
+      {/* Panel técnico: sustituye a la foto de portada hasta tener material real. */}
+      <div class="elev-2 rounded-xl p-6 md:p-8">
+        <div class="flex items-center justify-between gap-4">
+          <p class="font-display text-label-md uppercase text-on-surface-variant">
+            Taller
+          </p>
+          <span class="inline-flex items-center gap-1.5 font-display text-label-sm uppercase text-on-surface-variant">
+            <span class="size-1.5 rounded-full bg-primary" aria-hidden="true"
+            ></span>
+            Operativo
+          </span>
+        </div>
+
+        <div
+          class="mt-6 flex items-center justify-center rounded-lg bg-surface-container py-10"
+        >
+          <img
+            src={logoMark.src}
+            width={logoMark.width}
+            height={logoMark.height}
+            alt="Lailu3D"
+            class="h-32 w-auto md:h-40"
+          />
+        </div>
+
+        <dl
+          class="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-outline-variant pt-6"
+        >
+          <div>
+            <dt
+              class="font-display text-label-sm uppercase text-on-surface-variant"
+            >
+              Tecnología
+            </dt>
+            <dd class="mt-1 text-body-md text-on-surface">FDM · Láser</dd>
+          </div>
+          <div>
+            <dt
+              class="font-display text-label-sm uppercase text-on-surface-variant"
+            >
+              Material base
+            </dt>
+            <dd class="mt-1 text-body-md text-on-surface">PLA 1.75 mm</dd>
+          </div>
+          <div>
+            <dt
+              class="font-display text-label-sm uppercase text-on-surface-variant"
+            >
+              Cantidad mínima
+            </dt>
+            <dd class="mt-1 text-body-md text-on-surface tabular">1 pieza</dd>
+          </div>
+          <div>
+            <dt
+              class="font-display text-label-sm uppercase text-on-surface-variant"
+            >
+              Entrega
+            </dt>
+            <dd class="mt-1 text-body-md text-on-surface">Loja · Cuenca</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  {/* --- Servicios --- */}
+  <Seccion
+    id="servicios"
+    etiqueta="Servicios"
+    titulo="Qué fabricamos"
+    descripcion="Cada trabajo se cotiza según la pieza, el material y el tiempo de producción. Escríbenos y te damos un precio concreto."
+    fondo="alterno"
+  >
+    <div class="grid gap-6 md:grid-cols-2">
+      {
+        servicios.map((servicio) => (
+          <Tarjeta class="flex flex-col">
+            <h3 class="text-headline-sm text-on-surface">{servicio.titulo}</h3>
+            <p class="mt-3 flex-1 text-body-md text-on-surface-variant">
+              {servicio.texto}
+            </p>
+
+            <div class="mt-5 flex flex-wrap gap-2">
+              {servicio.chips.map((chip) => (
+                <Chip>{chip}</Chip>
+              ))}
+            </div>
+
+            <div class="mt-6">
+              <Boton
+                href={waServicio(servicio.titulo, '/', idioma)}
+                externo
+                variante="secondary"
+              >
+                <IconoWhatsApp class="size-4" />
+                Consultar este servicio
+              </Boton>
+            </div>
+          </Tarjeta>
+        ))
+      }
+    </div>
+  </Seccion>
+
+  {/* --- Cómo funciona --- */}
+  <Seccion
+    id="como-funciona"
+    etiqueta="Cómo funciona"
+    titulo="De la idea a la pieza, en tres pasos"
+    descripcion="No publicamos precios fijos porque ninguna pieza es igual a otra. Esto es lo que pasa cuando nos escribes."
+  >
+    <ol class="grid gap-6 md:grid-cols-3">
+      {
+        pasos.map((paso) => (
+          <li>
+            <Tarjeta elevacion={1} class="h-full">
+              <p class="font-display text-headline-md text-primary tabular">
+                {paso.numero}
+              </p>
+              <h3 class="mt-3 text-headline-sm text-on-surface">
+                {paso.titulo}
+              </h3>
+              <p class="mt-2 text-body-md text-on-surface-variant">
+                {paso.texto}
+              </p>
+            </Tarjeta>
+          </li>
+        ))
+      }
+    </ol>
+  </Seccion>
+
+  {/* --- Destacados del catálogo --- */}
+  {
+    destacados.length > 0 && (
+      <Seccion
+        id="catalogo"
+        etiqueta="Catálogo"
+        titulo="Productos listos para pedir"
+        descripcion="Filamentos y piezas con precio referencial. Se piden por WhatsApp, con el código del producto ya cargado en el mensaje."
+        fondo="alterno"
+      >
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {destacados.map((producto) => (
+            <TarjetaProducto producto={producto} idioma={idioma} />
+          ))}
+        </div>
+
+        <div class="mt-10">
+          <Boton href="/productos" variante="secondary">
+            Ver todo el catálogo
+          </Boton>
+        </div>
+      </Seccion>
+    )
+  }
+
+  {/* --- Trabajos previos --- */}
+  <Seccion
+    id="trabajos"
+    etiqueta="Trabajos"
+    titulo="Algunos encargos que hemos hecho"
+    descripcion="Estamos montando la galería con fotografías de trabajos entregados. Mientras tanto, escríbenos y te mandamos ejemplos por WhatsApp."
+  >
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        trabajos.map((trabajo) => (
+          <li class="elev-1 flex aspect-4/3 flex-col justify-between rounded-lg p-5">
+            <div
+              class="flex flex-1 items-center justify-center opacity-25"
+              aria-hidden="true"
+            >
+              <img
+                src={logoMark.src}
+                width={logoMark.width}
+                height={logoMark.height}
+                alt=""
+                class="h-16 w-auto"
+              />
+            </div>
+            <div>
+              <p class="font-display text-label-sm uppercase text-on-surface-variant">
+                {trabajo.categoria}
+              </p>
+              <p class="mt-1 text-body-md text-on-surface">{trabajo.titulo}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </Seccion>
+
+  {/* --- CTA final --- */}
+  <section class="px-margin-mobile pb-20 md:px-margin">
+    <div
+      class="mx-auto max-w-6xl rounded-xl bg-primary px-6 py-12 text-center md:px-16 md:py-16"
+    >
+      <h2 class="text-headline-lg-mobile md:text-headline-lg text-on-primary">
+        ¿Tienes una idea en la cabeza?
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-body-lg text-primary-fixed">
+        Mándanos la descripción, la medida aproximada y una referencia. Te
+        respondemos por WhatsApp con la cotización.
+      </p>
+
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <Boton
+          href={waIdea}
+          externo
+          tamano="lg"
+          class="bg-surface-lowest text-primary hover:bg-surface-low active:bg-surface-container"
+        >
+          <IconoWhatsApp class="size-5" />
+          Escribir por WhatsApp
+        </Boton>
+      </div>
+
+      <p class="mt-6 text-body-sm text-primary-fixed">
+        {site.whatsapp.display} · {site.sucursales.join(' y ')}
+      </p>
+    </div>
+  </section>
 </Layout>

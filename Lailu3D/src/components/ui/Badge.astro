@@ -1,0 +1,39 @@
+---
+import { idiomaPorDefecto, type Idioma } from '../../config/site';
+
+/**
+ * Estado de disponibilidad de un producto. Punto de 6px + etiqueta:
+ * el circulo es la unica forma redonda permitida por el sistema.
+ */
+interface Props {
+  estado: 'disponible' | 'bajo_pedido' | 'agotado';
+  idioma?: Idioma;
+  class?: string;
+}
+
+const {
+  estado,
+  idioma = (Astro.currentLocale ?? idiomaPorDefecto) as Idioma,
+  class: clase = '',
+} = Astro.props;
+
+const etiquetas = {
+  disponible: { es: 'Disponible', en: 'In stock' },
+  bajo_pedido: { es: 'Bajo pedido', en: 'Made to order' },
+  agotado: { es: 'Agotado', en: 'Out of stock' },
+} as const;
+
+const puntos = {
+  disponible: 'bg-primary',
+  bajo_pedido: 'bg-tertiary',
+  agotado: 'bg-outline',
+} as const;
+---
+
+<span
+  class={`inline-flex items-center gap-1.5 font-display text-label-sm uppercase text-on-surface-variant ${clase}`}
+>
+  <span class={`size-1.5 rounded-full ${puntos[estado]}`} aria-hidden="true"
+  ></span>
+  {etiquetas[estado][idioma]}
+</span>

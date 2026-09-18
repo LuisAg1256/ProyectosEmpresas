@@ -1,0 +1,80 @@
+---
+/**
+ * Campo de formulario. Focus ring nitido de 1px en cobre, sin blur.
+ * Altura 40px en input; el textarea crece por filas.
+ */
+interface Props {
+  id: string;
+  nombre: string;
+  etiqueta: string;
+  tipo?: 'text' | 'number' | 'url' | 'tel' | 'email' | 'textarea';
+  placeholder?: string;
+  requerido?: boolean;
+  /** Texto de ayuda bajo el campo. */
+  ayuda?: string;
+  filas?: number;
+  valor?: string;
+  class?: string;
+}
+
+const {
+  id,
+  nombre,
+  etiqueta,
+  tipo = 'text',
+  placeholder,
+  requerido = false,
+  ayuda,
+  filas = 4,
+  valor,
+  class: clase = '',
+} = Astro.props;
+
+const control =
+  'w-full rounded-[4px] border border-outline-variant bg-surface-lowest px-3 text-body-md text-on-surface placeholder:text-on-surface-variant/60 transition-colors focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary';
+const idAyuda = ayuda ? `${id}-ayuda` : undefined;
+---
+
+<div class={`flex flex-col gap-1.5 ${clase}`}>
+  <label
+    for={id}
+    class="font-display text-label-md uppercase text-on-surface-variant"
+  >
+    {etiqueta}
+    {requerido && <span class="text-primary" aria-hidden="true">*</span>}
+  </label>
+
+  {
+    tipo === 'textarea' ? (
+      <textarea
+        id={id}
+        name={nombre}
+        rows={filas}
+        placeholder={placeholder}
+        required={requerido}
+        aria-describedby={idAyuda}
+        class={`${control} py-2.5 resize-y`}
+        set:text={valor}
+      />
+    ) : (
+      <input
+        id={id}
+        name={nombre}
+        type={tipo}
+        placeholder={placeholder}
+        required={requerido}
+        value={valor}
+        aria-describedby={idAyuda}
+        class={`${control} h-10`}
+      />
+    )
+  }
+
+  {
+    ayuda && (
+      <p id={idAyuda} class="text-body-sm text-on-surface-variant">
+        {ayuda}
+      </p>
+    )
+  }
+</div>

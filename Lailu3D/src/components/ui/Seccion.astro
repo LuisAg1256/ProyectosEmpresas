@@ -1,0 +1,69 @@
+---
+/**
+ * Envoltorio de ancho y ritmo vertical. Evita repetir el layout en cada bloque
+ * de la landing: margenes laterales por token (`margin` / `margin-mobile`) y
+ * encabezado opcional con etiqueta tecnica.
+ */
+interface Props {
+  id?: string;
+  /** Etiqueta corta en mayusculas sobre el titulo. */
+  etiqueta?: string;
+  titulo?: string;
+  descripcion?: string;
+  ancho?: 'normal' | 'ancho' | 'estrecho';
+  fondo?: 'base' | 'alterno';
+  /** Centra el encabezado. Por defecto va alineado a la izquierda. */
+  centrado?: boolean;
+  class?: string;
+}
+
+const {
+  id,
+  etiqueta,
+  titulo,
+  descripcion,
+  ancho = 'normal',
+  fondo = 'base',
+  centrado = false,
+  class: clase = '',
+} = Astro.props;
+
+const anchos = {
+  estrecho: 'max-w-3xl',
+  normal: 'max-w-6xl',
+  ancho: 'max-w-7xl',
+} as const;
+
+const fondos = {
+  base: '',
+  alterno: 'bg-surface-low border-y border-outline-variant',
+} as const;
+---
+
+<section
+  id={id}
+  class={`px-margin-mobile md:px-margin py-12 md:py-20 ${fondos[fondo]} ${clase}`}
+>
+  <div class={`mx-auto ${anchos[ancho]}`}>
+    {
+      (etiqueta || titulo || descripcion) && (
+        <header class={`mb-10 ${centrado ? 'mx-auto max-w-2xl text-center' : 'max-w-2xl'}`}>
+          {etiqueta && (
+            <p class="mb-3 font-display text-label-md uppercase text-primary">
+              {etiqueta}
+            </p>
+          )}
+          {titulo && (
+            <h2 class="text-headline-lg-mobile md:text-headline-lg text-on-surface">
+              {titulo}
+            </h2>
+          )}
+          {descripcion && (
+            <p class="mt-4 text-body-lg text-on-surface-variant">{descripcion}</p>
+          )}
+        </header>
+      )
+    }
+    <slot />
+  </div>
+</section>

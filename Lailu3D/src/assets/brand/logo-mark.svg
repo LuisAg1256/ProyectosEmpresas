@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 208 208" role="img" aria-label="Lailu3D">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 208" role="img" aria-label="Lailu3D">
   <title>Lailu3D</title>
   <defs>
     <linearGradient id="l3dCuTop" x1="0" y1="0" x2="1" y2="1">
@@ -20,14 +20,14 @@
       <stop offset="0" stop-color="#D26A10"/><stop offset="1" stop-color="#A24B06"/>
     </linearGradient>
   </defs>
-  <g transform="translate(4 0)">
-    <path fill="url(#l3dCuFront)" d="M13.4 54 49.77 75 49.77 133 100 162 100 204 13.4 154Z"/>
-    <path fill="url(#l3dCuTop)"   d="M13.4 54 49.77 75 79.21 58 42.84 37Z"/>
-    <path fill="url(#l3dCuSide)"  d="M49.77 75 49.77 133 79.21 116 79.21 58Z"/>
-    <path fill="url(#l3dCuTop)"   d="M49.77 133 100 162 129.44 145 79.21 116Z"/>
-    <path fill="url(#l3dCuSide)"  d="M100 162 100 204 129.44 187 129.44 145Z"/>
-    <path fill="url(#l3dOrFront)" d="M70.56 21 157.16 71 157.16 145 120.79 124 120.79 74 70.56 45Z"/>
-    <path fill="url(#l3dOrTop)"   d="M70.56 21 157.16 71 186.6 54 100 4Z"/>
-    <path fill="url(#l3dOrSide)"  d="M157.16 71 157.16 145 186.6 128 186.6 54Z"/>
-  </g>
+
+  <path fill="url(#l3dCuFront)" d="M13.4 54 49.77 75 49.77 133 100 162 100 204 13.4 154Z"/>
+  <path fill="url(#l3dCuTop)"   d="M13.4 54 49.77 75 79.21 58 42.84 37Z"/>
+  <path fill="url(#l3dCuSide)"  d="M49.77 75 49.77 133 79.21 116 79.21 58Z"/>
+  <path fill="url(#l3dCuTop)"   d="M49.77 133 100 162 129.44 145 79.21 116Z"/>
+  <path fill="url(#l3dCuSide)"  d="M100 162 100 204 129.44 187 129.44 145Z"/>
+
+  <path fill="url(#l3dOrFront)" d="M70.56 21 157.16 71 157.16 145 120.79 124 120.79 74 70.56 45Z"/>
+  <path fill="url(#l3dOrTop)"   d="M70.56 21 157.16 71 186.6 54 100 4Z"/>
+  <path fill="url(#l3dOrSide)"  d="M157.16 71 157.16 145 186.6 128 186.6 54Z"/>
 </svg>

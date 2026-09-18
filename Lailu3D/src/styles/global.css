@@ -1,0 +1,184 @@
+@import 'tailwindcss';
+
+/*
+ * Sistema de diseño "Precision Industrial Studio".
+ * Fuente de verdad: Master/DESIGN.md (frontmatter YAML).
+ * El sitio es solo modo claro: no hay variantes dark.
+ */
+@theme {
+  /* --- Superficies --- */
+  --color-surface: #faf9fd;
+  --color-surface-dim: #dbd9dd;
+  --color-surface-bright: #faf9fd;
+  --color-surface-lowest: #ffffff;
+  --color-surface-low: #f4f3f7;
+  --color-surface-container: #efedf1;
+  --color-surface-high: #e9e7ec;
+  --color-surface-highest: #e3e2e6;
+  --color-surface-variant: #e3e2e6;
+  --color-background: #faf9fd;
+
+  /* --- Tintas --- */
+  --color-on-surface: #1a1b1e;
+  --color-on-surface-variant: #524439;
+  --color-on-background: #1a1b1e;
+  --color-inverse-surface: #2f3033;
+  --color-inverse-on-surface: #f2f0f4;
+
+  /* --- Bordes --- */
+  --color-outline: #857467;
+  --color-outline-variant: #d8c3b4;
+
+  /* --- Cobre (acción principal) --- */
+  --color-primary: #894d0d;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #a76526;
+  --color-on-primary-container: #fffbff;
+  --color-inverse-primary: #ffb77b;
+  --color-surface-tint: #8c4f10;
+  --color-primary-fixed: #ffdcc2;
+  --color-primary-fixed-dim: #ffb77b;
+  --color-on-primary-fixed: #2e1500;
+  --color-on-primary-fixed-variant: #6d3a00;
+
+  /* --- Secundario (piedra cálida) --- */
+  --color-secondary: #635e54;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #e7ded2;
+  --color-on-secondary-container: #686258;
+  --color-secondary-fixed: #eae1d5;
+  --color-secondary-fixed-dim: #cec5b9;
+  --color-on-secondary-fixed: #1f1b14;
+  --color-on-secondary-fixed-variant: #4b463d;
+
+  /* --- Terciario (ámbar térmico) --- */
+  --color-tertiary: #8d4b00;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #b15f00;
+  --color-on-tertiary-container: #fffbff;
+  --color-tertiary-fixed: #ffdcc3;
+  --color-tertiary-fixed-dim: #ffb77d;
+  --color-on-tertiary-fixed: #2f1500;
+  --color-on-tertiary-fixed-variant: #6e3900;
+
+  /* --- Error --- */
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  /* --- Tipografía --- */
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
+
+  --text-display-lg: 56px;
+  --text-display-lg--line-height: 64px;
+  --text-display-lg--font-weight: 600;
+  --text-display-lg--letter-spacing: -0.03em;
+
+  --text-display-lg-mobile: 38px;
+  --text-display-lg-mobile--line-height: 46px;
+  --text-display-lg-mobile--font-weight: 600;
+  --text-display-lg-mobile--letter-spacing: -0.02em;
+
+  --text-headline-lg: 36px;
+  --text-headline-lg--line-height: 44px;
+  --text-headline-lg--font-weight: 600;
+  --text-headline-lg--letter-spacing: -0.02em;
+
+  --text-headline-lg-mobile: 28px;
+  --text-headline-lg-mobile--line-height: 36px;
+  --text-headline-lg-mobile--font-weight: 600;
+  --text-headline-lg-mobile--letter-spacing: -0.015em;
+
+  --text-headline-md: 24px;
+  --text-headline-md--line-height: 32px;
+  --text-headline-md--font-weight: 500;
+  --text-headline-md--letter-spacing: -0.01em;
+
+  --text-headline-sm: 20px;
+  --text-headline-sm--line-height: 28px;
+  --text-headline-sm--font-weight: 500;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+  --text-body-lg--font-weight: 400;
+
+  --text-body-md: 15px;
+  --text-body-md--line-height: 24px;
+  --text-body-md--font-weight: 400;
+
+  --text-body-sm: 13px;
+  --text-body-sm--line-height: 20px;
+  --text-body-sm--font-weight: 400;
+
+  --text-label-md: 12px;
+  --text-label-md--line-height: 16px;
+  --text-label-md--font-weight: 600;
+  --text-label-md--letter-spacing: 0.06em;
+
+  --text-label-sm: 11px;
+  --text-label-sm--line-height: 14px;
+  --text-label-sm--font-weight: 600;
+  --text-label-sm--letter-spacing: 0.08em;
+
+  /* --- Radios (chaflán mecánico, nunca pill en botones) --- */
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+
+  /*
+   * Espaciado de layout. Los pasos xs-xl de DESIGN.md NO se declaran aqui:
+   * chocarian con max-w-sm/md/lg/xl de Tailwind. Se usan los numericos, que
+   * dan exactamente los mismos valores del modulo de 8pt:
+   * space-xs=1 (0.25rem) · sm=2 (0.5) · md=4 (1) · lg=6 (1.5) · xl=10 (2.5)
+   */
+  --spacing-gutter: 1.5rem;
+  --spacing-gutter-mobile: 1rem;
+  --spacing-margin: 3rem;
+  --spacing-margin-mobile: 1.25rem;
+}
+
+/*
+ * Elevación por capas tonales + contorno fino, no por sombras pesadas.
+ * Ver "Elevation & Depth" en Master/DESIGN.md.
+ */
+@utility elev-1 {
+  background-color: var(--color-surface-low);
+  border: 1px solid var(--color-outline-variant);
+}
+
+@utility elev-2 {
+  background-color: var(--color-surface-lowest);
+  border: 1px solid var(--color-outline-variant);
+  box-shadow:
+    0 1px 3px rgb(26 27 30 / 0.04),
+    0 8px 24px -6px rgb(133 116 103 / 0.08);
+}
+
+@utility elev-3 {
+  background-color: var(--color-surface-lowest);
+  border: 1px solid var(--color-outline-variant);
+  box-shadow:
+    0 16px 40px -8px rgb(137 77 13 / 0.12),
+    0 4px 12px rgb(26 27 30 / 0.06);
+}
+
+/* Lecturas numéricas sin salto de ancho (medidas, precios, mm). */
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}

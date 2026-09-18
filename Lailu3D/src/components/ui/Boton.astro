@@ -1,0 +1,66 @@
+---
+/**
+ * Boton del sistema "Precision Industrial Studio".
+ *
+ * Radio de 4px (chaflan mecanico): nunca pill. Con `href` renderiza un <a>,
+ * que es la forma de todos los CTA de WhatsApp.
+ */
+interface Props {
+  variante?: 'primary' | 'secondary' | 'ghost';
+  tamano?: 'md' | 'lg';
+  href?: string;
+  tipo?: 'button' | 'submit';
+  /** Abre en pestaña nueva con rel seguro. Para los enlaces wa.me. */
+  externo?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  variante = 'primary',
+  tamano = 'md',
+  href,
+  tipo = 'button',
+  externo = false,
+  class: clase = '',
+  ...resto
+} = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 rounded-[4px] font-display font-medium leading-none whitespace-nowrap transition-colors duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-1 focus-visible:ring-offset-background disabled:opacity-40 disabled:pointer-events-none';
+
+const variantes = {
+  primary:
+    'bg-primary text-on-primary hover:bg-primary-container active:bg-on-primary-fixed-variant',
+  secondary:
+    'bg-surface-lowest text-on-surface border border-outline-variant hover:border-primary hover:bg-surface-low',
+  ghost:
+    'bg-transparent text-on-surface-variant hover:text-on-surface hover:bg-surface-container',
+} as const;
+
+/** 15px y 17px: el tamaño va en valor explícito para no pelear con el peso del token tipográfico. */
+const tamanos = {
+  md: 'h-10 px-5 text-[15px]',
+  lg: 'h-12 px-6 text-[17px]',
+} as const;
+
+const clases = [base, variantes[variante], tamanos[tamano], clase]
+  .filter(Boolean)
+  .join(' ');
+
+const externoAttrs = externo
+  ? { target: '_blank', rel: 'noopener noreferrer' }
+  : {};
+---
+
+{
+  href ? (
+    <a href={href} class={clases} {...externoAttrs} {...resto}>
+      <slot />
+    </a>
+  ) : (
+    <button type={tipo} class={clases} {...resto}>
+      <slot />
+    </button>
+  )
+}

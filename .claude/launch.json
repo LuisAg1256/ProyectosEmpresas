@@ -1,0 +1,28 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "lailu3d",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--dir",
+        "Lailu3D",
+        "dev"
+      ],
+      "port": 4321,
+      "autoPort": true
+    },
+    {
+      "name": "lailu3d-preview",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--dir",
+        "Lailu3D",
+        "preview",
+        "--port",
+        "4329"
+      ],
+      "port": 4329
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Seccion from '../components/ui/Seccion.astro';
+import Boton from '../components/ui/Boton.astro';
+import Chip from '../components/ui/Chip.astro';
+import Badge from '../components/ui/Badge.astro';
+import Tarjeta from '../components/ui/Tarjeta.astro';
+import Campo from '../components/ui/Campo.astro';
+
+/**
+ * Banco de pruebas del sistema de diseño. No es una pagina del sitio: existe
+ * para ver todas las variantes juntas y comparar con Master/screen.png.
+ * Va con `noindex`.
+ */
+const tintas = [
+  ['surface', 'bg-surface'],
+  ['surface-low', 'bg-surface-low'],
+  ['surface-container', 'bg-surface-container'],
+  ['primary', 'bg-primary'],
+  ['primary-container', 'bg-primary-container'],
+  ['secondary-container', 'bg-secondary-container'],
+  ['tertiary', 'bg-tertiary'],
+  ['error', 'bg-error'],
+];
+---
+
+<Layout
+  titulo="Kit de componentes"
+  descripcion="Banco de pruebas interno del sistema de diseño."
+  noindex
+>
+  <Seccion
+    etiqueta="Interno"
+    titulo="Kit de componentes"
+    descripcion="Variantes del sistema Precision Industrial Studio. Esta ruta no se indexa y no está enlazada desde el sitio."
+  >
+    <div class="flex flex-col gap-12">
+      <div>
+        <h3 class="text-headline-sm text-on-surface">Botones</h3>
+        <div class="mt-4 flex flex-wrap items-center gap-3">
+          <Boton>Primario</Boton>
+          <Boton variante="secondary">Secundario</Boton>
+          <Boton variante="ghost">Ghost</Boton>
+          <Boton tamano="lg">Primario grande</Boton>
+          <Boton variante="secondary" tamano="lg">Secundario grande</Boton>
+          <Boton href="/productos" variante="secondary">Como enlace</Boton>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-headline-sm text-on-surface">Chips y estados</h3>
+        <div class="mt-4 flex flex-wrap items-center gap-3">
+          <Chip>PLA</Chip>
+          <Chip>1.75 mm</Chip>
+          <Chip hex="#0B5FA5">Azul</Chip>
+          <Badge estado="disponible" />
+          <Badge estado="bajo_pedido" />
+          <Badge estado="agotado" />
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-headline-sm text-on-surface">Tarjetas y elevación</h3>
+        <div class="mt-4 grid gap-6 md:grid-cols-3">
+          <Tarjeta elevacion={1} etiqueta="elev-1">
+            <p class="text-body-md text-on-surface-variant">
+              Capa tonal plana, para bloques secundarios.
+            </p>
+          </Tarjeta>
+          <Tarjeta elevacion={2} etiqueta="elev-2">
+            <p class="text-body-md text-on-surface-variant">
+              Superficie blanca con contorno. Es la tarjeta por defecto.
+            </p>
+          </Tarjeta>
+          <Tarjeta elevacion={3} etiqueta="elev-3">
+            <p class="text-body-md text-on-surface-variant">
+              Elemento flotante: menú móvil, botón fijo.
+            </p>
+          </Tarjeta>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-headline-sm text-on-surface">Campos</h3>
+        <div class="mt-4 grid max-w-2xl gap-5">
+          <Campo
+            id="kit-nombre"
+            nombre="nombre"
+            etiqueta="Nombre"
+            placeholder="Cómo te llamas"
+            requerido
+          />
+          <Campo
+            id="kit-idea"
+            nombre="idea"
+            etiqueta="Tu idea"
+            tipo="textarea"
+            placeholder="Qué quieres fabricar, medidas aproximadas, cantidad"
+            ayuda="Cuanto más concreto, más precisa sale la cotización."
+          />
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-headline-sm text-on-surface">Tipografía</h3>
+        <div class="mt-4 flex flex-col gap-3">
+          <p class="text-display-lg-mobile md:text-display-lg text-on-surface">
+            Display · Space Grotesk
+          </p>
+          <p class="text-headline-lg text-on-surface">Headline large</p>
+          <p class="text-headline-md text-on-surface">Headline medium</p>
+          <p class="text-body-lg text-on-surface-variant">
+            Body large · Hanken Grotesk para el texto corrido.
+          </p>
+          <p class="text-body-md text-on-surface-variant">Body medium</p>
+          <p class="font-display text-label-md uppercase text-on-surface-variant">
+            Label medium
+          </p>
+          <p class="text-body-lg text-on-surface tabular">
+            Tabular: 1234567890 · $22,00 · 1.75 mm
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-headline-sm text-on-surface">Superficies</h3>
+        <div class="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
+          {
+            tintas.map(([nombre, clase]) => (
+              <div class="rounded-lg border border-outline-variant p-1">
+                <div class={`h-16 rounded-[4px] ${clase}`} />
+                <p class="mt-2 text-body-sm text-on-surface-variant">{nombre}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </Seccion>
+</Layout>

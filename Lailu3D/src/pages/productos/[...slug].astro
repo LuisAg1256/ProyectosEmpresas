@@ -1,0 +1,182 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Boton from '../../components/ui/Boton.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Chip from '../../components/ui/Chip.astro';
+import TarjetaProducto from '../../components/TarjetaProducto.astro';
+import IconoWhatsApp from '../../components/ui/IconoWhatsApp.astro';
+import { idiomaPorDefecto, type Idioma } from '../../config/site';
+import { formatearPrecio, categorias } from '../../lib/formato';
+import { waProducto } from '../../lib/whatsapp';
+
+export async function getStaticPaths() {
+  const productos = await getCollection('productos');
+  return productos.map((producto) => ({
+    params: { slug: producto.id },
+    props: { producto },
+  }));
+}
+
+interface Props {
+  producto: CollectionEntry<'productos'>;
+}
+
+const { producto } = Astro.props;
+const { data } = producto;
+const { Content } = await render(producto);
+
+const idioma = (Astro.currentLocale ?? idiomaPorDefecto) as Idioma;
+const ruta = Astro.url.pathname;
+
+/** El mensaje sale con nombre, codigo y URL absoluta de esta misma ficha. */
+const wa = waProducto(data, ruta, idioma);
+const alt = data.imagenAlt?.[idioma] ?? data.nombre[idioma];
+
+/** Ficha tecnica: solo se listan los campos que el producto realmente declara. */
+const especificaciones = [
+  { etiqueta: 'Código', valor: data.sku },
+  { etiqueta: 'Marca', valor: data.marca },
+  { etiqueta: 'Material', valor: data.material },
+  { etiqueta: 'Color', valor: data.color?.nombre[idioma] },
+  { etiqueta: 'Peso', valor: data.pesoGramos ? `${data.pesoGramos} g` : undefined },
+  {
+    etiqueta: 'Diámetro',
+    valor: data.diametroMm ? `${data.diametroMm} mm` : undefined,
+  },
+].filter((fila): fila is { etiqueta: string; valor: string } =>
+  Boolean(fila.valor),
+);
+
+/**
+ * El YAML plegado (`>-`) deja los saltos de parrafo como `\n`. Sin esto, la
+ * descripcion larga se renderiza como un unico bloque de texto.
+ */
+const parrafos = data.descripcion[idioma]
+  .split(/\n+/)
+  .map((p) => p.trim())
+  .filter(Boolean);
+
+const relacionados = (await getCollection('productos'))
+  .filter((p) => p.id !== producto.id && p.data.categoria === data.categoria)
+  .sort((a, b) => a.data.orden - b.data.orden)
+  .slice(0, 4);
+---
+
+<Layout
+  titulo={data.nombre[idioma]}
+  descripcion={data.resumen[idioma]}
+>
+  <div class="px-margin-mobile py-10 md:px-margin md:py-16">
+    <div class="mx-auto max-w-6xl">
+      <nav aria-label="Migas de pan" class="mb-8">
+        <ol class="flex flex-wrap items-center gap-2 text-body-sm text-on-surface-variant">
+          <li><a href="/" class="hover:text-on-surface">Inicio</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/productos" class="hover:text-on-surface">Catálogo</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-on-surface">{data.nombre[idioma]}</li>
+        </ol>
+      </nav>
+
+      <div class="grid gap-10 md:grid-cols-2 md:gap-12">
+        <div class="elev-2 overflow-hidden rounded-lg bg-surface-container">
+          <Image
+            src={data.imagen}
+            alt={alt}
+            width={800}
+            height={800}
+            class="aspect-square size-full object-contain p-8"
+          />
+        </div>
+
+        <div>
+          <p class="font-display text-label-md uppercase text-primary">
+            {categorias[data.categoria][idioma]}
+          </p>
+
+          <h1 class="mt-3 text-headline-lg-mobile md:text-headline-lg text-on-surface">
+            {data.nombre[idioma]}
+          </h1>
+
+          <div class="mt-4 flex flex-wrap items-center gap-4">
+            <p class="font-display text-headline-md text-primary tabular">
+              {formatearPrecio(data.precio, idioma)}
+            </p>
+            <Badge estado={data.disponibilidad} idioma={idioma} />
+          </div>
+
+          <p class="mt-5 text-body-lg text-on-surface-variant">
+            {data.resumen[idioma]}
+          </p>
+
+          <div class="mt-6 flex flex-wrap gap-2">
+            {data.material && <Chip>{data.material}</Chip>}
+            {
+              data.color && (
+                <Chip hex={data.color.hex}>{data.color.nombre[idioma]}</Chip>
+              )
+            }
+            {data.diametroMm && <Chip>{data.diametroMm} mm</Chip>}
+          </div>
+
+          <div class="mt-8">
+            <Boton href={wa} externo tamano="lg" class="w-full sm:w-auto">
+              <IconoWhatsApp class="size-5" />
+              Pedir por WhatsApp
+            </Boton>
+            <p class="mt-3 text-body-sm text-on-surface-variant">
+              Se abre WhatsApp con el nombre, el código y el enlace de este
+              producto ya escritos. Confirmamos disponibilidad y coordinamos la
+              entrega por ahí.
+            </p>
+          </div>
+
+          {
+            especificaciones.length > 0 && (
+              <dl class="mt-8 divide-y divide-outline-variant border-t border-outline-variant">
+                {especificaciones.map((fila) => (
+                  <div class="flex items-center justify-between gap-6 py-3">
+                    <dt class="font-display text-label-md uppercase text-on-surface-variant">
+                      {fila.etiqueta}
+                    </dt>
+                    <dd class="text-body-md text-on-surface tabular">
+                      {fila.valor}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            )
+          }
+        </div>
+      </div>
+
+      <div class="mt-14 max-w-3xl">
+        <h2 class="text-headline-md text-on-surface">Descripción</h2>
+        <div
+          class="mt-4 flex flex-col gap-4 text-body-lg text-on-surface-variant"
+        >
+          {parrafos.map((parrafo) => <p>{parrafo}</p>)}
+          {/* Cuerpo markdown del .md, para fichas que necesiten mas detalle. */}
+          <Content />
+        </div>
+      </div>
+
+      {
+        relacionados.length > 0 && (
+          <div class="mt-16 border-t border-outline-variant pt-12">
+            <h2 class="text-headline-md text-on-surface">
+              Otros de la misma categoría
+            </h2>
+            <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {relacionados.map((otro) => (
+                <TarjetaProducto producto={otro} idioma={idioma} />
+              ))}
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,104 @@
+---
+import logo from '../assets/brand/logo-horizontal.svg';
+import { idiomaPorDefecto, type Idioma } from '../config/site';
+import { waGeneral } from '../lib/whatsapp';
+import Boton from './ui/Boton.astro';
+import IconoWhatsApp from './ui/IconoWhatsApp.astro';
+
+/**
+ * Cabecera. El selector de idioma llega en la fase 5, junto con las rutas /en:
+ * un control que no lleva a ningun lado es peor que no tenerlo.
+ */
+const idioma = (Astro.currentLocale ?? idiomaPorDefecto) as Idioma;
+const rutaActual = Astro.url.pathname;
+const enHome = rutaActual === '/';
+
+/** Los anclas de la landing funcionan desde cualquier ruta. */
+const enlaces = [
+  { texto: 'Servicios', href: enHome ? '#servicios' : '/#servicios' },
+  { texto: 'Catálogo', href: '/productos' },
+  { texto: 'Trabajos', href: enHome ? '#trabajos' : '/#trabajos' },
+  { texto: 'Cómo funciona', href: enHome ? '#como-funciona' : '/#como-funciona' },
+];
+
+const wa = waGeneral(idioma, rutaActual);
+---
+
+<header
+  class="sticky top-0 z-40 border-b border-outline-variant bg-surface/90 backdrop-blur-sm"
+>
+  <div
+    class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-margin-mobile md:px-margin"
+  >
+    <a
+      href="/"
+      class="shrink-0 rounded-[4px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      aria-label="Lailu3D — inicio"
+    >
+      <img src={logo.src} width={logo.width} height={logo.height} alt="Lailu3D" class="h-7 w-auto md:h-8" />
+    </a>
+
+    <nav aria-label="Principal" class="hidden items-center gap-6 md:flex">
+      {
+        enlaces.map((enlace) => (
+          <a
+            href={enlace.href}
+            class="text-body-md text-on-surface-variant transition-colors hover:text-on-surface"
+          >
+            {enlace.texto}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <Boton href={wa} externo class="hidden sm:inline-flex">
+        <IconoWhatsApp class="size-4" />
+        Cotizar
+      </Boton>
+
+      <details class="relative md:hidden" name="menu-movil">
+        <summary
+          class="flex size-10 cursor-pointer items-center justify-center rounded-[4px] border border-outline-variant bg-surface-lowest text-on-surface marker:content-none [&::-webkit-details-marker]:hidden"
+          aria-label="Abrir menú"
+        >
+          <svg
+            class="size-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            aria-hidden="true"
+          >
+            <path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="square"></path>
+          </svg>
+        </summary>
+
+        <nav
+          aria-label="Principal (móvil)"
+          class="elev-3 absolute right-0 z-50 mt-2 flex w-56 flex-col rounded-lg p-2"
+        >
+          {
+            enlaces.map((enlace) => (
+              <a
+                href={enlace.href}
+                class="rounded-[4px] px-3 py-2 text-body-md text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface"
+              >
+                {enlace.texto}
+              </a>
+            ))
+          }
+          <a
+            href={wa}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-1 flex items-center gap-2 rounded-[4px] border-t border-outline-variant px-3 py-2 text-body-md text-primary"
+          >
+            <IconoWhatsApp class="size-4" />
+            Cotizar por WhatsApp
+          </a>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>

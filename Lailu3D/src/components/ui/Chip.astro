@@ -1,0 +1,28 @@
+---
+/**
+ * Chip de lectura tecnica: material, diametro, peso, categoria.
+ * Mayusculas, tracking abierto, superficie hundida. No es interactivo.
+ */
+interface Props {
+  /** Muestra un cuadro de color a la izquierda (color del filamento). */
+  hex?: string;
+  class?: string;
+}
+
+const { hex, class: clase = '' } = Astro.props;
+---
+
+<span
+  class={`inline-flex items-center gap-1.5 rounded-[2px] border border-outline-variant bg-surface-container px-2 py-0.5 font-display text-label-sm uppercase text-on-surface ${clase}`}
+>
+  {
+    hex && (
+      <span
+        class="size-2.5 rounded-[1px] border border-outline-variant"
+        style={`background-color: ${hex}`}
+        aria-hidden="true"
+      />
+    )
+  }
+  <slot />
+</span>
