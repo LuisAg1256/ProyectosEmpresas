@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "primary": "#C8873F",
+          "primary-hover": "#B87333",
+          "primary-container": "#F5ECE0",
+          "on-primary": "#FFFFFF",
+          "secondary": "#5C5850",
+          "tertiary": "#D97706",
+          "background": "#FBF9F5",
+          "surface": "#FBF9F5",
+          "surface-alt": "#F5F2EB",
+          "card": "#FFFFFF",
+          "graphite": "#18191C",
+          "graphite-card": "#1F2127",
+          "charcoal": "#4A4E57",
+          "slate-warm": "#78736B",
+          "border-soft": "#E8E4DC",
+          "border-accent": "#E2DDD5"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "2xl": "1rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "space-sm": "0.5rem",
+          "space-xl": "3rem",
+          "margin": "3rem",
+          "space-2xl": "5rem",
+          "gutter": "1.5rem",
+          "margin-mobile": "1.25rem",
+          "space-md": "1rem",
+          "gutter-mobile": "1rem",
+          "space-xs": "0.25rem",
+          "space-lg": "1.5rem"
+        },
+        "fontFamily": {
+          "headline": ["Space Grotesk", "sans-serif"],
+          "body": ["Hanken Grotesk", "sans-serif"]
+        },
+        "fontSize": {
+          "label-lg": ["14px", {"lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+          "label-caps": ["11px", {"lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+          "body-sm": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+          "headline-md": ["24px", {"lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+          "body-md": ["15px", {"lineHeight": "24px", "fontWeight": "400"}],
+          "display-xl": ["60px", {"lineHeight": "64px", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+          "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+          "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+          "display-xl-mobile": ["38px", {"lineHeight": "42px", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+          "headline-sm": ["20px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+          "headline-lg": ["36px", {"lineHeight": "40px", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+          "headline-lg-mobile": ["28px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+        }
+      }
+    }
+  };
+</script></head><body class="bg-surface font-body text-charcoal antialiased"><header class="fixed top-0 left-0 w-full z-50 bg-[#FBF9F5]/90 backdrop-blur-md border-b border-[#E5E0D8]"><div class="h-20 max-w-[1600px] mx-auto px-6 lg:px-12 flex items-center justify-between"><div class="flex items-center gap-3"><img alt="VOLUMEN3D Isometric Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UOZDF0OKZJPQSf09RKDJyrTM2_bmmNYlBhevM9t93tmPQG_arpG8Pn7hcSaltGlQujTCp-bNuLhBmTUASVcO6JhDFmk1WWmlZD5bIfKxQDjwlWlrjmRAjHGr9_lPNIM5lNjoIYgfVNYk5lxeCQilVW78DV3kvi5NFgX9ReaKJoaqj2XODCZu7SEJ2cdudssP03AyfPxH8EvEEze6LPTEeOuxYlGqk1Quy5Ua3bCBDepmNqrdYLFCRcr8tQ"/><span class="font-headline text-headline-sm text-graphite tracking-tight uppercase">VOLUMEN<span class="text-primary font-bold">3D</span></span></div><nav class="hidden lg:flex items-center gap-space-lg"><a class="font-headline text-label-lg text-secondary hover:text-graphite transition-colors" data-path="servicios" href="#servicios">Servicios</a><a class="font-headline text-label-lg text-secondary hover:text-graphite transition-colors" data-path="laser" href="#laser">Corte Láser</a><a class="font-headline text-label-lg text-secondary hover:text-graphite transition-colors" data-path="modelos" href="#modelos">Modelos</a><a class="font-headline text-label-lg text-secondary hover:text-graphite transition-colors" data-path="proceso" href="#proceso">Proceso</a><a class="font-headline text-label-lg text-secondary hover:text-graphite transition-colors" data-path="galeria" href="#galeria">Galería</a><a class="font-headline text-label-lg text-secondary hover:text-graphite transition-colors" data-path="contacto" href="#contacto">Contacto</a></nav><div class="flex items-center gap-space-md"><a class="hidden sm:inline-flex items-center justify-center bg-primary text-on-primary font-headline text-label-lg px-space-md py-2.5 rounded-lg shadow-sm transition-all hover:bg-primary-hover hover:shadow" data-path="cotizar" href="#cotizar"><span class="material-symbols-outlined mr-space-xs text-[18px]">precision_manufacturing</span>Cotizar mi pieza</a><div class="w-9 h-9 rounded-full bg-primary-container border border-primary/20 flex items-center justify-center"><span class="material-symbols-outlined text-primary text-[19px]">person</span></div></div></div></header><main class="w-full pt-20 bg-surface"><div class="flex flex-col w-full">
+<!-- SECCIÓN 2: HERO A DOS COLUMNAS -->
+<section class="relative w-full overflow-hidden bg-surface py-space-xl lg:py-space-2xl">
+<!-- Capa sutil de curvas topográficas / líneas isométricas en arena cálido -->
+<div class="absolute inset-0 pointer-events-none opacity-40">
+<svg class="w-full h-full text-[#D4CDC1]" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="103.923" id="isometric-grid" patternunits="userSpaceOnUse" width="60">
+<path d="M30 0 L60 17.32 L60 51.96 L30 69.28 L0 51.96 L0 17.32 Z" fill="none" stroke="currentColor" stroke-opacity="0.35" stroke-width="0.75"></path>
+<path d="M30 103.923 L60 86.6 L60 51.96 L30 69.28 L0 51.96 L0 86.6 Z" fill="none" stroke="currentColor" stroke-opacity="0.35" stroke-width="0.75"></path>
+<path d="M30 69.28 L30 0" fill="none" stroke="currentColor" stroke-opacity="0.25" stroke-width="0.5"></path>
+</pattern>
+</defs>
+<rect fill="url(#isometric-grid)" height="100%" width="100%"></rect>
+</svg>
+</div>
+<div class="max-w-[1600px] mx-auto px-6 lg:px-12 relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+<!-- Columna Izquierda: Copy + Botones + Micro-datos -->
+<div class="lg:col-span-7 flex flex-col items-start pr-0 lg:pr-8">
+<div class="inline-flex items-center gap-space-xs px-3 py-1 rounded bg-[#FFFFFF] border border-border-soft shadow-xs mb-6">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-headline text-label-caps uppercase text-primary tracking-widest">Capacidad de Taller Activa</span>
+</div>
+<h1 class="font-headline text-display-xl-mobile lg:text-display-xl text-graphite mb-6 uppercase tracking-tight">
+            Tus ideas, impresas <span class="text-primary italic font-normal">capa por capa</span>
+</h1>
+<p class="font-body text-body-lg text-secondary max-w-2xl mb-8 leading-relaxed">
+            Estudio de manufactura aditiva de alta precisión. Producimos prototipos funcionales, series cortas y piezas personalizadas, además de una biblioteca de modelos 3D listos para fabricar.
+          </p>
+<div class="flex flex-wrap items-center gap-4 mb-12">
+<a class="inline-flex items-center justify-center bg-primary text-on-primary font-headline text-label-lg px-8 py-4 rounded-xl shadow-md transition-all duration-300 hover:bg-primary-hover hover:shadow-lg" href="#cotizar">
+<span class="material-symbols-outlined mr-2 text-[20px]">precision_manufacturing</span>
+              Cotizar mi pieza
+            </a>
+<a class="inline-flex items-center justify-center bg-card border border-border-soft text-graphite font-headline text-label-lg px-8 py-4 rounded-xl transition-all duration-300 hover:bg-surface-alt hover:border-slate-warm/40 shadow-xs" href="#modelos">
+<span class="material-symbols-outlined mr-2 text-[20px] text-primary">deployed_code</span>
+              Ver modelos
+            </a>
+</div>
+<!-- Micro-datos con líneas divisorias verticales sutiles -->
+<div class="w-full grid grid-cols-3 pt-6 border-t border-border-soft">
+<div class="flex flex-col pr-4">
+<span class="font-headline text-headline-md text-graphite tracking-tight font-bold">+500</span>
+<span class="font-headline text-label-caps text-slate-warm uppercase mt-1">piezas impresas</span>
+</div>
+<div class="flex flex-col px-4 border-l border-border-soft">
+<span class="font-headline text-headline-md text-primary tracking-tight font-bold">72h</span>
+<span class="font-headline text-label-caps text-slate-warm uppercase mt-1">Entrega estándar</span>
+</div>
+<div class="flex flex-col pl-4 border-l border-border-soft">
+<span class="font-headline text-headline-md text-graphite tracking-tight font-bold">12</span>
+<span class="font-headline text-label-caps text-slate-warm uppercase mt-1">materiales industriales</span>
+</div>
+</div>
+</div>
+<!-- Columna Derecha: Render principal con badge flotante -->
+<div class="lg:col-span-5 relative">
+<div class="relative w-full rounded-2xl overflow-hidden bg-card border border-border-soft shadow-xl group">
+<img alt="Estructura reticular paramétrica impresa en dos tonos negro carbón y terracota en taller VOLUMEN3D" class="w-full aspect-[4/3] object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105" src="https://lh3.googleusercontent.com/aida/AEtjO1UeGmsy6vD73l7jL6cRIArar5MAoXtfubB3UjBZiyZQ_oTnrDTqNEiYjOvfJFyPf9ZOvGN4-jDsht2FFb6RyodgwH8TBohskCrZBy-M4Mabe6BPjl2aAWOM-YHk_N1tuSRHbFYjuwS7ngrT_dmpNCb7ApGrru9VFivJh8UzmLFOiYaxhY3SQtRJ3TprDesgR37yh0t2yGM6z22mpfAvuSi57PeIkdCkCw2AmiWNPr6MGdjgkMjPMa9700d2"/>
+<!-- Gradiente sutil -->
+<div class="absolute inset-0 bg-gradient-to-t from-graphite/60 via-transparent to-transparent pointer-events-none"></div>
+<!-- Overlay de retícula angular y coordenadas CAD -->
+<div class="absolute top-4 left-4 pointer-events-none flex items-center gap-2 bg-[#FFFFFF]/90 backdrop-blur-md px-3 py-1.5 rounded-lg border border-border-soft shadow-xs">
+<span class="font-headline text-label-caps text-primary tracking-mono uppercase font-bold">DFAM • LATTICE_04</span>
+</div>
+<!-- Badge flotante de acabado -->
+<div class="absolute bottom-4 left-4 right-4 bg-[#FFFFFF]/95 backdrop-blur-md border border-border-soft p-4 rounded-xl flex items-center justify-between shadow-lg">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">verified</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline text-label-lg text-graphite">Tolerancia ±0.15mm</span>
+<span class="font-headline text-label-caps text-slate-warm uppercase">Resina técnica &amp; PETG-CF</span>
+</div>
+</div>
+<span class="font-headline text-label-caps text-primary font-bold uppercase px-2.5 py-1 rounded bg-primary-container border border-primary/20">ISO TESTED</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECCIÓN 3: FRANJA DE CONFIANZA -->
+<section class="w-full bg-surface-alt py-8 border-y border-border-soft">
+<div class="max-w-[1600px] mx-auto px-6 lg:px-12 flex flex-col items-center">
+<h3 class="font-headline text-label-caps text-slate-warm tracking-widest uppercase mb-6 text-center">
+        Estudios de arquitectura y startups de hardware confían en nosotros
+      </h3>
+<div class="w-full flex flex-wrap items-center justify-between gap-6 md:gap-12 opacity-75">
+<span class="font-headline text-headline-sm text-[#8A8477] tracking-widest font-bold uppercase hover:text-graphite transition-colors">STUDIO KROMA</span>
+<span class="font-headline text-headline-sm text-[#8A8477] tracking-widest font-bold uppercase hover:text-graphite transition-colors">NEXUS ROBOTICS</span>
+<span class="font-headline text-headline-sm text-[#8A8477] tracking-widest font-bold uppercase hover:text-graphite transition-colors">VANGUARD LABS</span>
+<span class="font-headline text-headline-sm text-[#8A8477] tracking-widest font-bold uppercase hover:text-graphite transition-colors">AURA ARCHITECTURE</span>
+<span class="font-headline text-headline-sm text-[#8A8477] tracking-widest font-bold uppercase hover:text-graphite transition-colors">FORGE DESIGN</span>
+</div>
+</div>
+</section>
+<!-- SECCIÓN 4: SERVICIOS -->
+<section class="w-full bg-surface py-space-2xl" id="servicios">
+<div class="max-w-[1600px] mx-auto px-6 lg:px-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+<div>
+<span class="font-headline text-label-caps uppercase text-primary tracking-widest mb-2 block">Capacidades del Laboratorio</span>
+<h2 class="font-headline text-headline-lg text-graphite uppercase">Soluciones en Manufactura Aditiva</h2>
+</div>
+<p class="font-body text-body-md text-secondary max-w-md mt-4 md:mt-0">
+          Procesamiento de alta fidelidad desde la validación de mallas paramétricas hasta la producción de piezas de uso final.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"><div class="group relative bg-card rounded-2xl p-8 border border-border-soft hover:border-primary/40 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-1"><div><div class="w-14 h-14 rounded-xl bg-primary-container border border-primary/20 flex items-center justify-center text-primary mb-6 group-hover:scale-105 transition-transform"><span class="material-symbols-outlined text-[30px]">layers</span></div><h3 class="font-headline text-headline-sm text-graphite mb-4">Impresión 3D de Precisión</h3><p class="font-body text-body-md text-secondary mb-6 leading-relaxed">Fabricamos prototipos y tiradas cortas en resinas técnicas SLA, PETG-CF y FDM de alta resolución con tolerancias micrométricas.</p></div><a class="inline-flex items-center font-headline text-label-lg text-primary hover:text-primary-hover gap-1 pt-4 border-t border-border-soft" href="#cotizar">Saber más <span class="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1">arrow_forward</span></a></div><div class="group relative bg-card rounded-2xl p-8 border border-border-soft hover:border-primary/40 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-1"><div><div class="w-14 h-14 rounded-xl bg-primary-container border border-primary/20 flex items-center justify-center text-primary mb-6 group-hover:scale-105 transition-transform"><span class="material-symbols-outlined text-[30px]">polyline</span></div><h3 class="font-headline text-headline-sm text-graphite mb-4">Grabado y Corte Láser</h3><p class="font-body text-body-md text-secondary mb-6 leading-relaxed">Corte limpio y grabado micrométrico CNC CO2 y fibra sobre acrílicos, madera, cuero, MDF y metales anodizados con aristas pulidas.</p></div><a class="inline-flex items-center font-headline text-label-lg text-primary hover:text-primary-hover gap-1 pt-4 border-t border-border-soft" href="#laser">Saber más <span class="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1">arrow_forward</span></a></div><div class="group relative bg-card rounded-2xl p-8 border border-border-soft hover:border-primary/40 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-1"><div><div class="w-14 h-14 rounded-xl bg-primary-container border border-primary/20 flex items-center justify-center text-primary mb-6 group-hover:scale-105 transition-transform"><span class="material-symbols-outlined text-[30px]">download_for_offline</span></div><h3 class="font-headline text-headline-sm text-graphite mb-4">Modelos 3D Optimizados</h3><p class="font-body text-body-md text-secondary mb-6 leading-relaxed">Archivos STL y STEP paramétricos listos para impresión y fabricación aditiva sin soportes redundantes, verificados en banco de pruebas.</p></div><a class="inline-flex items-center font-headline text-label-lg text-primary hover:text-primary-hover gap-1 pt-4 border-t border-border-soft" href="#modelos">Saber más <span class="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1">arrow_forward</span></a></div><div class="group relative bg-card rounded-2xl p-8 border border-border-soft hover:border-primary/40 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-1"><div><div class="w-14 h-14 rounded-xl bg-primary-container border border-primary/20 flex items-center justify-center text-primary mb-6 group-hover:scale-105 transition-transform"><span class="material-symbols-outlined text-[30px]">square_foot</span></div><h3 class="font-headline text-headline-sm text-graphite mb-4">Diseño &amp; DfAM a Medida</h3><p class="font-body text-body-md text-secondary mb-6 leading-relaxed">Ingeniería de optimización topológica, ensamble encastrado por láser y diseño ergonómico para manufactura híbrida aditiva/sustractiva.</p></div><a class="inline-flex items-center font-headline text-label-lg text-primary hover:text-primary-hover gap-1 pt-4 border-t border-border-soft" href="#cotizar">Saber más <span class="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1">arrow_forward</span></a></div></div>
+</div>
+</section><section class="w-full bg-surface-alt py-space-2xl border-t border-border-soft" id="laser"><div class="max-w-[1600px] mx-auto px-6 lg:px-12"><div class="flex flex-col md:flex-row md:items-end justify-between mb-16"><div><div class="inline-flex items-center gap-space-xs px-3 py-1 rounded bg-[#FFFFFF] border border-border-soft shadow-xs mb-3"><span class="w-2 h-2 rounded-full bg-primary"></span><span class="font-headline text-label-caps uppercase text-primary tracking-widest">Taller de Corte CNC &amp; Láser CO2</span></div><h2 class="font-headline text-headline-lg text-graphite uppercase">Tecnología de Corte y Grabado Láser</h2></div><p class="font-body text-body-md text-secondary max-w-md mt-4 md:mt-0">Corte por láser CO2 y marcado galvanométrico de fibra con aristas ópticas perfectas y ensambles milimétricos para proyectos industriales y arquitectónicos.</p></div><div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-12"><div class="lg:col-span-7 bg-card rounded-2xl p-8 border border-border-soft flex flex-col justify-between shadow-xs"><div class="mb-8"><span class="font-headline text-label-caps uppercase text-primary tracking-widest mb-2 block font-bold">Parámetros de Maquinaria</span><h3 class="font-headline text-headline-md text-graphite mb-4">Precisión micrométrica en plano 2D y rotativo</h3><p class="font-body text-body-md text-secondary leading-relaxed mb-6">Nuestra mesa de trabajo láser de óptica sellada permite cortes nítidos y vectoriales sin quemaduras, con grabado rasterizado de alta definición (hasta 1200 DPI) para señalética, componentes técnicos y ensambles encastrados finger joints.</p><div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-border-soft"><div class="flex flex-col"><span class="font-headline text-label-caps text-slate-warm uppercase">Área de Trabajo</span><span class="font-headline text-headline-sm text-graphite font-bold mt-1">1300 × 900 mm</span><span class="font-body text-body-sm text-secondary">Cama motorizada pasante</span></div><div class="flex flex-col sm:border-l sm:border-border-soft sm:pl-4"><span class="font-headline text-label-caps text-slate-warm uppercase">Repetibilidad</span><span class="font-headline text-headline-sm text-primary font-bold mt-1">±0.02 mm</span><span class="font-body text-body-sm text-secondary">Servomotores ópticos híbridos</span></div><div class="flex flex-col sm:border-l sm:border-border-soft sm:pl-4"><span class="font-headline text-label-caps text-slate-warm uppercase">Espesor Máximo</span><span class="font-headline text-headline-sm text-graphite font-bold mt-1">Hasta 15 mm</span><span class="font-body text-body-sm text-secondary">Acrílico &amp; maderas densas</span></div></div></div><div class="pt-6 border-t border-border-soft flex flex-wrap items-center justify-between gap-4"><div class="flex items-center gap-2 text-slate-warm font-headline text-label-caps uppercase"><span class="material-symbols-outlined text-primary text-[18px]">verified</span>Formatos DXF, DWG, SVG, AI, PDF vectorial</div><a class="inline-flex items-center justify-center bg-primary text-on-primary font-headline text-label-md px-6 py-2.5 rounded-lg shadow-xs hover:bg-primary-hover transition-colors" href="#cotizar"><span class="material-symbols-outlined mr-2 text-[18px]">content_cut</span>Cotizar corte láser</a></div></div><div class="lg:col-span-5 bg-card rounded-2xl p-8 border border-border-soft flex flex-col justify-between shadow-xs"><span class="font-headline text-label-caps uppercase text-primary tracking-widest mb-2 block font-bold">Materiales Procesables</span><h3 class="font-headline text-headline-sm text-graphite mb-4">Sustratos homologados en taller</h3><ul class="space-y-3 font-body text-body-sm text-secondary"><li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary text-[20px] shrink-0">check_circle</span><div><strong class="text-graphite font-headline">Acrílicos y Metacrilato (Cast &amp; Extruido):</strong> Cantos pulidos al fuego transparentes, opalinos y tintados técnicos.</div></li><li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary text-[20px] shrink-0">check_circle</span><div><strong class="text-graphite font-headline">Maderas Finas y MDF Técnico:</strong> Contrachapado de abedul báltico, nogal, chapa natural y MDF de densidad controlada.</div></li><li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary text-[20px] shrink-0">check_circle</span><div><strong class="text-graphite font-headline">Metales Anodizados y Pintados:</strong> Grabado láser de fibra permanente de placas de serie, códigos QR y marcado de herramientas.</div></li><li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary text-[20px] shrink-0">check_circle</span><div><strong class="text-graphite font-headline">Cuero, Fieltro y Caucho para Sellos:</strong> Corte limpio sin deshilachado para accesorios, prototipos textiles y sellos de alta resolución.</div></li></ul></div></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"><div class="bg-card p-6 rounded-xl border border-border-soft shadow-xs"><div class="w-10 h-10 rounded-lg bg-primary-container border border-primary/20 flex items-center justify-center text-primary mb-4"><span class="material-symbols-outlined text-[22px]">qr_code_2</span></div><h4 class="font-headline text-label-lg text-graphite mb-2">Marcado y Trazabilidad</h4><p class="font-body text-body-sm text-secondary">Identificación indeleble de lotes, códigos DataMatrix y número de serie en piezas metálicas y acrílicas.</p></div><div class="bg-card p-6 rounded-xl border border-border-soft shadow-xs"><div class="w-10 h-10 rounded-lg bg-primary-container border border-primary/20 flex items-center justify-center text-primary mb-4"><span class="material-symbols-outlined text-[22px]">dashboard</span></div><h4 class="font-headline text-label-lg text-graphite mb-2">Carcasas con Encastre</h4><p class="font-body text-body-sm text-secondary">Cajas modulares cortadas con uniones finger-joint y pestañas snap-fit de ensamble sin adhesivos adicionales.</p></div><div class="bg-card p-6 rounded-xl border border-border-soft shadow-xs"><div class="w-10 h-10 rounded-lg bg-primary-container border border-primary/20 flex items-center justify-center text-primary mb-4"><span class="material-symbols-outlined text-[22px]">domain</span></div><h4 class="font-headline text-label-lg text-graphite mb-2">Señalética Arquitectónica</h4><p class="font-body text-body-sm text-secondary">Rótulos tipográficos, paneles volumétricos multicapa y celosías decorativas de acabado premium.</p></div><div class="bg-card p-6 rounded-xl border border-border-soft shadow-xs"><div class="w-10 h-10 rounded-lg bg-primary-container border border-primary/20 flex items-center justify-center text-primary mb-4"><span class="material-symbols-outlined text-[22px]">merge</span></div><h4 class="font-headline text-label-lg text-graphite mb-2">Prototipos Híbridos (3D + Láser)</h4><p class="font-body text-body-sm text-secondary">Combinación eficiente de bastidores cortados por láser con nodos estructurales impresos en 3D para abaratar costos.</p></div></div></div></section>
+<!-- SECCIÓN 5: PROCESO -->
+<section class="w-full bg-surface-alt py-space-2xl border-y border-border-soft" id="proceso">
+<div class="max-w-[1600px] mx-auto px-6 lg:px-12">
+<div class="mb-16 text-center max-w-2xl mx-auto">
+<span class="font-headline text-label-caps uppercase text-primary tracking-widest mb-2 block">Protocolo de Operación</span>
+<h2 class="font-headline text-headline-lg text-graphite uppercase">Flujo de Precisión en 4 Etapas</h2>
+</div>
+<!-- Pasos Horizontales con Línea Conectora -->
+<div class="relative">
+<div class="hidden lg:block absolute top-1/2 left-0 w-full h-[1px] bg-border-accent -translate-y-12 z-0"></div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+<!-- Paso 01 -->
+<div class="flex flex-col bg-card p-6 rounded-2xl border border-border-soft shadow-xs hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-6">
+<span class="font-headline text-headline-lg text-primary/30 font-bold">01</span>
+<div class="w-10 h-10 rounded-xl bg-primary-container border border-primary/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">upload_file</span>
+</div>
+</div>
+<h3 class="font-headline text-headline-sm text-graphite mb-2">Envías tu idea</h3>
+<p class="font-body text-body-sm text-secondary leading-relaxed">
+              Sube tu archivo CAD (STEP, STL) o boceto conceptual con tus requerimientos dimensionales y mecánicos críticos.
+            </p>
+</div>
+<!-- Paso 02 -->
+<div class="flex flex-col bg-card p-6 rounded-2xl border border-border-soft shadow-xs hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-6">
+<span class="font-headline text-headline-lg text-primary/30 font-bold">02</span>
+<div class="w-10 h-10 rounded-xl bg-primary-container border border-primary/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+</div>
+</div>
+<h3 class="font-headline text-headline-sm text-graphite mb-2">Cotizamos y modelamos</h3>
+<p class="font-body text-body-sm text-secondary leading-relaxed">
+              Evaluación técnica de geometría, orientación de capas, selección de material idóneo y presupuesto formal en menos de 4 horas.
+            </p>
+</div>
+<!-- Paso 03 -->
+<div class="flex flex-col bg-card p-6 rounded-2xl border border-border-soft shadow-xs hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-6">
+<span class="font-headline text-headline-lg text-primary/30 font-bold">03</span>
+<div class="w-10 h-10 rounded-xl bg-primary-container border border-primary/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">print</span>
+</div>
+</div>
+<h3 class="font-headline text-headline-sm text-graphite mb-2">Imprimimos</h3>
+<p class="font-body text-body-sm text-secondary leading-relaxed">
+              Fabricación aditiva en sala de clima controlado, curado UV de ciclo térmico y postprocesado artesanal de superficies.
+            </p>
+</div>
+<!-- Paso 04 -->
+<div class="flex flex-col bg-card p-6 rounded-2xl border border-border-soft shadow-xs hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-6">
+<span class="font-headline text-headline-lg text-primary/30 font-bold">04</span>
+<div class="w-10 h-10 rounded-xl bg-primary-container border border-primary/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">local_shipping</span>
+</div>
+</div>
+<h3 class="font-headline text-headline-sm text-graphite mb-2">Entregamos o descargas</h3>
+<p class="font-body text-body-sm text-secondary leading-relaxed">
+              Envíos protegidos a todo el país en 72 horas con informe de inspección o descarga instantánea de modelos 3D validados.
+            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECCIÓN 6: GALERÍA TIPO MASONRY (6 PIEZAS) -->
+<section class="w-full bg-surface py-space-2xl" id="galeria">
+<div class="max-w-[1600px] mx-auto px-6 lg:px-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+<div>
+<span class="font-headline text-label-caps uppercase text-primary tracking-widest mb-2 block">Bóveda de Proyectos</span>
+<h2 class="font-headline text-headline-lg text-graphite uppercase">Archivo de Manufactura</h2>
+</div>
+<span class="font-headline text-label-caps text-slate-warm uppercase tracking-wider">RESOLUCIÓN 25µm - 100µm</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Pieza 1 -->
+<div class="group relative rounded-2xl overflow-hidden bg-card border border-border-soft aspect-[4/3] shadow-xs">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="High precision black matte resin ergonomic biometric enclosure for wearable medical device, smooth surface finish, resting on a dark slate surface under directional warm rim lighting in a professional design studio, macro shot." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZnxfLA3EHgcgTmKZkEce-9f-YiPISzR988leeYXZjkhENwVshDb3c--VbjgDOnFfmOQ8balOYppBX_a-0BDcrkb2WmOs1fvMuh4UYO1xzC8_HdOZsjVDT4BuWHH5YwZ5DSO3CTCgGSUpzc-R70-J4lioZWj-iHIeOOgkpNxCDdxlpQDaDO6CZUVCE7e8hw2GlzL2llLWybMWeC225iH8DfmGjDNhvMoB1ZYxZY9zHgCR1WkRcIKtqtw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-graphite/95 via-graphite/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
+<span class="font-headline text-label-caps text-primary uppercase mb-1">Material: Resina rígida matte</span>
+<h4 class="font-headline text-headline-sm text-white">Carcasa Ergonómica Biométrica</h4>
+</div>
+</div>
+<!-- Pieza 2 -->
+<div class="group relative rounded-2xl overflow-hidden bg-card border border-border-soft aspect-[4/3] shadow-xs">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Intricate structural parametric node 3D printed with PETG carbon fiber composite, micro textured dark charcoal surface, architectural joinery component on technical drawing paper, warm mechanical lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrMGaEc_Lu9hP_tjKBJurD4bcaJTf-Ta5nb4FYonWeY1Cw-pxjW1mi-mvr_3jFb8XOnwqC37vaY409AB9z_NLK5gmadifvBJdZf14U2WMRvpltvb_6aVYL4W9L-WB2IHdRRClsWyRouApmZyqhMwgSgQnKm4WavL8aD7XDKFY_n_f4fIBwvbXqTG_iaUMX9SUY7wEufvWW2QmnPItNJqRJ1Jw2W6bFCSZdGEYez9aBv6WWa8AE-hPffw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-graphite/95 via-graphite/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
+<span class="font-headline text-label-caps text-primary uppercase mb-1">Material: PETG reforzado con fibra de carbono</span>
+<h4 class="font-headline text-headline-sm text-white">Nódulo Paramétrico Estructural</h4>
+</div>
+</div>
+<!-- Pieza 3 -->
+<div class="group relative rounded-2xl overflow-hidden bg-card border border-border-soft aspect-[4/3] shadow-xs">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Architectural acoustic diffuser lens 3D printed in matte terracotta filament, subtle organic wave pattern, warm earthen tone, geometric shadows on workshop table, studio photograph." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUm8x_O0L1rmI25S8LdGSKq_2JjCECQWrmsr3C8_Rq6dkgOUNYUkbx6b03rX0ZvWRucqgaYdej3mJQd9xW8szIJqnehMImWZ_WWCYikXY3OG8a2ymIJYoYBku7W26jlTh_KJxN9JKkQdFmrKdSc14Ct_a9EKVkj6SLFc2MKzJGW6otwULDGfZTuwZBshL_ojLIVlzY11kg9G-H-FcJTegsjMyIs3B4MbCOF-9FkY1U3e7mCK3EQhiT8w"/>
+<div class="absolute inset-0 bg-gradient-to-t from-graphite/95 via-graphite/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
+<span class="font-headline text-label-caps text-primary uppercase mb-1">Material: PLA Matte Terracotta</span>
+<h4 class="font-headline text-headline-sm text-white">Lente Difusor Acústico</h4>
+</div>
+</div>
+<!-- Pieza 4 -->
+<div class="group relative rounded-2xl overflow-hidden bg-card border border-border-soft aspect-[4/3] shadow-xs">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Mechanical articulating ball joint printed in industrial white nylon SLS with fine granular surface texture, calipers and engineering gauges resting nearby, dramatic warm industrial lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2vMDFe5G1-SiqkkskNQrbU9zDrYm-JlCFgihdKXyXarjI3A6daWxq3xyYjYRehbSb7eB7NsJw4Z2y5nuIuB1dVJnJ20_aHG3mZDNyNhl9KTY2Qyj7gSciFR6U_fAd1Z_6DhjHwrN-Hvth6oxrGt9C32ZfOoe46NbkkeJKzRFDm8SJR7q4NbHga1jOlTh-sNppINAWlyGPkXkxagB6rHoWnySCM-niVRMZ5_DSwkUmB4W3_gWC9hR02A"/>
+<div class="absolute inset-0 bg-gradient-to-t from-graphite/95 via-graphite/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
+<span class="font-headline text-label-caps text-primary uppercase mb-1">Material: Poliamida SLS</span>
+<h4 class="font-headline text-headline-sm text-white">Junta Mecánica Articulada</h4>
+</div>
+</div>
+<!-- Pieza 5 -->
+<div class="group relative rounded-2xl overflow-hidden bg-card border border-border-soft aspect-[4/3] shadow-xs">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Precision tactile dial prototype with fine knurled grips, printed in engineering tough clear-amber resin, sitting on industrial cutting mat with metallic components, professional macro lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW_FgvoXx-s3S4wWwLuMOktpy4v6d91JLy6-JyGnx-NAtWgtkSdwbLCHky7HCxYwjxa-5pjjA8zT3LihL9rATs2WWs9OC9TQ2PHtdLY51H-Jq9BQlZe3svG1i1p7fbdaHFuPogOCT-ZXFcbjTb1j3vtkp_Bbh1r8ikhq8Oy_3NsLMD2a_At9wqByzUxAN-7ztUyQAXaPiERDJNQMa-6zBZCA5A4WTND3AiBqdLXPsbGA8RDfbX3f6CnQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-graphite/95 via-graphite/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
+<span class="font-headline text-label-caps text-primary uppercase mb-1">Material: Resina de ingeniería Tough</span>
+<h4 class="font-headline text-headline-sm text-white">Prototipo de Dial Háptico</h4>
+</div>
+</div>
+<!-- Pieza 6 -->
+<div class="group relative rounded-2xl overflow-hidden bg-card border border-border-soft aspect-[4/3] shadow-xs">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Complex Voronoi architectural sculpture column in vapor-smoothed polished black ABS, high gloss reflections contrasting with deep matte shadows on granite workbench, gallery presentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgXBADjpjxmi_jHxfov0wgEZvIBqNUe0QernW7nQgpLYnRQV978y-wIm7cOcaXrS4kZsPvKCxBxcnwf8kXVNFMJ2Df-BpS41i0zYsoRolddwPjJ8liRMTjaHCZRrowV3yu_kiXbLKMmj4ebixtQ52a1rNe6LRmg2eLpLe14k0u2OabAdt4QQCn1iXbQsSFRdAyoQPfS_vAzMHv_9iPvEEI95uLm18B87_xNo8wNX8s4TrqOIPdpDRlUQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-graphite/95 via-graphite/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
+<span class="font-headline text-label-caps text-primary uppercase mb-1">Material: ABS maquinable post-pulido</span>
+<h4 class="font-headline text-headline-sm text-white">Escultura Arquitectónica Voronoi</h4>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECCIÓN 7: CATÁLOGO DE MODELOS 3D (4 TARJETAS) -->
+<section class="w-full bg-surface-alt py-space-2xl border-t border-border-soft" id="modelos">
+<div class="max-w-[1600px] mx-auto px-6 lg:px-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+<div>
+<span class="font-headline text-label-caps uppercase text-primary tracking-widest mb-2 block">Repositorio Digital</span>
+<h2 class="font-headline text-headline-lg text-graphite uppercase">Modelos 3D Optimizados</h2>
+</div>
+<p class="font-body text-body-md text-secondary max-w-md mt-4 md:mt-0">
+          Archivos digitales probados físicamente en nuestros centros de mecanizado. Sin voladizos críticos sin soporte.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Modelo 1 -->
+<div class="bg-card rounded-2xl overflow-hidden border border-border-soft flex flex-col justify-between shadow-xs hover:shadow-lg hover:border-primary/40 transition-all">
+<div class="relative w-full aspect-video bg-surface-alt overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="CAD wireframe isometric 3D view of an articulated dual VESA mount bracket, copper wireframe on dark graphite viewport background, precision engineering diagram." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEcgwtwtk5v6mHfs8CXOSqrWBk6dzvlox0uQDvoddmr6Sl9kbJP4ZvvFwMyW6tgcczkjdAUgIhLSx9y5FeDt2ScdZzVulkICaBIdMWtIxcjz0H4DlDwjWI18IUEJW7pr_W7dIDIUT6O8qDCLWgmlSOsTG7A88P-2bzpeL5YofiSj2w6EEsr3kO-8DFIMQoU8u4kPlLk7CKnWd6UY642Jj3usc13BjtzBIYk9Qx4h7yOaQT0PyZFZJA1Q"/>
+<div class="absolute top-2 left-2 flex gap-1">
+<span class="font-headline text-label-caps bg-white/90 text-primary px-2 py-0.5 rounded border border-border-soft font-bold">STL</span>
+<span class="font-headline text-label-caps bg-white/90 text-secondary px-2 py-0.5 rounded border border-border-soft font-bold">STEP</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1 justify-between">
+<div>
+<h3 class="font-headline text-headline-sm text-graphite mb-2">Soporte VESA Dual Articulado</h3>
+<p class="font-body text-body-sm text-secondary mb-4">Mecanismo con ángulo variable de ±45° optimizado para tornillería M4.</p>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-border-soft">
+<span class="font-headline text-headline-sm text-graphite font-bold">$14.00 <span class="font-headline text-label-caps text-slate-warm">USD</span></span>
+<button class="inline-flex items-center bg-primary text-on-primary font-headline text-label-md px-4 py-2 rounded-lg transition-colors hover:bg-primary-hover shadow-xs">
+<span class="material-symbols-outlined text-[16px] mr-1">download</span>
+                Descargar
+              </button>
+</div>
+</div>
+</div>
+<!-- Modelo 2 -->
+<div class="bg-card rounded-2xl overflow-hidden border border-border-soft flex flex-col justify-between shadow-xs hover:shadow-lg hover:border-primary/40 transition-all">
+<div class="relative w-full aspect-video bg-surface-alt overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Technical CAD model render of a modular hexagonal desk organizer system, clean isometric geometry on dark slate blueprint canvas with dimension indicators." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8SZWHH18igL2X0z5oWsQIdxfPQWN90sRfTCD-CVMIitsLoB9pnx3rqo54JGwlF-seFP5NJAAAdiERmXShx75-4Iz5a3jU-dhSIsLjxvEa7SYv8-acCZMQBYGvHUfXywTeqwdEPq8bT2ua8cfyOr1LdFKbO09KJbCes1Hz_dVqNtvAcGj7XBx-7pSt5v0hjbeIO7CuGVkPJYi9QCsnCPlM38ptn4jQnSkYQw-FCSJh2AzHaCcP7WhdOA"/>
+<div class="absolute top-2 left-2 flex gap-1">
+<span class="font-headline text-label-caps bg-white/90 text-primary px-2 py-0.5 rounded border border-border-soft font-bold">STL</span>
+<span class="font-headline text-label-caps bg-white/90 text-secondary px-2 py-0.5 rounded border border-border-soft font-bold">OBJ</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1 justify-between">
+<div>
+<h3 class="font-headline text-headline-sm text-graphite mb-2">Organizador Modular Hexagonal</h3>
+<p class="font-body text-body-sm text-secondary mb-4">Interconexión magnética oculta para módulos de taller y laboratorio.</p>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-border-soft">
+<span class="font-headline text-headline-sm text-graphite font-bold">$9.00 <span class="font-headline text-label-caps text-slate-warm">USD</span></span>
+<button class="inline-flex items-center bg-primary text-on-primary font-headline text-label-md px-4 py-2 rounded-lg transition-colors hover:bg-primary-hover shadow-xs">
+<span class="material-symbols-outlined text-[16px] mr-1">download</span>
+                Descargar
+              </button>
+</div>
+</div>
+</div>
+<!-- Modelo 3 -->
+<div class="bg-card rounded-2xl overflow-hidden border border-border-soft flex flex-col justify-between shadow-xs hover:shadow-lg hover:border-primary/40 transition-all">
+<div class="relative w-full aspect-video bg-surface-alt overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Robotic mechanical tensioner arm CAD rendering, technical isometric explosion view with bearings and joints, dark room engineering environment with copper lines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-SK4rKSGeaVGwgc_yBH0ZliUURzRD3deATr88HdSoZgOIBMMbTpXdFvMdccKxzD5D6c9uW3LoyuwzFIEXbw9fWBjC2HqYM4_tpxzFGcmhhydUIE8RCKlzcIazlHbCjDnFg3FdriYszHM1e9xkqIt-9on--DPTInO2V-9a-mpOZ9Z1JGBUGS_ml6Q3WW52YP0hMwlAzqrP7mBQaAZnBEnUgOXQVvqLHqyFYyN9T3SWPrTQHofUQp_yVw"/>
+<div class="absolute top-2 left-2 flex gap-1">
+<span class="font-headline text-label-caps bg-white/90 text-primary px-2 py-0.5 rounded border border-border-soft font-bold">STL</span>
+<span class="font-headline text-label-caps bg-white/90 text-secondary px-2 py-0.5 rounded border border-border-soft font-bold">STEP</span>
+<span class="font-headline text-label-caps bg-white/90 text-secondary px-2 py-0.5 rounded border border-border-soft font-bold">F3D</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1 justify-between">
+<div>
+<h3 class="font-headline text-headline-sm text-graphite mb-2">Brazo Tensor Mecánico Robótico</h3>
+<p class="font-body text-body-sm text-secondary mb-4">Alojamiento integrado para rodamientos estándar 608ZZ con ajuste a presión.</p>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-border-soft">
+<span class="font-headline text-headline-sm text-graphite font-bold">$22.00 <span class="font-headline text-label-caps text-slate-warm">USD</span></span>
+<button class="inline-flex items-center bg-primary text-on-primary font-headline text-label-md px-4 py-2 rounded-lg transition-colors hover:bg-primary-hover shadow-xs">
+<span class="material-symbols-outlined text-[16px] mr-1">download</span>
+                Descargar
+              </button>
+</div>
+</div>
+</div>
+<!-- Modelo 4 -->
+<div class="bg-card rounded-2xl overflow-hidden border border-border-soft flex flex-col justify-between shadow-xs hover:shadow-lg hover:border-primary/40 transition-all">
+<div class="relative w-full aspect-video bg-surface-alt overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Complex parametric gyroid lampshade 3D model viewport render, continuous organic minimal mesh, dark background with directional warm glow highlighting internal cavities." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAB4z1fpTv82vDDmKzgxqFoVN2vTWTpfW83_ZphjEKGBknYKPIrR3m-7WAvvjf5HHbvNWIcLSWHJmS8-HI3wngqtoR2IPL6B1Vcn3jLT--fLMAYy1Bsf8EImzMQSd5xOgY1FXketcwKtpsg4EA2Z_GgImb5fzHOqFuKNpqfRHodKPjQPlvnkTGPxh-kBaVMtqck9BYGtZutb2U27_VmIAcOwW0qJsyiaA3P2GopNb00sD4S6izMup0Wg"/>
+<div class="absolute top-2 left-2 flex gap-1">
+<span class="font-headline text-label-caps bg-white/90 text-primary px-2 py-0.5 rounded border border-border-soft font-bold">STL</span>
+<span class="font-headline text-label-caps bg-white/90 text-secondary px-2 py-0.5 rounded border border-border-soft font-bold">OBJ</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1 justify-between">
+<div>
+<h3 class="font-headline text-headline-sm text-graphite mb-2">Lámpara Paramétrica Gyroid</h3>
+<p class="font-body text-body-sm text-secondary mb-4">Geometría de superficie mínima periódica triple (TPMS) difusora de luz suave.</p>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-border-soft">
+<span class="font-headline text-headline-sm text-graphite font-bold">$16.00 <span class="font-headline text-label-caps text-slate-warm">USD</span></span>
+<button class="inline-flex items-center bg-primary text-on-primary font-headline text-label-md px-4 py-2 rounded-lg transition-colors hover:bg-primary-hover shadow-xs">
+<span class="material-symbols-outlined text-[16px] mr-1">download</span>
+                Descargar
+              </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECCIÓN 8: MATERIALES Y ACABADOS -->
+<section class="w-full bg-surface py-space-2xl">
+<div class="max-w-[1600px] mx-auto px-6 lg:px-12">
+<div class="mb-16">
+<span class="font-headline text-label-caps uppercase text-primary tracking-widest mb-2 block">Especificaciones de Polímeros</span>
+<h2 class="font-headline text-headline-lg text-graphite uppercase">Matriz de Materiales Industriales</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Material 1: PLA+ -->
+<div class="bg-card p-6 rounded-2xl border border-border-soft flex flex-col justify-between shadow-xs">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-headline text-headline-sm text-graphite">PLA+</span>
+<span class="font-headline text-label-caps px-2 py-1 rounded bg-surface-alt text-slate-warm border border-border-soft">ESTÉTICO / MAQUETAS</span>
+</div>
+<p class="font-body text-body-sm text-secondary mb-6">
+              Acabado mate estético, ideal para maquetas arquitectónicas y piezas de exhibición sin distorsión geométrica.
+            </p>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-border-soft text-slate-warm font-headline">
+<span class="text-label-caps">TOLERANCIA ±0.1mm</span>
+<span class="text-label-caps">DEFLEXIÓN 55°C</span>
+</div>
+</div>
+<!-- Material 2: PETG / PETG-CF -->
+<div class="bg-card p-6 rounded-2xl border-2 border-primary/50 flex flex-col justify-between relative shadow-md">
+<div class="absolute -top-3 right-4 bg-primary text-on-primary font-headline text-label-caps px-2.5 py-0.5 rounded-full uppercase font-bold tracking-wider">
+            Alta Resistencia
+          </div>
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-headline text-headline-sm text-graphite">PETG / PETG-CF</span>
+<span class="font-headline text-label-caps px-2 py-1 rounded bg-primary-container text-primary font-bold border border-primary/20">ESTRUCTURAL</span>
+</div>
+<p class="font-body text-body-sm text-secondary mb-6">
+              Excelente resistencia térmica y química, reforzado con fibra de carbono cortada para máxima rigidez mecánica.
+            </p>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-border-soft text-slate-warm font-headline">
+<span class="text-label-caps">TOLERANCIA ±0.15mm</span>
+<span class="text-label-caps text-primary font-bold">DEFLEXIÓN 80°C</span>
+</div>
+</div>
+<!-- Material 3: ABS Técnico -->
+<div class="bg-card p-6 rounded-2xl border border-border-soft flex flex-col justify-between shadow-xs">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-headline text-headline-sm text-graphite">ABS Técnico</span>
+<span class="font-headline text-label-caps px-2 py-1 rounded bg-surface-alt text-slate-warm border border-border-soft">MECÁNICO</span>
+</div>
+<p class="font-body text-body-sm text-secondary mb-6">
+              Alta resistencia al impacto y ductilidad. Óptima facilidad de postprocesado mecánico, roscado o pulido químico por acetona.
+            </p>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-border-soft text-slate-warm font-headline">
+<span class="text-label-caps">TOLERANCIA ±0.2mm</span>
+<span class="text-label-caps">DEFLEXIÓN 95°C</span>
+</div>
+</div>
+<!-- Material 4: TPU Flexible -->
+<div class="bg-card p-6 rounded-2xl border border-border-soft flex flex-col justify-between shadow-xs">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-headline text-headline-sm text-graphite">TPU Flexible</span>
+<span class="font-headline text-label-caps px-2 py-1 rounded bg-surface-alt text-slate-warm border border-border-soft">ELASTÓMERO</span>
+</div>
+<p class="font-body text-body-sm text-secondary mb-6">
+              Elasticidad controlada (Dureza Shore 95A), perfecto para juntas de sellado, amortiguadores y grips ergonómicos.
+            </p>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-border-soft text-slate-warm font-headline">
+<span class="text-label-caps">ELONGACIÓN &gt;450%</span>
+<span class="text-label-caps">SHORE 95A</span>
+</div>
+</div>
+<!-- Material 5: Resina SLA Alta Definición -->
+<div class="bg-card p-6 rounded-2xl border border-border-soft flex flex-col justify-between md:col-span-2 lg:col-span-2 shadow-xs">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-headline text-headline-sm text-graphite">Resina SLA Alta Definición</span>
+<span class="font-headline text-label-caps px-2 py-1 rounded bg-primary-container text-primary font-bold border border-primary/20">MICROMÉTRICO</span>
+</div>
+<p class="font-body text-body-sm text-secondary mb-6">
+              Detalle ultra-fino de 25 micras por capa y superficies completamente isótropas y lisas sin líneas visibles de extrusión. Ideal para moldes maestros y ensambles de precisión extrema.
+            </p>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-border-soft text-slate-warm font-headline">
+<span class="text-label-caps text-primary font-bold">CAPAS 0.025 - 0.050mm</span>
+<span class="text-label-caps">ISOTROPÍA 100%</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECCIÓN 9: TESTIMONIOS -->
+<section class="w-full bg-surface-alt py-space-2xl border-t border-border-soft">
+<div class="max-w-[1600px] mx-auto px-6 lg:px-12">
+<div class="mb-16 text-center max-w-xl mx-auto">
+<span class="font-headline text-label-caps uppercase text-primary tracking-widest mb-2 block">Validación en la Industria</span>
+<h2 class="font-headline text-headline-lg text-graphite uppercase">Confianza de Ingeniería</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Testimonio 1 -->
+<div class="bg-card rounded-2xl p-8 border border-border-soft flex flex-col justify-between relative shadow-sm">
+<span class="font-headline text-[50px] text-primary/30 leading-none mb-2 select-none">“</span>
+<p class="font-body text-body-md text-charcoal mb-8 italic">
+            La fidelidad dimensional y el acabado superficial superaron cualquier servicio previo que hayamos contratado.
+          </p>
+<div class="pt-4 border-t border-border-soft flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container border border-primary/30 flex items-center justify-center font-bold text-primary font-headline">
+              MS
+            </div>
+<div>
+<h4 class="font-headline text-label-lg text-graphite">Arq. Mateo Silva</h4>
+<span class="font-headline text-label-caps text-slate-warm uppercase">Director en Estudio Voronoi</span>
+</div>
+</div>
+</div>
+<!-- Testimonio 2 -->
+<div class="bg-card rounded-2xl p-8 border border-border-soft flex flex-col justify-between relative shadow-sm">
+<span class="font-headline text-[50px] text-primary/30 leading-none mb-2 select-none">“</span>
+<p class="font-body text-body-md text-charcoal mb-8 italic">
+            Los modelos STL descargables vienen listos para rebanar; cero errores de malla y unas tolerancias impecables.
+          </p>
+<div class="pt-4 border-t border-border-soft flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container border border-primary/30 flex items-center justify-center font-bold text-primary font-headline">
+              SV
+            </div>
+<div>
+<h4 class="font-headline text-label-lg text-graphite">Sofía Valenzuela</h4>
+<span class="font-headline text-label-caps text-slate-warm uppercase">Diseñadora Industrial Senior</span>
+</div>
+</div>
+</div>
+<!-- Testimonio 3 -->
+<div class="bg-card rounded-2xl p-8 border border-border-soft flex flex-col justify-between relative shadow-sm">
+<span class="font-headline text-[50px] text-primary/30 leading-none mb-2 select-none">“</span>
+<p class="font-body text-body-md text-charcoal mb-8 italic">
+            Tuvimos las 40 carcasas funcionales en nuestras manos en 48 horas para la presentación clave a inversionistas.
+          </p>
+<div class="pt-4 border-t border-border-soft flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container border border-primary/30 flex items-center justify-center font-bold text-primary font-headline">
+              LB
+            </div>
+<div>
+<h4 class="font-headline text-label-lg text-graphite">Lucas Benítez</h4>
+<span class="font-headline text-label-caps text-slate-warm uppercase">CTO en NeuroTech Labs</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECCIÓN 10: CTA FINAL CON FONDO CÁLIDO COBRE/ÁMBAR ATENUADO -->
+<section class="w-full bg-gradient-to-b from-[#F7F2E8] via-[#EFE6D6] to-[#E9DEC9] py-space-2xl border-t border-border-soft relative overflow-hidden" id="cotizar">
+<!-- Efecto sutil de resplandor cobrizo cálido -->
+<div class="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-primary/20 blur-3xl pointer-events-none"></div>
+<div class="max-w-[1200px] mx-auto px-6 lg:px-12 text-center relative z-10">
+<span class="font-headline text-label-caps uppercase text-primary tracking-widest mb-3 block font-bold">Respuesta Rápida de Cotización</span>
+<h2 class="font-headline text-headline-lg lg:text-display-xl text-graphite uppercase tracking-tight mb-4">
+        ¿Listo para imprimir tu idea?
+      </h2>
+<p class="font-body text-body-lg text-secondary max-w-2xl mx-auto mb-10">
+        Envía tus archivos o cuéntanos tu proyecto para recibir una cotización detallada en menos de 4 horas.
+      </p>
+<!-- Formulario compacto horizontal de una línea sobre fondo blanco cálido -->
+<form class="bg-card border border-border-accent p-3 rounded-2xl shadow-xl flex flex-col md:flex-row items-center gap-3 max-w-4xl mx-auto" onsubmit="event.preventDefault(); alert('Solicitud de cotización recibida. Nos comunicaremos en menos de 4 horas.');">
+<div class="relative w-full md:w-1/3">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-warm text-[20px]">person</span>
+<input class="w-full bg-surface-alt pl-11 pr-4 py-3 rounded-xl border border-border-soft text-graphite font-body text-body-sm placeholder-slate-warm focus:outline-none focus:border-primary" placeholder="Tu nombre o empresa" required="" type="text"/>
+</div>
+<div class="relative w-full md:w-1/2">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-warm text-[20px]">mail</span>
+<input class="w-full bg-surface-alt pl-11 pr-4 py-3 rounded-xl border border-border-soft text-graphite font-body text-body-sm placeholder-slate-warm focus:outline-none focus:border-primary" placeholder="correo@empresa.com / enlace STL" required="" type="email"/>
+</div>
+<button class="w-full md:w-auto shrink-0 bg-primary hover:bg-primary-hover text-on-primary font-headline text-label-lg px-7 py-3.5 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 font-semibold" type="submit">
+<span>Solicitar cotización</span>
+<span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</form>
+<div class="mt-5 flex items-center justify-center gap-4 text-slate-warm font-headline text-label-caps uppercase font-semibold">
+<span>Soporta .STEP, .STL, .OBJ, .F3D</span>
+<span>•</span>
+<span>Acuerdo de Confidencialidad (NDA) disponible</span>
+</div>
+</div>
+</section>
+<!-- SECCIÓN 11: FOOTER EN 4 COLUMNAS CON BASE GRAFITO PROFUNDO ELEGANTE -->
+<footer class="w-full bg-graphite border-t border-[#26282E] py-space-xl" id="contacto">
+<div class="max-w-[1600px] mx-auto px-6 lg:px-12">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-[#2C2F36]">
+<!-- Columna 1: Logo VOLUMEN3D y síntesis -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-primary/20 border border-primary/40 flex items-center justify-center text-primary font-headline">
+<span class="material-symbols-outlined text-[22px]">view_in_ar</span>
+</div>
+<span class="font-headline text-headline-sm text-white tracking-tight uppercase font-bold">VOLUMEN<span class="text-primary">3D</span></span>
+</div>
+<p class="font-body text-body-sm text-[#A09B92] leading-relaxed">
+            Estudio de manufactura aditiva y bóveda de activos digitales. Diseñamos, producimos y distribuimos geometrías precisas para la industria moderna.
+          </p>
+<div class="inline-flex items-center gap-2 text-primary font-headline text-label-caps">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+            TOLERANCIAS CERTIFICADAS
+          </div>
+</div>
+<!-- Columna 2: Enlaces rápidos -->
+<div class="flex flex-col gap-3"><h4 class="font-headline text-label-lg text-white uppercase tracking-wider mb-2">Enlaces Rápidos</h4><a class="font-body text-body-sm text-[#A09B92] hover:text-primary transition-colors" href="#servicios">Servicios</a><a class="font-body text-body-sm text-[#A09B92] hover:text-primary transition-colors" href="#laser">Corte y Grabado Láser</a><a class="font-body text-body-sm text-[#A09B92] hover:text-primary transition-colors" href="#modelos">Catálogo STL</a><a class="font-body text-body-sm text-[#A09B92] hover:text-primary transition-colors" href="#cotizar">Cotizador en Línea</a><a class="font-body text-body-sm text-[#A09B92] hover:text-primary transition-colors" href="#galeria">Galería de Proyectos</a><a class="font-body text-body-sm text-[#A09B92] hover:text-primary transition-colors" href="#proceso">Materiales &amp; Acabados</a></div>
+<!-- Columna 3: Contacto -->
+<div class="flex flex-col gap-3">
+<h4 class="font-headline text-label-lg text-white uppercase tracking-wider mb-2">Contacto</h4>
+<div class="flex items-center gap-2 text-[#A09B92] font-body text-body-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">alternate_email</span>
+<span>hola@volumen3d.studio</span>
+</div>
+<div class="flex items-center gap-2 text-[#A09B92] font-body text-body-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">location_on</span>
+<span>Taller de Manufactura, Nave 04</span>
+</div>
+<div class="flex items-center gap-2 text-[#A09B92] font-body text-body-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">schedule</span>
+<span>Respuesta técnica: &lt; 4 horas</span>
+</div>
+</div>
+<!-- Columna 4: Redes y especificaciones técnicas -->
+<div class="flex flex-col gap-3">
+<h4 class="font-headline text-label-lg text-white uppercase tracking-wider mb-2">Comunidad &amp; Vault</h4>
+<p class="font-body text-body-sm text-[#A09B92] mb-2">Descarga calibraciones de slicer y síguenos en redes técnicas:</p>
+<div class="flex items-center gap-2">
+<a aria-label="Instagram" class="w-9 h-9 rounded-lg bg-[#25282F] border border-[#333740] flex items-center justify-center text-[#A09B92] hover:text-primary hover:border-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">photo_camera</span>
+</a>
+<a aria-label="Behance" class="w-9 h-9 rounded-lg bg-[#25282F] border border-[#333740] flex items-center justify-center text-[#A09B92] hover:text-primary hover:border-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">palette</span>
+</a>
+<a aria-label="GitHub" class="w-9 h-9 rounded-lg bg-[#25282F] border border-[#333740] flex items-center justify-center text-[#A09B92] hover:text-primary hover:border-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">code</span>
+</a>
+<a aria-label="Printables" class="w-9 h-9 rounded-lg bg-[#25282F] border border-[#333740] flex items-center justify-center text-[#A09B92] hover:text-primary hover:border-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">token</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Franja inferior -->
+<div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-[#78736B] font-body text-body-sm">
+<span>Copyright © 2025 VOLUMEN3D. Todos los derechos reservados.</span>
+<span class="font-headline text-label-caps uppercase text-[#A09B92]">Hecho para creadores exigentes.</span>
+</div>
+</div>
+</footer>
+</div></main></body></html>
