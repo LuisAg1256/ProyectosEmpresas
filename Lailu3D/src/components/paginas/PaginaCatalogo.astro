@@ -24,6 +24,12 @@ const productos = (await getCollection('productos')).sort(
 const presentes = [...new Set(productos.map((p) => p.data.categoria))] as Categoria[];
 
 /**
+ * Con una sola categoria el filtro seria "Todos" y esa misma categoria: dos
+ * pastillas que hacen lo mismo. En ese caso no se dibuja ninguna.
+ */
+const hayFiltro = presentes.length > 1;
+
+/**
  * Filtrado sin JavaScript: un grupo de radios y una regla `:has()` por
  * categoria. Sin hidratacion, sin parpadeo y funciona con el teclado.
  *
@@ -52,6 +58,7 @@ const claseFiltro =
     nivelTitulo={1}
   >
     <div id="catalogo">
+      {hayFiltro && (
       <div class="flex flex-wrap items-center gap-2">
         <input
           type="radio"
@@ -87,6 +94,7 @@ const claseFiltro =
           })
         }
       </div>
+      )}
 
       <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {

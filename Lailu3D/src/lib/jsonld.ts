@@ -38,12 +38,20 @@ export function negocio(idioma: Idioma) {
     knowsLanguage: ['es', 'en'],
     address: {
       '@type': 'PostalAddress',
-      addressCountry: 'EC',
+      addressCountry: site.pais.codigo,
     },
-    areaServed: site.sucursales.map((ciudad) => ({
-      '@type': 'City',
-      name: ciudad,
-    })),
+    /**
+     * Se entrega en todo el pais, no solo donde estan los talleres: el pais va
+     * primero y las ciudades quedan como el detalle que el visitante tambien
+     * lee en el pie.
+     */
+    areaServed: [
+      { '@type': 'Country', name: site.pais.nombre },
+      ...site.sucursales.map((ciudad) => ({
+        '@type': 'City',
+        name: ciudad,
+      })),
+    ],
     sameAs: [site.redes.instagram.url, site.redes.tiktok.url],
     makesOffer: slugsServicio.map((slug) => ({
       '@type': 'Offer',

@@ -37,10 +37,10 @@ export const es = {
     meta: {
       titulo: 'Impresión 3D personalizada',
       descripcion:
-        'Impresiones 3D bajo cotización, grabado y corte láser, filamentos y figuras. Loja y Cuenca, Ecuador.',
+        'Impresiones 3D bajo cotización, grabado y corte láser, filamentos y figuras. Taller en Loja y Cuenca, con envíos a todo el Ecuador.',
     },
     hero: {
-      region: 'Ecuador',
+      region: 'Envíos a todo el Ecuador',
       titulo: 'Lo que imaginas, fabricado.',
       texto:
         'Impresión 3D personalizada, grabado y corte láser. Traes una idea, un boceto o una foto; nosotros la convertimos en una pieza real.',
@@ -52,12 +52,13 @@ export const es = {
       etiqueta: 'Taller',
       estado: 'Operativo',
       tecnologia: 'Tecnología',
-      tecnologiaValor: 'FDM · Láser',
+      tecnologiaValor: 'Láser · Impresiones3D · Modelado3D',
       material: 'Material base',
-      materialValor: 'PLA 1.75 mm',
+      materialValor: 'PLA BASIC',
       cantidad: 'Cantidad mínima',
       cantidadValor: '1 pieza',
       entrega: 'Entrega',
+      entregaValor: 'Todo el Ecuador',
     },
     servicios: {
       etiqueta: 'Servicios',
@@ -84,7 +85,7 @@ export const es = {
       producimos: {
         titulo: 'Producimos y entregamos',
         texto:
-          'Confirmas, fabricamos y coordinamos la entrega en Loja o Cuenca. Te vamos mostrando los avances.',
+          'Confirmas, fabricamos y coordinamos la entrega a todo el Ecuador. Te vamos mostrando los avances.',
       },
     },
     destacados: {
@@ -98,13 +99,52 @@ export const es = {
       etiqueta: 'Trabajos',
       titulo: 'Algunos encargos que hemos hecho',
       descripcion:
-        'Estamos montando la galería con fotografías de trabajos entregados. Mientras tanto, escríbenos y te mandamos ejemplos por WhatsApp.',
-      llaveros: { titulo: 'Llaveros personalizados', categoria: 'Impresión 3D' },
-      lampara: { titulo: 'Lámpara retrato', categoria: 'Litofanía' },
-      figuras: { titulo: 'Figuras y juguetes', categoria: 'Impresión 3D' },
-      placa: { titulo: 'Placa grabada en madera', categoria: 'Láser' },
-      repuesto: { titulo: 'Repuesto a medida', categoria: 'Modelado' },
-      senaletica: { titulo: 'Señalética en acrílico', categoria: 'Corte láser' },
+        'Piezas que salieron de nuestro taller. Si quieres algo parecido, mándanos la referencia y te lo cotizamos por WhatsApp.',
+      litofaniaEncendida: {
+        titulo: 'Litofanía iluminada',
+        categoria: 'Litofanía',
+        alt: 'Litofanía retroiluminada con el retrato de un conejo',
+      },
+      litofaniaApagada: {
+        titulo: 'La misma pieza, sin luz detrás',
+        categoria: 'Litofanía',
+        alt: 'Litofanía apagada: el retrato se ve como un relieve blanco',
+      },
+      bateria: {
+        titulo: 'Llavero de batería',
+        categoria: 'Llavero',
+        alt: 'Llavero de una batería musical impresa en PLA negro',
+      },
+      cubo: {
+        titulo: 'Cubo infinito articulado',
+        categoria: 'Figura',
+        alt: 'Cubo infinito impreso en PLA verde, articulado y sin tornillos',
+      },
+      guante: {
+        titulo: 'Llavero de guante de MMA',
+        categoria: 'Llavero',
+        alt: 'Llavero con forma de guante de MMA impreso en PLA negro',
+      },
+      mancuerna: {
+        titulo: 'Llavero de mancuerna',
+        categoria: 'Llavero',
+        alt: 'Llavero de mancuerna impreso en PLA gris y negro',
+      },
+      shaker: {
+        titulo: 'Llavero de shaker',
+        categoria: 'Llavero',
+        alt: 'Llavero con forma de shaker impreso en PLA verde y blanco',
+      },
+      disco: {
+        titulo: 'Llavero disco de gimnasio',
+        categoria: 'Llavero',
+        alt: 'Llavero de disco de pesas de 20 kg impreso en PLA negro',
+      },
+      pesaRusa: {
+        titulo: 'Llaveros de pesa rusa',
+        categoria: 'Llavero',
+        alt: 'Tres llaveros de pesa rusa impresos en PLA blanco y negro',
+      },
     },
     cta: {
       titulo: '¿Tienes una idea en la cabeza?',
@@ -112,6 +152,7 @@ export const es = {
         'Mándanos la descripción, la medida aproximada y una referencia. Te respondemos por WhatsApp con la cotización.',
       primario: 'Cotizar mi idea',
       secundario: 'Escribir por WhatsApp',
+      cobertura: 'Envíos a todo el Ecuador',
     },
   },
 
@@ -126,8 +167,8 @@ export const es = {
     laser: {
       titulo: 'Grabado y corte láser',
       texto:
-        'Grabado de nombres, logos y diseños sobre madera, acrílico y cuero. Corte de piezas planas a medida.',
-      chips: ['Madera', 'Acrílico', 'A medida'],
+        'Grabado y corte en piezas a medida, ideal para trabajos de acquitectura y decoración.',
+      chips: ['Personalizado', 'A medida'],
     },
     modelado: {
       titulo: 'Modelado 3D desde tu idea',
@@ -136,10 +177,10 @@ export const es = {
       chips: ['Boceto', 'Foto', 'Referencia'],
     },
     litofania: {
-      titulo: 'Lámparas retrato (litofanía)',
+      titulo: 'Venta de filamentos',
       texto:
-        'Tu fotografía convertida en una lámpara: al encenderla aparece la imagen con todos sus grises. El regalo que más nos piden.',
-      chips: ['Regalo', 'Litofanía', 'Personalizado'],
+        'Filamentos PLA, colores sólidos, translúcidos y degradados. Para impresión 3D.',
+      chips: ['PLA', 'Impresión 3D', 'Personalizado'],
     },
   },
 
@@ -147,7 +188,7 @@ export const es = {
     meta: {
       titulo: 'Catálogo',
       descripcion:
-        'Filamentos PLA, figuras, llaveros y lámparas personalizadas. Precio referencial y pedido directo por WhatsApp.',
+        'Filamentos PLA, figuras, llaveros y lámparas personalizadas. Precio referencial, pedido por WhatsApp y envíos a todo el Ecuador.',
     },
     etiqueta: 'Catálogo',
     titulo: 'Productos y filamentos',
@@ -179,7 +220,7 @@ export const es = {
     meta: {
       titulo: 'Cotizar una pieza',
       descripcion:
-        'Cuéntanos qué quieres fabricar y te damos un precio por WhatsApp. Impresión 3D, grabado y corte láser en Loja y Cuenca.',
+        'Cuéntanos qué quieres fabricar y te damos un precio por WhatsApp. Impresión 3D, grabado y corte láser con envíos a todo el Ecuador.',
     },
     miga: 'Cotizar',
     etiqueta: 'Cotizador',
@@ -234,14 +275,14 @@ export const es = {
       titulo: 'Prefieres escribir directo',
       texto:
         'El formulario solo ordena el mensaje. Si te resulta más cómodo, abre el chat y cuéntanos ahí.',
-      aviso: 'Ecuador. El sitio no procesa pagos en línea.',
+      aviso: 'Envíos a todo el Ecuador. El sitio no procesa pagos en línea.',
     },
   },
 
   footer: {
     descripcion:
       'Impresión 3D personalizada, grabado y corte láser. Convertimos tu idea, boceto o foto en una pieza real.',
-    region: 'Ecuador',
+    region: 'Envíos a todo el Ecuador',
     sitio: 'Sitio',
     contacto: 'Contacto',
     derechos: 'Todos los derechos reservados.',

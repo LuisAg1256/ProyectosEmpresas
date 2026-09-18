@@ -13,7 +13,20 @@ const i18nText = z.object({
  * solo el texto visible se duplica por idioma.
  */
 const productos = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/productos' }),
+  /**
+   * Catalogo publicado. Solo entran los archivos de esta lista: el resto de
+   * `src/content/productos/` queda en el repositorio como borrador y no genera
+   * tarjeta, ficha ni ruta. Para publicar otro color, se agrega su archivo aqui.
+   */
+  loader: glob({
+    pattern: [
+      'filamento-pla-basic-blanco-jade.md',
+      'filamento-pla-basic-negro.md',
+      'filamento-pla-basic-turquesa.md',
+      'filamento-pla-basic-gris.md',
+    ],
+    base: './src/content/productos',
+  }),
   schema: ({ image }) =>
     z.object({
       sku: z.string(),

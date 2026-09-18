@@ -10,7 +10,15 @@ export const site = {
     display: '+593 99 364 5060',
   },
 
+  /**
+   * Talleres propios. No son la cobertura: se produce aqui, pero se entrega
+   * en todo el pais (`envioNacional`). El texto de la cobertura vive en i18n.
+   */
   sucursales: ['Loja', 'Cuenca'] as const,
+
+  /** Se despacha a cualquier provincia del Ecuador, no solo a los talleres. */
+  envioNacional: true,
+  pais: { nombre: 'Ecuador', codigo: 'EC' },
 
   redes: {
     instagram: { nick: '@lailu3d', url: 'https://instagram.com/lailu3d' },

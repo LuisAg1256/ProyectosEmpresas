@@ -1,6 +1,16 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import logoMark from '../../assets/brand/logo-mark.svg';
+import litofaniaEncendida from '../../assets/trabajos/litofania-encendida.jpg';
+import litofaniaApagada from '../../assets/trabajos/litofania-apagada.jpg';
+import bateria from '../../assets/trabajos/llavero-bateria.jpg';
+import cubo from '../../assets/trabajos/cubo-infinito.jpg';
+import guante from '../../assets/trabajos/llavero-guante.jpg';
+import mancuerna from '../../assets/trabajos/llavero-mancuerna.jpg';
+import shaker from '../../assets/trabajos/llavero-shaker.jpg';
+import disco from '../../assets/trabajos/llavero-disco-gimnasio.jpg';
+import pesaRusa from '../../assets/trabajos/llavero-pesa-rusa.jpg';
 import Layout from '../../layouts/Layout.astro';
 import Seccion from '../ui/Seccion.astro';
 import Tarjeta from '../ui/Tarjeta.astro';
@@ -43,14 +53,20 @@ const pasos = [
   { numero: '03', ...txt.inicio.pasos.producimos },
 ];
 
-/** Placeholders: se reemplazan por fotografías reales de trabajos entregados. */
+/**
+ * Galeria de trabajos entregados. La foto vive aqui porque i18n solo guarda
+ * texto; el titulo, la categoria y el alt salen del diccionario.
+ */
 const trabajos = [
-  txt.inicio.trabajos.llaveros,
-  txt.inicio.trabajos.lampara,
-  txt.inicio.trabajos.figuras,
-  txt.inicio.trabajos.placa,
-  txt.inicio.trabajos.repuesto,
-  txt.inicio.trabajos.senaletica,
+  { imagen: litofaniaEncendida, ...txt.inicio.trabajos.litofaniaEncendida },
+  { imagen: litofaniaApagada, ...txt.inicio.trabajos.litofaniaApagada },
+  { imagen: bateria, ...txt.inicio.trabajos.bateria },
+  { imagen: cubo, ...txt.inicio.trabajos.cubo },
+  { imagen: guante, ...txt.inicio.trabajos.guante },
+  { imagen: mancuerna, ...txt.inicio.trabajos.mancuerna },
+  { imagen: shaker, ...txt.inicio.trabajos.shaker },
+  { imagen: disco, ...txt.inicio.trabajos.disco },
+  { imagen: pesaRusa, ...txt.inicio.trabajos.pesaRusa },
 ];
 
 const waIdea = waGeneral(idioma, ruta('/'));
@@ -163,7 +179,7 @@ const waIdea = waGeneral(idioma, ruta('/'));
               {txt.inicio.panel.entrega}
             </dt>
             <dd class="mt-1 text-body-md text-on-surface">
-              {site.sucursales.join(' · ')}
+              {txt.inicio.panel.entregaValor}
             </dd>
           </div>
         </dl>
@@ -275,22 +291,19 @@ const waIdea = waGeneral(idioma, ruta('/'));
     <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {
         trabajos.map((trabajo) => (
-          <li class="elev-1 flex aspect-4/3 flex-col justify-between rounded-lg p-5">
-            <div
-              class="flex flex-1 items-center justify-center opacity-25"
-              aria-hidden="true"
-            >
-              <img
-                src={logoMark.src}
-                width={logoMark.width}
-                height={logoMark.height}
-                alt=""
+          <li class="elev-1 flex flex-col overflow-hidden rounded-lg">
+            <div class="aspect-square bg-surface-container">
+              <Image
+                src={trabajo.imagen}
+                alt={trabajo.alt}
+                widths={[400, 800]}
+                sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 90vw"
                 loading="lazy"
                 decoding="async"
-                class="h-16 w-auto"
+                class="size-full object-cover"
               />
             </div>
-            <div>
+            <div class="border-t border-outline-variant p-5">
               <p class="font-display text-label-sm uppercase text-on-surface-variant">
                 {trabajo.categoria}
               </p>
@@ -326,7 +339,7 @@ const waIdea = waGeneral(idioma, ruta('/'));
       </div>
 
       <p class="mt-6 text-body-sm text-primary-fixed">
-        {site.whatsapp.display} · {site.sucursales.join(' · ')}
+        {site.whatsapp.display} · {txt.inicio.cta.cobertura}
       </p>
     </div>
   </section>

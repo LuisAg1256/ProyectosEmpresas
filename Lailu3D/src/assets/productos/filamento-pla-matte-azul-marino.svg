@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Bobina de filamento PLA Matte Azul marino">
+  <rect width="400" height="300" fill="#F3F1EC"/>
+  <g transform="translate(200 150)">
+    <circle r="98" fill="#DCD7CE"/>
+    <circle r="98" fill="none" stroke="#C7C0B4" stroke-width="2"/>
+    <circle r="90" fill="#E8E4DC"/>
+    <circle r="86" fill="#0078BF"/>
+    <g stroke="#004269" stroke-width="1.5" opacity=".55" fill="none">
+      <circle r="80"/><circle r="74"/><circle r="68"/><circle r="62"/>
+    </g>
+    <circle r="58" fill="#004269" opacity=".35"/>
+    <circle r="34" fill="#E8E4DC"/>
+    <circle r="34" fill="none" stroke="#C7C0B4" stroke-width="2"/>
+    <circle r="15" fill="#F3F1EC"/>
+    <path d="M86 -6C120 -16 150 -30 176 -54" fill="none" stroke="#0078BF" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <text x="200" y="276" text-anchor="middle" font-family="'Space Grotesk',system-ui,sans-serif" font-size="13" font-weight="600" letter-spacing="1.6" fill="#7A7268">IMAGEN REFERENCIAL</text>
+</svg>

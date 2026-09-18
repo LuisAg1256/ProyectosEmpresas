@@ -1,7 +1,7 @@
 # Lailu3D — instrucciones del proyecto
 
 Landing page de Lailu3D: impresión 3D personalizada, grabado y corte láser.
-Loja y Cuenca (Ecuador). Documento de negocio:
+Talleres en Loja y Cuenca, con entregas a todo el Ecuador. Documento de negocio:
 [`../Doc/Identidad de la empresa - Lailu3D.md`](../Doc/Identidad%20de%20la%20empresa%20-%20Lailu3D.md).
 Plan de trabajo: [`../Doc/Plan de desarrollo - Lailu3D.md`](../Doc/Plan%20de%20desarrollo%20-%20Lailu3D.md).
 
@@ -38,6 +38,10 @@ Plan de trabajo: [`../Doc/Plan de desarrollo - Lailu3D.md`](../Doc/Plan%20de%20d
   `src/content/productos/`, con esquema en
   [`src/content.config.ts`](src/content.config.ts). Para añadir un producto se
   crea un archivo, no se toca código.
+- **Los talleres no son la cobertura.** `site.sucursales` son Loja y Cuenca,
+  donde se produce; se entrega en todo el país. El texto de la cobertura vive en
+  i18n (`hero.region`, `panel.entregaValor`, `footer.region`), no en `site.ts`, y
+  `areaServed` del JSON-LD declara primero el país y luego las dos ciudades.
 - **Datos de la empresa una sola vez** en [`src/config/site.ts`](src/config/site.ts)
   (teléfono, redes, sucursales, URL). Cambiar ahí, nunca en los componentes.
   `site.url` alimenta las URL absolutas de los mensajes de WhatsApp: si está mal,
@@ -135,6 +139,17 @@ con `image()` de `astro:assets`, de modo que un archivo faltante rompe el build 
 vez de llegar a producción como enlace roto. Hoy son SVG de placeholder: se
 reemplazan por fotos reales sin tocar código, solo cambiando el archivo y la ruta
 del frontmatter.
+
+El placeholder **no es genérico**: cada ficha lleva su bobina teñida con el `hex`
+de su color, generada a partir del mismo SVG. Sobre el fondo hueso del sistema un
+color claro se perdería, así que por encima de cierta luminancia la bobina se
+dibuja con contorno propio y la hebra a doble trazo.
+
+Las fotografías de trabajos entregados viven aparte, en `src/assets/trabajos/`, y
+las importa [`PaginaInicio.astro`](src/components/paginas/PaginaInicio.astro): el
+diccionario de i18n solo guarda el título, la categoría y el `alt`. Van recortadas
+a cuadrado 1400 px porque la galería es `aspect-square`; los originales son HEIC
+de iPhone y están fuera del repo, en `../ReferenciasImagenes/`.
 
 ## Comandos
 

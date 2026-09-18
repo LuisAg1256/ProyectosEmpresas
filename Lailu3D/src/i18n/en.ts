@@ -35,10 +35,10 @@ export const en: typeof es = {
     meta: {
       titulo: 'Custom 3D printing',
       descripcion:
-        'Made-to-order 3D printing, laser engraving and cutting, filaments and figures. Loja and Cuenca, Ecuador.',
+        'Made-to-order 3D printing, laser engraving and cutting, filaments and figures. Workshop in Loja and Cuenca, delivering anywhere in Ecuador.',
     },
     hero: {
-      region: 'Ecuador',
+      region: 'We deliver anywhere in Ecuador',
       titulo: 'What you imagine, made real.',
       texto:
         'Custom 3D printing, laser engraving and cutting. Bring an idea, a sketch or a photo; we turn it into a real object.',
@@ -50,12 +50,13 @@ export const en: typeof es = {
       etiqueta: 'Workshop',
       estado: 'Running',
       tecnologia: 'Technology',
-      tecnologiaValor: 'FDM · Laser',
+      tecnologiaValor: 'Laser · 3D printing · 3D modelling',
       material: 'Base material',
-      materialValor: 'PLA 1.75 mm',
+      materialValor: 'PLA BASIC',
       cantidad: 'Minimum order',
       cantidadValor: '1 piece',
       entrega: 'Delivery',
+      entregaValor: 'Anywhere in Ecuador',
     },
     servicios: {
       etiqueta: 'Services',
@@ -82,7 +83,7 @@ export const en: typeof es = {
       producimos: {
         titulo: 'We produce and deliver',
         texto:
-          'You confirm, we manufacture and we arrange delivery in Loja or Cuenca. We show you the progress along the way.',
+          'You confirm, we manufacture and we arrange delivery in Ecuador. We show you the progress along the way.',
       },
     },
     destacados: {
@@ -96,13 +97,52 @@ export const en: typeof es = {
       etiqueta: 'Work',
       titulo: 'Some of the jobs we have done',
       descripcion:
-        'We are putting together the gallery with photographs of delivered work. In the meantime, write to us and we will send you examples on WhatsApp.',
-      llaveros: { titulo: 'Custom keychains', categoria: '3D printing' },
-      lampara: { titulo: 'Portrait lamp', categoria: 'Lithophane' },
-      figuras: { titulo: 'Figures and toys', categoria: '3D printing' },
-      placa: { titulo: 'Engraved wooden plaque', categoria: 'Laser' },
-      repuesto: { titulo: 'Made-to-measure spare part', categoria: 'Modelling' },
-      senaletica: { titulo: 'Acrylic signage', categoria: 'Laser cutting' },
+        'Pieces that came out of our workshop. If you want something along these lines, send us the reference and we will quote it on WhatsApp.',
+      litofaniaEncendida: {
+        titulo: 'Lithophane lit up',
+        categoria: 'Lithophane',
+        alt: 'Backlit lithophane showing the portrait of a rabbit',
+      },
+      litofaniaApagada: {
+        titulo: 'The same piece, with no light behind it',
+        categoria: 'Lithophane',
+        alt: 'Unlit lithophane: the portrait reads as a white relief',
+      },
+      bateria: {
+        titulo: 'Drum kit keychain',
+        categoria: 'Keychain',
+        alt: 'Keychain of a drum kit printed in black PLA',
+      },
+      cubo: {
+        titulo: 'Articulated infinity cube',
+        categoria: 'Figure',
+        alt: 'Infinity cube printed in green PLA, articulated and screwless',
+      },
+      guante: {
+        titulo: 'MMA glove keychain',
+        categoria: 'Keychain',
+        alt: 'Keychain shaped like an MMA glove printed in black PLA',
+      },
+      mancuerna: {
+        titulo: 'Dumbbell keychain',
+        categoria: 'Keychain',
+        alt: 'Dumbbell keychain printed in grey and black PLA',
+      },
+      shaker: {
+        titulo: 'Shaker bottle keychain',
+        categoria: 'Keychain',
+        alt: 'Keychain shaped like a shaker bottle printed in green and white PLA',
+      },
+      disco: {
+        titulo: 'Gym plate keychain',
+        categoria: 'Keychain',
+        alt: 'Keychain of a 20 kg weight plate printed in black PLA',
+      },
+      pesaRusa: {
+        titulo: 'Kettlebell keychains',
+        categoria: 'Keychain',
+        alt: 'Three kettlebell keychains printed in white and black PLA',
+      },
     },
     cta: {
       titulo: 'Got an idea in your head?',
@@ -110,6 +150,7 @@ export const en: typeof es = {
         'Send us the description, the rough size and a reference. We answer on WhatsApp with the quote.',
       primario: 'Quote my idea',
       secundario: 'Message us on WhatsApp',
+      cobertura: 'We deliver anywhere in Ecuador',
     },
   },
 
@@ -123,8 +164,8 @@ export const en: typeof es = {
     laser: {
       titulo: 'Laser engraving and cutting',
       texto:
-        'Names, logos and designs engraved on wood, acrylic and leather. Flat pieces cut to measure.',
-      chips: ['Wood', 'Acrylic', 'Made to measure'],
+        'Engraving and cutting of made-to-measure pieces, ideal for architecture and decoration work.',
+      chips: ['Personalised', 'Made to measure'],
     },
     modelado: {
       titulo: '3D modelling from your idea',
@@ -133,10 +174,10 @@ export const en: typeof es = {
       chips: ['Sketch', 'Photo', 'Reference'],
     },
     litofania: {
-      titulo: 'Portrait lamps (lithophane)',
+      titulo: 'Filament sales',
       texto:
-        'Your photograph turned into a lamp: switch it on and the image appears with all its greys. The gift we are asked for most.',
-      chips: ['Gift', 'Lithophane', 'Personalised'],
+        'PLA filaments in solid, translucent and gradient colours. For 3D printing.',
+      chips: ['PLA', '3D printing', 'Personalised'],
     },
   },
 
@@ -144,7 +185,7 @@ export const en: typeof es = {
     meta: {
       titulo: 'Catalogue',
       descripcion:
-        'PLA filaments, figures, keychains and custom lamps. Reference prices and ordering straight over WhatsApp.',
+        'PLA filaments, figures, keychains and custom lamps. Reference prices, ordering over WhatsApp and delivery anywhere in Ecuador.',
     },
     etiqueta: 'Catalogue',
     titulo: 'Products and filaments',
@@ -176,7 +217,7 @@ export const en: typeof es = {
     meta: {
       titulo: 'Quote a piece',
       descripcion:
-        'Tell us what you want made and we give you a price on WhatsApp. 3D printing, laser engraving and cutting in Loja and Cuenca.',
+        'Tell us what you want made and we give you a price on WhatsApp. 3D printing, laser engraving and cutting, delivered anywhere in Ecuador.',
     },
     miga: 'Quote',
     etiqueta: 'Quote form',
@@ -231,14 +272,14 @@ export const en: typeof es = {
       titulo: 'Rather write directly',
       texto:
         'The form only tidies up the message. If it suits you better, open the chat and tell us there.',
-      aviso: 'Ecuador. This site does not process online payments.',
+      aviso: 'We deliver anywhere in Ecuador. This site does not process online payments.',
     },
   },
 
   footer: {
     descripcion:
       'Custom 3D printing, laser engraving and cutting. We turn your idea, sketch or photo into a real object.',
-    region: 'Ecuador',
+    region: 'We deliver anywhere in Ecuador',
     sitio: 'Site',
     contacto: 'Contact',
     derechos: 'All rights reserved.',
