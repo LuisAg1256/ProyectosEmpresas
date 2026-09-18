@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { idiomaPorDefecto, type Idioma } from '../config/site';
 import { formatearPrecio } from '../lib/formato';
+import { rutaLocalizada } from '../i18n';
 import Badge from './ui/Badge.astro';
 
 /**
@@ -12,13 +13,22 @@ import Badge from './ui/Badge.astro';
 interface Props {
   producto: CollectionEntry<'productos'>;
   idioma?: Idioma;
+  /**
+   * Nivel del nombre. `3` por defecto, que es lo que corresponde cuando la
+   * tarjeta cuelga de una seccion con `<h2>` (la landing). En el catalogo la
+   * grilla cuelga directamente del `<h1>`, asi que alli va `2`: saltarse un
+   * nivel rompe la navegacion por encabezados de un lector de pantalla.
+   */
+  nivelTitulo?: 2 | 3;
 }
 
-const { producto, idioma = idiomaPorDefecto } = Astro.props;
+const { producto, idioma = idiomaPorDefecto, nivelTitulo = 3 } = Astro.props;
 const { data } = producto;
 
-const ruta = `/productos/${producto.id}`;
+/** La ficha del idioma que se esta viendo: desde /en no se vuelve al espanol. */
+const ruta = rutaLocalizada(`/productos/${producto.id}`, idioma);
 const alt = data.imagenAlt?.[idioma] ?? data.nombre[idioma];
+const Nombre = `h${nivelTitulo}` as 'h2' | 'h3';
 ---
 
 <a
@@ -38,7 +48,9 @@ const alt = data.imagenAlt?.[idioma] ?? data.nombre[idioma];
   <div class="flex flex-1 flex-col border-t border-outline-variant p-5">
     <Badge estado={data.disponibilidad} idioma={idioma} />
 
-    <h3 class="mt-2 text-headline-sm text-on-surface">{data.nombre[idioma]}</h3>
+    <Nombre class="mt-2 text-headline-sm text-on-surface">
+      {data.nombre[idioma]}
+    </Nombre>
 
     <p class="mt-2 flex-1 text-body-sm text-on-surface-variant">
       {data.resumen[idioma]}

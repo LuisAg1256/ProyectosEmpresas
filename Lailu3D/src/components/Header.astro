@@ -1,25 +1,37 @@
 ---
 import logo from '../assets/brand/logo-horizontal.svg';
-import { idiomaPorDefecto, type Idioma } from '../config/site';
+import { idiomas, idiomaPorDefecto, type Idioma } from '../config/site';
 import { waGeneral } from '../lib/whatsapp';
+import { t, rutaLocalizada } from '../i18n';
 import Boton from './ui/Boton.astro';
 import IconoWhatsApp from './ui/IconoWhatsApp.astro';
 
-/**
- * Cabecera. El selector de idioma llega en la fase 5, junto con las rutas /en:
- * un control que no lleva a ningun lado es peor que no tenerlo.
- */
 const idioma = (Astro.currentLocale ?? idiomaPorDefecto) as Idioma;
+const txt = t(idioma);
 const rutaActual = Astro.url.pathname;
-const enHome = rutaActual === '/';
+const inicio = rutaLocalizada('/', idioma);
+const enHome = rutaActual === inicio || rutaActual === `${inicio}/`;
 
 /** Los anclas de la landing funcionan desde cualquier ruta. */
+const ancla = (id: string) => (enHome ? `#${id}` : `${inicio}#${id}`);
+
 const enlaces = [
-  { texto: 'Servicios', href: enHome ? '#servicios' : '/#servicios' },
-  { texto: 'Catálogo', href: '/productos' },
-  { texto: 'Trabajos', href: enHome ? '#trabajos' : '/#trabajos' },
-  { texto: 'Cómo funciona', href: enHome ? '#como-funciona' : '/#como-funciona' },
+  { texto: txt.nav.servicios, href: ancla('servicios') },
+  { texto: txt.nav.catalogo, href: rutaLocalizada('/productos', idioma) },
+  { texto: txt.nav.trabajos, href: ancla('trabajos') },
+  { texto: txt.nav.comoFunciona, href: ancla('como-funciona') },
 ];
+
+/**
+ * Selector de idioma. Conserva la ruta: desde una ficha de producto se llega a
+ * esa misma ficha en el otro idioma, no al home.
+ */
+const opcionesIdioma = idiomas.map((codigo) => ({
+  codigo,
+  href: rutaLocalizada(rutaActual, codigo),
+  actual: codigo === idioma,
+  titulo: codigo === 'en' ? txt.nav.verEnIngles : txt.nav.verEnEspanol,
+}));
 
 const wa = waGeneral(idioma, rutaActual);
 ---
@@ -31,14 +43,14 @@ const wa = waGeneral(idioma, rutaActual);
     class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-margin-mobile md:px-margin"
   >
     <a
-      href="/"
+      href={inicio}
       class="shrink-0 rounded-[4px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-      aria-label="Lailu3D — inicio"
+      aria-label={txt.nav.logoInicio}
     >
       <img src={logo.src} width={logo.width} height={logo.height} alt="Lailu3D" class="h-7 w-auto md:h-8" />
     </a>
 
-    <nav aria-label="Principal" class="hidden items-center gap-6 md:flex">
+    <nav aria-label={txt.nav.principal} class="hidden items-center gap-6 md:flex">
       {
         enlaces.map((enlace) => (
           <a
@@ -52,15 +64,42 @@ const wa = waGeneral(idioma, rutaActual);
     </nav>
 
     <div class="flex items-center gap-2">
-      <Boton href={wa} externo class="hidden sm:inline-flex">
-        <IconoWhatsApp class="size-4" />
-        Cotizar
-      </Boton>
+      {/* Dos idiomas: dos enlaces sueltos leen mejor que un desplegable. */}
+      <nav
+        aria-label={txt.nav.idioma}
+        class="hidden items-center rounded-[4px] border border-outline-variant sm:flex"
+      >
+        {
+          opcionesIdioma.map((opcion) => (
+            <a
+              href={opcion.href}
+              hreflang={opcion.codigo}
+              title={opcion.titulo}
+              aria-current={opcion.actual ? 'true' : undefined}
+              class:list={[
+                'px-2.5 py-1.5 font-display text-label-sm uppercase transition-colors',
+                opcion.actual
+                  ? 'bg-primary text-on-primary'
+                  : 'text-on-surface-variant hover:text-on-surface',
+              ]}
+            >
+              {opcion.codigo}
+            </a>
+          ))
+        }
+      </nav>
+
+      {/*
+        Visible tambien en movil: es el CTA del negocio y cabe al lado del
+        menu. Ojo, `hidden` no lo ocultaria: `Boton` trae `inline-flex` en su
+        base y Tailwind emite esa utilidad despues de `.hidden`.
+      */}
+      <Boton href={rutaLocalizada('/cotizar', idioma)}>{txt.nav.cotizar}</Boton>
 
       <details class="relative md:hidden" name="menu-movil">
         <summary
           class="flex size-10 cursor-pointer items-center justify-center rounded-[4px] border border-outline-variant bg-surface-lowest text-on-surface marker:content-none [&::-webkit-details-marker]:hidden"
-          aria-label="Abrir menú"
+          aria-label={txt.nav.abrirMenu}
         >
           <svg
             class="size-5"
@@ -75,7 +114,7 @@ const wa = waGeneral(idioma, rutaActual);
         </summary>
 
         <nav
-          aria-label="Principal (móvil)"
+          aria-label={txt.nav.principalMovil}
           class="elev-3 absolute right-0 z-50 mt-2 flex w-56 flex-col rounded-lg p-2"
         >
           {
@@ -88,6 +127,7 @@ const wa = waGeneral(idioma, rutaActual);
               </a>
             ))
           }
+          {/* "Cotizar" ya esta en el boton de al lado; aqui va la via directa. */}
           <a
             href={wa}
             target="_blank"
@@ -95,8 +135,32 @@ const wa = waGeneral(idioma, rutaActual);
             class="mt-1 flex items-center gap-2 rounded-[4px] border-t border-outline-variant px-3 py-2 text-body-md text-primary"
           >
             <IconoWhatsApp class="size-4" />
-            Cotizar por WhatsApp
+            {txt.nav.escribirWhatsApp}
           </a>
+
+          {/* El selector de escritorio va oculto por debajo de sm. */}
+          <div
+            class="mt-1 flex items-center gap-1 border-t border-outline-variant px-3 pt-2 sm:hidden"
+          >
+            {
+              opcionesIdioma.map((opcion) => (
+                <a
+                  href={opcion.href}
+                  hreflang={opcion.codigo}
+                  title={opcion.titulo}
+                  aria-current={opcion.actual ? 'true' : undefined}
+                  class:list={[
+                    'rounded-[4px] px-2 py-1 font-display text-label-sm uppercase',
+                    opcion.actual
+                      ? 'bg-primary text-on-primary'
+                      : 'text-on-surface-variant',
+                  ]}
+                >
+                  {opcion.codigo}
+                </a>
+              ))
+            }
+          </div>
         </nav>
       </details>
     </div>

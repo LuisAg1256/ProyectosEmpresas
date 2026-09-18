@@ -7,17 +7,17 @@
 
 ## 1. Datos de la empresa
 
-| Campo | Valor |
-|---|---|
-| **Nombre** | Lailu3D |
-| **Rubro** | Impresión 3D personalizada, grabado y corte láser |
-| **Sucursales digitales** | Loja y Cuenca (Ecuador) |
-| **WhatsApp** | +593 99 364 5060 → `wa.me/593993645060` |
-| **Instagram** | [@lailu3d](https://instagram.com/lailu3d) *(nick provisional)* |
-| **TikTok** | [@lailu3d](https://tiktok.com/@lailu3d) *(nick provisional)* |
-| **Moneda** | USD |
-| **Idiomas** | Español (por defecto) e Inglés |
-| **Despliegue** | Vercel |
+| Campo                    | Valor                                                          |
+| ------------------------ | -------------------------------------------------------------- |
+| **Nombre**               | Lailu3D                                                        |
+| **Rubro**                | Impresión 3D personalizada, grabado y corte láser              |
+| **Sucursales digitales** | Loja y Cuenca (Ecuador)                                        |
+| **WhatsApp**             | +593 99 364 5060 → `wa.me/593993645060`                        |
+| **Instagram**            | [@lailu3d](https://instagram.com/lailu3d) *(nick provisional)* |
+| **TikTok**               | [@lailu3d](https://tiktok.com/@lailu3d) *(nick provisional)*   |
+| **Moneda**               | USD                                                            |
+| **Idiomas**              | Español (por defecto) e Inglés                                 |
+| **Despliegue**           | Vercel                                                         |
 
 ---
 

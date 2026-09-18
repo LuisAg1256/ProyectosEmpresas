@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
-import { site, idiomaPorDefecto, type Idioma } from '../config/site';
+import { site, idiomas, idiomaPorDefecto, type Idioma } from '../config/site';
+import { t, rutaLocalizada } from '../i18n';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import BotonWhatsAppFlotante from '../components/BotonWhatsAppFlotante.astro';
@@ -8,18 +9,38 @@ import BotonWhatsAppFlotante from '../components/BotonWhatsAppFlotante.astro';
 interface Props {
   titulo: string;
   descripcion: string;
-  /** Ruta bajo /public de la imagen social. Se genera en la fase 6. */
+  /** Ruta bajo /public de la imagen social. Por defecto, la de la marca. */
   imagenOg?: string;
   /** Rutas de trabajo (kit de componentes) que no deben indexarse. */
   noindex?: boolean;
 }
 
-const { titulo, descripcion, imagenOg, noindex = false } = Astro.props;
+const {
+  titulo,
+  descripcion,
+  imagenOg = '/og.png',
+  noindex = false,
+} = Astro.props;
 
 const idioma = (Astro.currentLocale ?? idiomaPorDefecto) as Idioma;
+const txt = t(idioma);
 const canonica = new URL(Astro.url.pathname, site.url).href;
 const tituloCompleto = `${titulo} | ${site.nombre}`;
-const urlOg = imagenOg ? new URL(imagenOg, site.url).href : undefined;
+const urlOg = new URL(imagenOg, site.url).href;
+
+const etiquetaOg: Record<Idioma, string> = { es: 'es_EC', en: 'en_US' };
+
+/**
+ * Alternativas de idioma de ESTA misma pagina. `x-default` apunta al espanol,
+ * que es el idioma de la raiz. Las rutas noindex (el kit) no las declaran: no
+ * tienen gemela ni deben aparecer en un buscador.
+ */
+const alternativas = noindex
+  ? []
+  : idiomas.map((codigo) => ({
+      codigo,
+      url: new URL(rutaLocalizada(Astro.url.pathname, codigo), site.url).href,
+    }));
 ---
 
 <!doctype html>
@@ -34,24 +55,60 @@ const urlOg = imagenOg ? new URL(imagenOg, site.url).href : undefined;
     <meta name="description" content={descripcion} />
     <link rel="canonical" href={canonica} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {
+      alternativas.map((alt) => (
+        <link rel="alternate" hreflang={alt.codigo} href={alt.url} />
+      ))
+    }
+    {
+      alternativas.length > 0 && (
+        <link
+          rel="alternate"
+          hreflang="x-default"
+          href={
+            alternativas.find((alt) => alt.codigo === idiomaPorDefecto)!.url
+          }
+        />
+      )
+    }
 
     <meta property="og:site_name" content={site.nombre} />
     <meta property="og:title" content={tituloCompleto} />
     <meta property="og:description" content={descripcion} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonica} />
-    <meta property="og:locale" content={idioma === 'en' ? 'en_US' : 'es_EC'} />
-    {urlOg && <meta property="og:image" content={urlOg} />}
-    <meta
-      name="twitter:card"
-      content={urlOg ? 'summary_large_image' : 'summary'}
-    />
+    <meta property="og:locale" content={etiquetaOg[idioma]} />
+    {
+      alternativas
+        .filter((alt) => alt.codigo !== idioma)
+        .map((alt) => (
+          <meta property="og:locale:alternate" content={etiquetaOg[alt.codigo]} />
+        ))
+    }
+    <meta property="og:image" content={urlOg} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={site.nombre} />
+    <meta name="twitter:card" content="summary_large_image" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    {/*
+      Fuentes propias (ver `styles/global.css`). Se precargan las dos del
+      subconjunto latino porque las usa cualquier pagina: sin esto el navegador
+      no las descubre hasta terminar de leer el CSS.
+    */}
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap"
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/hanken-grotesk-latin-wght-normal.woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/space-grotesk-latin-wght-normal.woff2"
+      crossorigin
     />
   </head>
   <body class="bg-background text-on-background font-body antialiased">
@@ -59,7 +116,7 @@ const urlOg = imagenOg ? new URL(imagenOg, site.url).href : undefined;
       href="#contenido"
       class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-[4px] focus:bg-primary focus:px-4 focus:py-2 focus:text-on-primary"
     >
-      Saltar al contenido
+      {txt.html.saltar}
     </a>
 
     <Header />

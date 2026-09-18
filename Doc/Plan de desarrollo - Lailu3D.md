@@ -32,10 +32,10 @@ El plan va de dentro hacia fuera: kit de componentes → páginas → conversió
 
 Trabajo corto, evita arrastrar fricción en todas las fases siguientes.
 
-- [ ] **Arreglar `CLAUDE.md` y `AGENTS.md`**: hoy ambos dicen "las instrucciones viven en `CLAUDE.md`" apuntándose a sí mismos. `CLAUDE.md` debe contener las reglas reales (sin pagos, todo a WhatsApp; patrón de Content Collections; trampas de espaciado de Tailwind 4) y `AGENTS.md` quedar como puntero.
-- [ ] **Scripts de verificación** en `package.json`: `"check": "astro check"` más la dependencia `typescript`. Sin esto no hay forma de validar los tipos del contenido.
-- [ ] **`public/robots.txt`** y confirmar el dominio provisional (`lailu3d.vercel.app` ya está en `site.ts`).
-- [ ] **Decisión de imágenes** (bloquea la Fase 3): los productos hoy referencian rutas string bajo `/public` (`imagen: /images/productos/*.svg`). Para fotos reales conviene migrar el esquema a `image()` de `astro:assets` con los archivos en `src/assets/productos/`, lo que da optimización, `srcset` y verificación en build. Cambia el esquema y las 5 fichas semilla: hacerlo ahora cuesta minutos, después cuesta una migración.
+- [x] **Arreglar `CLAUDE.md` y `AGENTS.md`**: hoy ambos dicen "las instrucciones viven en `CLAUDE.md`" apuntándose a sí mismos. `CLAUDE.md` debe contener las reglas reales (sin pagos, todo a WhatsApp; patrón de Content Collections; trampas de espaciado de Tailwind 4) y `AGENTS.md` quedar como puntero.
+- [x] **Scripts de verificación** en `package.json`: `"check": "astro check"` más la dependencia `typescript`. Sin esto no hay forma de validar los tipos del contenido.
+- [x] **`public/robots.txt`** y confirmar el dominio provisional (`lailu3d.vercel.app` ya está en `site.ts`).
+- [x] **Decisión de imágenes** (bloquea la Fase 3): los productos hoy referencian rutas string bajo `/public` (`imagen: /images/productos/*.svg`). Para fotos reales conviene migrar el esquema a `image()` de `astro:assets` con los archivos en `src/assets/productos/`, lo que da optimización, `srcset` y verificación en build. Cambia el esquema y las 5 fichas semilla: hacerlo ahora cuesta minutos, después cuesta una migración.
 
 **Listo cuando:** `pnpm check` y `pnpm build` pasan limpios.
 
@@ -46,12 +46,12 @@ Trabajo corto, evita arrastrar fricción en todas las fases siguientes.
 Construir el vocabulario visual una sola vez, traducido de `Master/DESIGN.md`.
 Todo en `src/components/ui/`.
 
-- [ ] `Boton.astro` — variantes `primary` (cobre sólido), `secondary` (blanco con borde), `ghost`. Altura 40px, radio 4px. **Nunca pill.** Soporta `as="a"` para los enlaces de WhatsApp.
-- [ ] `Chip.astro` — lectura técnica en mayúsculas, `text-label-sm`, fondo `surface-container`.
-- [ ] `Badge.astro` — estado de disponibilidad con punto de 6px (`disponible` / `bajo_pedido` / `agotado`).
-- [ ] `Tarjeta.astro` — superficie `elev-2`, padding 24px, cabecera con hairline.
-- [ ] `Campo.astro` — input y textarea con focus ring nítido de 1px en cobre (sin blur).
-- [ ] `Seccion.astro` — envoltorio de ancho y ritmo vertical (`px-margin-mobile md:px-margin`, `max-w-6xl`), para no repetir el layout en cada bloque.
+- [x] `Boton.astro` — variantes `primary` (cobre sólido), `secondary` (blanco con borde), `ghost`. Altura 40px, radio 4px. **Nunca pill.** Soporta `as="a"` para los enlaces de WhatsApp.
+- [x] `Chip.astro` — lectura técnica en mayúsculas, `text-label-sm`, fondo `surface-container`.
+- [x] `Badge.astro` — estado de disponibilidad con punto de 6px (`disponible` / `bajo_pedido` / `agotado`).
+- [x] `Tarjeta.astro` — superficie `elev-2`, padding 24px, cabecera con hairline.
+- [x] `Campo.astro` — input y textarea con focus ring nítido de 1px en cobre (sin blur).
+- [x] `Seccion.astro` — envoltorio de ancho y ritmo vertical (`px-margin-mobile md:px-margin`, `max-w-6xl`), para no repetir el layout en cada bloque.
 
 **Regla:** ninguna página escribe hex a mano. Solo clases de token (`bg-primary`, `text-on-surface-variant`, `border-outline-variant`).
 
@@ -61,11 +61,11 @@ Todo en `src/components/ui/`.
 
 ## Fase 2 — Estructura del sitio y landing en español
 
-- [ ] `src/components/Header.astro` — `logo-horizontal.svg`, navegación (Servicios · Catálogo · Trabajos · Cotizar), selector de idioma (inerte hasta la Fase 5) y CTA de WhatsApp.
-- [ ] `src/components/Footer.astro` — sucursales Loja y Cuenca, WhatsApp visible, Instagram y TikTok, aviso de "cotizaciones por WhatsApp, sin pagos en línea".
-- [ ] `src/components/BotonWhatsAppFlotante.astro` — presente en todas las páginas, con mensaje genérico prellenado.
-- [ ] Ampliar `Layout.astro`: `canonical`, `og:image`, `og:url`, `og:locale` y slots para Header y Footer.
-- [ ] **Landing** (`src/pages/index.astro`), en este orden — el sitio es vitrina y captador:
+- [x] `src/components/Header.astro` — `logo-horizontal.svg`, navegación (Servicios · Catálogo · Trabajos · Cotizar), selector de idioma (inerte hasta la Fase 5) y CTA de WhatsApp.
+- [x] `src/components/Footer.astro` — sucursales Loja y Cuenca, WhatsApp visible, Instagram y TikTok, aviso de "cotizaciones por WhatsApp, sin pagos en línea".
+- [x] `src/components/BotonWhatsAppFlotante.astro` — presente en todas las páginas, con mensaje genérico prellenado.
+- [x] Ampliar `Layout.astro`: `canonical`, `og:image`, `og:url`, `og:locale` y slots para Header y Footer.
+- [x] **Landing** (`src/pages/index.astro`), en este orden — el sitio es vitrina y captador:
   1. **Hero** — promesa ("lo que imaginas, fabricado") y CTA doble: *Cotizar mi idea* / *Ver catálogo*.
   2. **Servicios** — 4 tarjetas: impresión 3D, grabado y corte láser, modelado desde boceto, lámparas litofanía.
   3. **Cómo funciona** — 3 pasos: cuéntanos la idea → cotizamos por WhatsApp → producimos y entregamos. Es la sección que baja la fricción de no publicar precios.
@@ -81,10 +81,10 @@ Todo en `src/components/ui/`.
 
 El corazón de datos del sitio; `content.config.ts` ya lo soporta.
 
-- [ ] `src/pages/productos/index.astro` — grilla de `getCollection('productos')`, ordenada por `orden`, con filtro por `categoria` (filamento / figura / llavero / lámpara). El filtro puede ser CSS o JS mínimo; no hace falta un framework.
-- [ ] `src/pages/productos/[...slug].astro` — ficha individual vía `getStaticPaths()`: imagen, nombre, descripción larga (`<Content />`), ficha técnica en tabla (`marca`, `material`, `color` con muestra del hex, `pesoGramos`, `diametroMm`), precio referencial con `tabular`, badge de disponibilidad y botón **"Pedir por WhatsApp"** con `waProducto(producto, Astro.url.pathname, idioma)`.
-- [ ] `src/components/TarjetaProducto.astro` — reutilizada en la landing y en el catálogo.
-- [ ] Manejo de `precio: null` → mostrar "Bajo cotización", nunca "$0".
+- [x] `src/pages/productos/index.astro` — grilla de `getCollection('productos')`, ordenada por `orden`, con filtro por `categoria` (filamento / figura / llavero / lámpara). El filtro puede ser CSS o JS mínimo; no hace falta un framework.
+- [x] `src/pages/productos/[...slug].astro` — ficha individual vía `getStaticPaths()`: imagen, nombre, descripción larga (`<Content />`), ficha técnica en tabla (`marca`, `material`, `color` con muestra del hex, `pesoGramos`, `diametroMm`), precio referencial con `tabular`, badge de disponibilidad y botón **"Pedir por WhatsApp"** con `waProducto(producto, Astro.url.pathname, idioma)`.
+- [x] `src/components/TarjetaProducto.astro` — reutilizada en la landing y en el catálogo.
+- [x] Manejo de `precio: null` → mostrar "Bajo cotización", nunca "$0".
 
 **Listo cuando:** los 5 productos semilla tienen ficha navegable y el mensaje de WhatsApp llega con nombre, SKU y URL absoluta correcta.
 
@@ -94,11 +94,11 @@ El corazón de datos del sitio; `content.config.ts` ya lo soporta.
 
 Es el objetivo de negocio del sitio; merece su propia fase.
 
-- [ ] `src/pages/cotizar.astro` — formulario: descripción de la idea (obligatoria), cantidad, medidas, enlace de referencia y tipo de servicio.
-- [ ] `src/components/FormularioCotizacion.astro` — script de cliente que, al enviar, arma el enlace con la misma lógica de `waCotizacion` y abre WhatsApp. **No hay backend, no hay endpoint, no se guarda nada.**
+- [x] `src/pages/cotizar.astro` — formulario: descripción de la idea (obligatoria), cantidad, medidas, enlace de referencia y tipo de servicio.
+- [x] `src/components/FormularioCotizacion.astro` — script de cliente que, al enviar, arma el enlace con la misma lógica de `waCotizacion` y abre WhatsApp. **No hay backend, no hay endpoint, no se guarda nada.**
   - Nota técnica: `waCotizacion` hoy se usa en el servidor. Para usarla en el cliente basta con que el script la importe (Astro la empaqueta); hay que mantenerla pura, sin dependencias de Node.
-- [ ] Validación mínima en cliente: sin descripción no se abre WhatsApp.
-- [ ] Texto de expectativa: "te respondemos por WhatsApp en horario laboral" — evita la sensación de formulario al vacío.
+- [x] Validación mínima en cliente: sin descripción no se abre WhatsApp.
+- [x] Texto de expectativa: "te respondemos por WhatsApp en horario laboral" — evita la sensación de formulario al vacío.
 
 **Listo cuando:** en un móvil real el mensaje generado abre la app de WhatsApp con todos los campos completos y los saltos de línea correctos.
 
@@ -108,10 +108,10 @@ Es el objetivo de negocio del sitio; merece su propia fase.
 
 Dejarlo para después de cerrar el español evita traducir tres veces lo mismo.
 
-- [ ] `src/i18n/` con diccionario por idioma (`es.ts`, `en.ts`), helper `t(idioma, clave)` y `rutaLocalizada()`.
-- [ ] Duplicar rutas bajo `src/pages/en/` (`index`, `productos/index`, `productos/[...slug]`, `cotizar`) reutilizando los mismos componentes; el contenido del catálogo ya es bilingüe en el frontmatter.
-- [ ] Selector de idioma funcional en el Header: conserva la ruta equivalente, no manda siempre al home.
-- [ ] `hreflang` alternates y `og:locale:alternate` en `Layout.astro`.
+- [x] `src/i18n/` con diccionario por idioma (`es.ts`, `en.ts`), helper `t(idioma, clave)` y `rutaLocalizada()`.
+- [x] Duplicar rutas bajo `src/pages/en/` (`index`, `productos/index`, `productos/[...slug]`, `cotizar`) reutilizando los mismos componentes; el contenido del catálogo ya es bilingüe en el frontmatter.
+- [x] Selector de idioma funcional en el Header: conserva la ruta equivalente, no manda siempre al home.
+- [x] `hreflang` alternates y `og:locale:alternate` en `Layout.astro`.
 
 **Listo cuando:** cada página en español tiene su equivalente en inglés y el cambio de idioma conserva el producto que se estaba viendo.
 
@@ -119,11 +119,11 @@ Dejarlo para después de cerrar el español evita traducir tres veces lo mismo.
 
 ## Fase 6 — SEO, rendimiento y despliegue
 
-- [ ] `@astrojs/sitemap` con la configuración `i18n`.
-- [ ] Datos estructurados JSON-LD: `LocalBusiness` (Loja y Cuenca) en el home, `Product` en cada ficha.
-- [ ] Imagen social `og:image` (1200×630) con la marca.
-- [ ] Fuentes: hoy se cargan desde Google Fonts con dos `preconnect`. Evaluar fuentes locales para quitar el bloqueo de render.
-- [ ] Lighthouse móvil: Performance ≥ 95 y Accesibilidad 100. Verificar el contraste del cobre sobre fondos cálidos, en particular `primary-container` con texto blanco.
+- [x] `@astrojs/sitemap` con la configuración `i18n`.
+- [x] Datos estructurados JSON-LD: `LocalBusiness` (Loja y Cuenca) en el home, `Product` en cada ficha.
+- [x] Imagen social `og:image` (1200×630) con la marca.
+- [x] Fuentes: hoy se cargan desde Google Fonts con dos `preconnect`. Evaluar fuentes locales para quitar el bloqueo de render.
+- [x] Lighthouse móvil: Performance ≥ 95 y Accesibilidad 100. Verificar el contraste del cobre sobre fondos cálidos, en particular `primary-container` con texto blanco.
 - [ ] Despliegue en Vercel: salida estática, sin adaptador; rama `main` a producción. Confirmar que `site.url` coincide con el dominio real **antes** del primer deploy, porque de ahí salen las URL de los mensajes de WhatsApp.
 
 **Listo cuando:** el sitio está en línea, indexable, y un enlace de WhatsApp generado en producción abre la ficha correcta.

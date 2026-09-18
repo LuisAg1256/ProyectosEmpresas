@@ -1,0 +1,196 @@
+---
+import Campo from './ui/Campo.astro';
+import Boton from './ui/Boton.astro';
+import IconoWhatsApp from './ui/IconoWhatsApp.astro';
+import { slugsServicio } from '../lib/servicios';
+import { idiomaPorDefecto, type Idioma } from '../config/site';
+import { waGeneral } from '../lib/whatsapp';
+import { t, rutaLocalizada } from '../i18n';
+
+/**
+ * Cotizador. No hay backend: el formulario no se envia a ningun lado, no se
+ * guarda nada y no existe endpoint. Al pulsar el boton, un script arma el
+ * mensaje con `waCotizacion` y abre WhatsApp.
+ *
+ * Por eso lleva `novalidate`: la validacion la hace el script (el `required`
+ * nativo acepta una descripcion de puros espacios y su globo sale en el idioma
+ * del navegador, no en el del sitio).
+ */
+interface Props {
+  idioma?: Idioma;
+}
+
+const { idioma = idiomaPorDefecto } = Astro.props;
+const txt = t(idioma);
+const campos = txt.cotizar.campos;
+
+const opcionesServicio = [
+  { valor: '', texto: campos.servicioVacio },
+  ...slugsServicio.map((slug) => ({
+    valor: slug,
+    texto: txt.servicios[slug].titulo,
+  })),
+  { valor: 'otro', texto: campos.servicioOtro },
+];
+
+/** Salida sin JavaScript: el mismo destino, pero sin los campos. */
+const waSinJs = waGeneral(idioma, rutaLocalizada('/cotizar', idioma));
+---
+
+<form id="form-cotizacion" novalidate class="flex flex-col gap-5">
+  <Campo
+    id="servicio"
+    nombre="servicio"
+    etiqueta={campos.servicio}
+    tipo="select"
+    opciones={opcionesServicio}
+  />
+
+  <Campo
+    id="descripcion"
+    nombre="descripcion"
+    etiqueta={campos.idea}
+    tipo="textarea"
+    filas={5}
+    requerido
+    placeholder={campos.ideaPlaceholder}
+    ayuda={campos.ideaAyuda}
+  />
+
+  <div class="grid gap-5 sm:grid-cols-2">
+    <Campo
+      id="cantidad"
+      nombre="cantidad"
+      etiqueta={campos.cantidad}
+      placeholder={campos.cantidadPlaceholder}
+    />
+    <Campo
+      id="medidas"
+      nombre="medidas"
+      etiqueta={campos.medidas}
+      placeholder={campos.medidasPlaceholder}
+    />
+  </div>
+
+  <Campo
+    id="referencia"
+    nombre="referencia"
+    etiqueta={campos.referencia}
+    placeholder={campos.referenciaPlaceholder}
+    ayuda={campos.referenciaAyuda}
+  />
+
+  <p
+    id="error-cotizacion"
+    role="alert"
+    hidden
+    class="rounded-[4px] border border-error bg-error-container px-3 py-2 text-body-sm text-on-error-container"
+  >
+    {txt.cotizar.error}
+  </p>
+
+  <div class="mt-2 flex flex-col gap-3">
+    <Boton tipo="submit" tamano="lg" class="w-full sm:w-auto">
+      <IconoWhatsApp class="size-5" />
+      {txt.cotizar.boton}
+    </Boton>
+
+    <p class="text-body-sm text-on-surface-variant">
+      {txt.cotizar.expectativa}
+    </p>
+  </div>
+
+  <noscript>
+    <p class="text-body-sm text-on-surface-variant">
+      {txt.cotizar.sinJs}
+      <a
+        href={waSinJs}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-primary underline">{txt.cotizar.sinJsEnlace}</a
+      > {txt.cotizar.sinJsCola}
+    </p>
+  </noscript>
+</form>
+
+<script>
+  import { idiomas, idiomaPorDefecto, type Idioma } from '../config/site';
+  import { waCotizacion } from '../lib/whatsapp';
+
+  const form = document.querySelector<HTMLFormElement>('#form-cotizacion');
+
+  if (form) {
+    const servicio = form.elements.namedItem('servicio') as HTMLSelectElement;
+    const descripcion = form.elements.namedItem(
+      'descripcion',
+    ) as HTMLTextAreaElement;
+    const cantidad = form.elements.namedItem('cantidad') as HTMLInputElement;
+    const medidas = form.elements.namedItem('medidas') as HTMLInputElement;
+    const referencia = form.elements.namedItem(
+      'referencia',
+    ) as HTMLInputElement;
+    const error = document.querySelector<HTMLParagraphElement>(
+      '#error-cotizacion',
+    );
+
+    /**
+     * El idioma se lee del `lang` del documento, que pone `Layout.astro`. Un
+     * script no recibe props de Astro, y esta es la fuente que ya existe: si la
+     * pagina se sirve en /en, el mensaje sale en ingles.
+     */
+    const lang = document.documentElement.lang;
+    const idioma = (idiomas as readonly string[]).includes(lang)
+      ? (lang as Idioma)
+      : idiomaPorDefecto;
+
+    /**
+     * Preseleccion desde `/cotizar?servicio=<slug>`, que es a donde apuntan las
+     * tarjetas de servicio de la landing. Se resuelve en el cliente porque la
+     * pagina es estatica y se sirve cacheada para todas las variantes.
+     */
+    const slug = new URLSearchParams(location.search).get('servicio');
+    if (slug && [...servicio.options].some((o) => o.value === slug)) {
+      servicio.value = slug;
+    }
+
+    const ocultarError = () => {
+      error?.setAttribute('hidden', '');
+      descripcion.removeAttribute('aria-invalid');
+    };
+    descripcion.addEventListener('input', ocultarError);
+
+    form.addEventListener('submit', (evento) => {
+      evento.preventDefault();
+
+      // Validacion minima: sin descripcion no se abre WhatsApp.
+      if (!descripcion.value.trim()) {
+        error?.removeAttribute('hidden');
+        descripcion.setAttribute('aria-invalid', 'true');
+        descripcion.focus();
+        return;
+      }
+
+      ocultarError();
+
+      const enlace = waCotizacion(
+        {
+          // El texto visible de la opcion, no el slug: va directo al mensaje.
+          servicio: servicio.value
+            ? servicio.selectedOptions[0]?.text
+            : undefined,
+          descripcion: descripcion.value,
+          cantidad: cantidad.value,
+          medidas: medidas.value,
+          referencia: referencia.value,
+        },
+        // Sin `search`: el `?servicio=` ya viaja nombrado dentro del mensaje.
+        location.pathname,
+        idioma,
+      );
+
+      // En movil `window.open` puede quedar bloqueado; la misma pestaña sirve.
+      const ventana = window.open(enlace, '_blank', 'noopener');
+      if (!ventana) location.href = enlace;
+    });
+  }
+</script>

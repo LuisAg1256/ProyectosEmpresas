@@ -43,46 +43,53 @@ export function waGeneral(
   return enlace(cuerpo);
 }
 
-/** Enlace para una tarjeta de servicio: el servicio ya viene nombrado. */
-export function waServicio(
-  servicio: string,
-  ruta = '/',
-  idioma: Idioma = idiomaPorDefecto,
-): string {
-  const url = new URL(ruta, site.url).href;
-  const cuerpo =
-    idioma === 'en'
-      ? `Hi Lailu3D! I'm interested in this service:\n\n• Service: ${servicio}\n• Page: ${url}\n\nI'd like a quote.`
-      : `¡Hola Lailu3D! Me interesa este servicio:\n\n• Servicio: ${servicio}\n• Página: ${url}\n\nQuisiera una cotización.`;
-  return enlace(cuerpo);
-}
-
 export type DatosCotizacion = {
   descripcion: string;
+  /** Nombre visible del servicio, no el slug: va tal cual en el mensaje. */
+  servicio?: string;
   cantidad?: string;
   medidas?: string;
   /** Enlace a la referencia visual del cliente (Drive, Imgur, post de IG...). */
   referencia?: string;
 };
 
-/** Enlace para el formulario de cotizacion personalizada. */
+/**
+ * Enlace para el formulario de cotizacion personalizada.
+ *
+ * Esta funcion es la unica del modulo que se ejecuta **en el navegador**
+ * (la importa el script de `FormularioCotizacion.astro`). Debe seguir siendo
+ * pura y sin dependencias de Node: solo plantillas y `encodeURIComponent`.
+ *
+ * La descripcion va al final y en su propio bloque, no como vinieta: el cliente
+ * escribe parrafos y WhatsApp respeta los saltos de linea, asi que dentro de la
+ * lista el segundo parrafo quedaba pegado a la vinieta siguiente. El texto se
+ * manda tal cual lo escribio: mutilarlo es peor que reordenar el mensaje.
+ */
 export function waCotizacion(
   datos: DatosCotizacion,
+  ruta = '/cotizar',
   idioma: Idioma = idiomaPorDefecto,
 ): string {
+  const url = new URL(ruta, site.url).href;
   const linea = (etiqueta: string, valor?: string) =>
     valor?.trim() ? `\n• ${etiqueta}: ${valor.trim()}` : '';
 
   const cuerpo =
     idioma === 'en'
-      ? `Hi Lailu3D! I'd like a quote:\n\n• Idea: ${datos.descripcion}` +
+      ? `Hi Lailu3D! I'd like a quote:\n` +
+        linea('Service', datos.servicio) +
         linea('Quantity', datos.cantidad) +
         linea('Size', datos.medidas) +
-        linea('Reference', datos.referencia)
-      : `¡Hola Lailu3D! Quisiera una cotización:\n\n• Idea: ${datos.descripcion}` +
+        linea('Reference', datos.referencia) +
+        `\n• Form: ${url}` +
+        `\n\nMy idea:\n${datos.descripcion.trim()}`
+      : `¡Hola Lailu3D! Quisiera una cotización:\n` +
+        linea('Servicio', datos.servicio) +
         linea('Cantidad', datos.cantidad) +
         linea('Medidas', datos.medidas) +
-        linea('Referencia', datos.referencia);
+        linea('Referencia', datos.referencia) +
+        `\n• Formulario: ${url}` +
+        `\n\nMi idea:\n${datos.descripcion.trim()}`;
 
   return enlace(cuerpo);
 }

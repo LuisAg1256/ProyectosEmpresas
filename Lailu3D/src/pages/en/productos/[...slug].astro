@@ -4,7 +4,7 @@
  * el espanol (raiz) y el ingles (/en): una correccion se hace una sola vez.
  */
 import { getCollection, type CollectionEntry } from 'astro:content';
-import PaginaProducto from '../../components/paginas/PaginaProducto.astro';
+import PaginaProducto from '../../../components/paginas/PaginaProducto.astro';
 
 export async function getStaticPaths() {
   const productos = await getCollection('productos');
@@ -21,4 +21,4 @@ interface Props {
 const { producto } = Astro.props;
 ---
 
-<PaginaProducto producto={producto} idioma="es" />
+<PaginaProducto producto={producto} idioma="en" />

@@ -1,0 +1,124 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Seccion from '../ui/Seccion.astro';
+import Boton from '../ui/Boton.astro';
+import TarjetaProducto from '../TarjetaProducto.astro';
+import type { Idioma } from '../../config/site';
+import { categorias, type Categoria } from '../../lib/formato';
+import { t, rutaLocalizada } from '../../i18n';
+
+/** Cuerpo del catalogo, compartido por `/productos` y `/en/productos`. */
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const txt = t(idioma);
+
+const productos = (await getCollection('productos')).sort(
+  (a, b) => a.data.orden - b.data.orden,
+);
+
+/** Solo se ofrecen los filtros de categorias que hoy tienen producto. */
+const presentes = [...new Set(productos.map((p) => p.data.categoria))] as Categoria[];
+
+/**
+ * Filtrado sin JavaScript: un grupo de radios y una regla `:has()` por
+ * categoria. Sin hidratacion, sin parpadeo y funciona con el teclado.
+ *
+ * El estado activo de la pastilla se resuelve aqui y no con `peer-checked:` de
+ * Tailwind, que usa el combinador `~` y tenia todas las etiquetas encendidas a
+ * la vez: lo que hace falta es el hermano adyacente `+`.
+ */
+const reglasFiltro = [
+  ...presentes.map(
+    (c) =>
+      `#catalogo:has(#cat-${c}:checked) [data-categoria]:not([data-categoria="${c}"]){display:none}`,
+  ),
+  `#catalogo input[name="categoria"]:checked + label{background-color:var(--color-primary);border-color:var(--color-primary);color:var(--color-on-primary)}`,
+  `#catalogo input[name="categoria"]:focus-visible + label{outline:1px solid var(--color-primary);outline-offset:2px}`,
+].join('\n');
+
+const claseFiltro =
+  'inline-flex cursor-pointer items-center gap-1.5 rounded-[4px] border border-outline-variant bg-surface-lowest px-4 py-2 font-display text-label-md uppercase text-on-surface-variant transition-colors hover:border-primary';
+---
+
+<Layout titulo={txt.catalogo.meta.titulo} descripcion={txt.catalogo.meta.descripcion}>
+  <Seccion
+    etiqueta={txt.catalogo.etiqueta}
+    titulo={txt.catalogo.titulo}
+    descripcion={txt.catalogo.descripcion}
+    nivelTitulo={1}
+  >
+    <div id="catalogo">
+      <div class="flex flex-wrap items-center gap-2">
+        <input
+          type="radio"
+          id="cat-todos"
+          name="categoria"
+          class="sr-only"
+          checked
+        />
+        <label for="cat-todos" class={claseFiltro}>
+          {txt.catalogo.todos}
+          <span class="tabular">({productos.length})</span>
+        </label>
+
+        {
+          presentes.map((categoria) => {
+            const cantidad = productos.filter(
+              (p) => p.data.categoria === categoria,
+            ).length;
+            return (
+              <>
+                <input
+                  type="radio"
+                  id={`cat-${categoria}`}
+                  name="categoria"
+                  class="sr-only"
+                />
+                <label for={`cat-${categoria}`} class={claseFiltro}>
+                  {categorias[categoria][idioma]}
+                  <span class="tabular">({cantidad})</span>
+                </label>
+              </>
+            );
+          })
+        }
+      </div>
+
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          productos.map((producto) => (
+            <div data-categoria={producto.data.categoria}>
+              <TarjetaProducto
+                producto={producto}
+                idioma={idioma}
+                nivelTitulo={2}
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div
+      class="elev-1 mt-12 flex flex-col items-start gap-4 rounded-lg p-6 md:flex-row md:items-center md:justify-between"
+    >
+      <div>
+        <h2 class="text-headline-sm text-on-surface">
+          {txt.catalogo.ctaTitulo}
+        </h2>
+        <p class="mt-1 text-body-md text-on-surface-variant">
+          {txt.catalogo.ctaTexto}
+        </p>
+      </div>
+      <Boton href={rutaLocalizada('/cotizar', idioma)}>
+        {txt.catalogo.ctaBoton}
+      </Boton>
+    </div>
+  </Seccion>
+
+  <style is:inline set:html={reglasFiltro}></style>
+</Layout>

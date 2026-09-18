@@ -2,11 +2,23 @@
 import logo from '../assets/brand/logo-horizontal.svg';
 import { site, idiomaPorDefecto, type Idioma } from '../config/site';
 import { waGeneral } from '../lib/whatsapp';
+import { t, rutaLocalizada } from '../i18n';
 import IconoWhatsApp from './ui/IconoWhatsApp.astro';
 
 const idioma = (Astro.currentLocale ?? idiomaPorDefecto) as Idioma;
+const txt = t(idioma);
 const wa = waGeneral(idioma, Astro.url.pathname);
 const anio = new Date().getFullYear();
+
+const inicio = rutaLocalizada('/', idioma);
+
+const enlaces = [
+  { texto: txt.nav.servicios, href: `${inicio}#servicios` },
+  { texto: txt.nav.catalogo, href: rutaLocalizada('/productos', idioma) },
+  { texto: txt.nav.trabajos, href: `${inicio}#trabajos` },
+  { texto: txt.nav.comoFunciona, href: `${inicio}#como-funciona` },
+  { texto: txt.nav.cotizar, href: rutaLocalizada('/cotizar', idioma) },
+];
 ---
 
 <footer class="border-t border-outline-variant bg-surface-low">
@@ -14,55 +26,38 @@ const anio = new Date().getFullYear();
     class="mx-auto grid max-w-7xl gap-10 px-margin-mobile py-12 md:grid-cols-3 md:px-margin"
   >
     <div>
-      <img src={logo.src} width={logo.width} height={logo.height} alt="Lailu3D" class="h-8 w-auto" />
+      <img src={logo.src} width={logo.width} height={logo.height} alt="Lailu3D" loading="lazy" decoding="async" class="h-8 w-auto" />
       <p class="mt-4 max-w-xs text-body-md text-on-surface-variant">
-        Impresión 3D personalizada, grabado y corte láser. Convertimos tu idea,
-        boceto o foto en una pieza real.
+        {txt.footer.descripcion}
       </p>
       <p class="mt-4 font-display text-label-sm uppercase text-on-surface-variant">
-        {site.sucursales.join(' · ')} — Ecuador
+        {site.sucursales.join(' · ')} — {txt.footer.region}
       </p>
     </div>
 
     <div>
       <p class="font-display text-label-md uppercase text-on-surface-variant">
-        Sitio
+        {txt.footer.sitio}
       </p>
       <ul class="mt-4 flex flex-col gap-2">
-        <li>
-          <a
-            href="/#servicios"
-            class="text-body-md text-on-surface-variant hover:text-on-surface"
-            >Servicios</a
-          >
-        </li>
-        <li>
-          <a
-            href="/productos"
-            class="text-body-md text-on-surface-variant hover:text-on-surface"
-            >Catálogo</a
-          >
-        </li>
-        <li>
-          <a
-            href="/#trabajos"
-            class="text-body-md text-on-surface-variant hover:text-on-surface"
-            >Trabajos</a
-          >
-        </li>
-        <li>
-          <a
-            href="/#como-funciona"
-            class="text-body-md text-on-surface-variant hover:text-on-surface"
-            >Cómo funciona</a
-          >
-        </li>
+        {
+          enlaces.map((enlace) => (
+            <li>
+              <a
+                href={enlace.href}
+                class="text-body-md text-on-surface-variant hover:text-on-surface"
+              >
+                {enlace.texto}
+              </a>
+            </li>
+          ))
+        }
       </ul>
     </div>
 
     <div>
       <p class="font-display text-label-md uppercase text-on-surface-variant">
-        Contacto
+        {txt.footer.contacto}
       </p>
       <a
         href={wa}
@@ -100,10 +95,8 @@ const anio = new Date().getFullYear();
     <div
       class="mx-auto flex max-w-7xl flex-col gap-2 px-margin-mobile py-6 text-body-sm text-on-surface-variant md:flex-row md:items-center md:justify-between md:px-margin"
     >
-      <p>© {anio} {site.nombre}. Todos los derechos reservados.</p>
-      <p>
-        Cotizaciones y pedidos por WhatsApp. El sitio no procesa pagos en línea.
-      </p>
+      <p>© {anio} {site.nombre}. {txt.footer.derechos}</p>
+      <p>{txt.footer.aviso}</p>
     </div>
   </div>
 </footer>

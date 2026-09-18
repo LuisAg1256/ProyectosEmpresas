@@ -1,0 +1,17 @@
+---
+/**
+ * Datos estructurados. `is:inline` es obligatorio: sin el, Astro trataria el
+ * bloque como un script de cliente e intentaria empaquetarlo.
+ */
+interface Props {
+  datos: unknown;
+}
+
+const { datos } = Astro.props;
+---
+
+<script
+  type="application/ld+json"
+  is:inline
+  set:html={JSON.stringify(datos)}
+/>

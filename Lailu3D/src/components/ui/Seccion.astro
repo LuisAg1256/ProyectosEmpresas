@@ -10,6 +10,12 @@ interface Props {
   etiqueta?: string;
   titulo?: string;
   descripcion?: string;
+  /**
+   * Nivel del titulo. `2` por defecto, porque lo normal es que la seccion sea
+   * una parte de la pagina. Se pasa `1` cuando la seccion **es** la pagina
+   * (el catalogo), o esa pagina se queda sin `<h1>`.
+   */
+  nivelTitulo?: 1 | 2;
   ancho?: 'normal' | 'ancho' | 'estrecho';
   fondo?: 'base' | 'alterno';
   /** Centra el encabezado. Por defecto va alineado a la izquierda. */
@@ -22,6 +28,7 @@ const {
   etiqueta,
   titulo,
   descripcion,
+  nivelTitulo = 2,
   ancho = 'normal',
   fondo = 'base',
   centrado = false,
@@ -38,6 +45,8 @@ const fondos = {
   base: '',
   alterno: 'bg-surface-low border-y border-outline-variant',
 } as const;
+
+const Titulo = `h${nivelTitulo}` as 'h1' | 'h2';
 ---
 
 <section
@@ -54,9 +63,9 @@ const fondos = {
             </p>
           )}
           {titulo && (
-            <h2 class="text-headline-lg-mobile md:text-headline-lg text-on-surface">
+            <Titulo class="text-headline-lg-mobile md:text-headline-lg text-on-surface">
               {titulo}
-            </h2>
+            </Titulo>
           )}
           {descripcion && (
             <p class="mt-4 text-body-lg text-on-surface-variant">{descripcion}</p>

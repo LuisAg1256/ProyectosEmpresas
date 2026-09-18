@@ -6,7 +6,13 @@
  * que es la forma de todos los CTA de WhatsApp.
  */
 interface Props {
-  variante?: 'primary' | 'secondary' | 'ghost';
+  /**
+   * `inverso` e `inverso-outline` son para los bloques de fondo cobre: alli el
+   * primario se perderia. Van como variante y no como `class` porque dos
+   * utilidades del mismo color compiten por orden de hoja de estilos, no por
+   * orden de escritura en el atributo.
+   */
+  variante?: 'primary' | 'secondary' | 'ghost' | 'inverso' | 'inverso-outline';
   tamano?: 'md' | 'lg';
   href?: string;
   tipo?: 'button' | 'submit';
@@ -36,6 +42,10 @@ const variantes = {
     'bg-surface-lowest text-on-surface border border-outline-variant hover:border-primary hover:bg-surface-low',
   ghost:
     'bg-transparent text-on-surface-variant hover:text-on-surface hover:bg-surface-container',
+  inverso:
+    'bg-surface-lowest text-primary hover:bg-surface-low active:bg-surface-container',
+  'inverso-outline':
+    'bg-transparent text-on-primary border border-primary-fixed hover:bg-primary-container',
 } as const;
 
 /** 15px y 17px: el tamaño va en valor explícito para no pelear con el peso del token tipográfico. */

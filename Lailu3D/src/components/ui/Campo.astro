@@ -7,13 +7,15 @@ interface Props {
   id: string;
   nombre: string;
   etiqueta: string;
-  tipo?: 'text' | 'number' | 'url' | 'tel' | 'email' | 'textarea';
+  tipo?: 'text' | 'number' | 'url' | 'tel' | 'email' | 'textarea' | 'select';
   placeholder?: string;
   requerido?: boolean;
   /** Texto de ayuda bajo el campo. */
   ayuda?: string;
   filas?: number;
   valor?: string;
+  /** Solo para `tipo="select"`. El primer elemento hace de opcion vacia. */
+  opciones?: { valor: string; texto: string }[];
   class?: string;
 }
 
@@ -27,11 +29,12 @@ const {
   ayuda,
   filas = 4,
   valor,
+  opciones = [],
   class: clase = '',
 } = Astro.props;
 
 const control =
-  'w-full rounded-[4px] border border-outline-variant bg-surface-lowest px-3 text-body-md text-on-surface placeholder:text-on-surface-variant/60 transition-colors focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary';
+  'w-full rounded-[4px] border border-outline-variant bg-surface-lowest px-3 text-body-md text-on-surface placeholder:text-on-surface-variant/75 transition-colors focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary';
 const idAyuda = ayuda ? `${id}-ayuda` : undefined;
 ---
 
@@ -45,7 +48,34 @@ const idAyuda = ayuda ? `${id}-ayuda` : undefined;
   </label>
 
   {
-    tipo === 'textarea' ? (
+    tipo === 'select' ? (
+      /* El chevron va aparte porque `appearance-none` borra el nativo. */
+      <div class="relative">
+        <select
+          id={id}
+          name={nombre}
+          required={requerido}
+          aria-describedby={idAyuda}
+          class={`${control} h-10 appearance-none pr-10`}
+        >
+          {opciones.map((opcion) => (
+            <option value={opcion.valor} selected={opcion.valor === valor}>
+              {opcion.texto}
+            </option>
+          ))}
+        </select>
+        <svg
+          class="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-on-surface-variant"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.75"
+          aria-hidden="true"
+        >
+          <path d="m6 9 6 6 6-6" stroke-linecap="square" />
+        </svg>
+      </div>
+    ) : tipo === 'textarea' ? (
       <textarea
         id={id}
         name={nombre}
