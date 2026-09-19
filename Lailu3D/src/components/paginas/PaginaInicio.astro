@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import logoMark from '../../assets/brand/logo-mark.svg';
+import avePersonalizada from '../../assets/trabajos/ave-personalizada.jpg';
 import litofaniaEncendida from '../../assets/trabajos/litofania-encendida.jpg';
 import litofaniaApagada from '../../assets/trabajos/litofania-apagada.jpg';
 import bateria from '../../assets/trabajos/llavero-bateria.jpg';
@@ -58,6 +59,7 @@ const pasos = [
  * texto; el titulo, la categoria y el alt salen del diccionario.
  */
 const trabajos = [
+  { imagen: avePersonalizada, ...txt.inicio.trabajos.avePersonalizada },
   { imagen: litofaniaEncendida, ...txt.inicio.trabajos.litofaniaEncendida },
   { imagen: litofaniaApagada, ...txt.inicio.trabajos.litofaniaApagada },
   { imagen: bateria, ...txt.inicio.trabajos.bateria },

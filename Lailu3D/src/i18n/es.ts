@@ -100,6 +100,11 @@ export const es = {
       titulo: 'Algunos encargos que hemos hecho',
       descripcion:
         'Piezas que salieron de nuestro taller. Si quieres algo parecido, mándanos la referencia y te lo cotizamos por WhatsApp.',
+      avePersonalizada: {
+        titulo: 'Águila impresa desde un modelo 3D personalizado',
+        categoria: 'Modelo personalizado',
+        alt: 'Figura de un águila con las alas abiertas sobre una base de roca, impresa en PLA gris',
+      },
       litofaniaEncendida: {
         titulo: 'Litofanía iluminada',
         categoria: 'Litofanía',

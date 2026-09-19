@@ -98,6 +98,11 @@ export const en: typeof es = {
       titulo: 'Some of the jobs we have done',
       descripcion:
         'Pieces that came out of our workshop. If you want something along these lines, send us the reference and we will quote it on WhatsApp.',
+      avePersonalizada: {
+        titulo: 'Eagle printed from a custom 3D model',
+        categoria: 'Custom model',
+        alt: 'Figure of an eagle with open wings on a rock base, printed in grey PLA',
+      },
       litofaniaEncendida: {
         titulo: 'Lithophane lit up',
         categoria: 'Lithophane',

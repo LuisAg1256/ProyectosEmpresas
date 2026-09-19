@@ -4,6 +4,7 @@ import { site, idiomaPorDefecto, type Idioma } from '../config/site';
 import { waGeneral } from '../lib/whatsapp';
 import { t, rutaLocalizada } from '../i18n';
 import IconoWhatsApp from './ui/IconoWhatsApp.astro';
+import IconoRed from './ui/IconoRed.astro';
 
 const idioma = (Astro.currentLocale ?? idiomaPorDefecto) as Idioma;
 const txt = t(idioma);
@@ -11,6 +12,17 @@ const wa = waGeneral(idioma, Astro.url.pathname);
 const anio = new Date().getFullYear();
 
 const inicio = rutaLocalizada('/', idioma);
+
+/**
+ * Se recorren las claves de `site.redes` en vez de escribir una lista aparte:
+ * anadir una red en la configuracion la pone en el pie con su glifo, sin tocar
+ * este archivo.
+ */
+type Red = keyof typeof site.redes;
+const redes = (Object.keys(site.redes) as Red[]).map((red) => ({
+  red,
+  ...site.redes[red],
+}));
 
 const enlaces = [
   { texto: txt.nav.servicios, href: `${inicio}#servicios` },
@@ -68,25 +80,24 @@ const enlaces = [
         <IconoWhatsApp class="size-5" />
         <span class="tabular">{site.whatsapp.display}</span>
       </a>
-      <ul class="mt-4 flex flex-col gap-2">
-        <li>
-          <a
-            href={site.redes.instagram.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-body-md text-on-surface-variant hover:text-on-surface"
-            >Instagram {site.redes.instagram.nick}</a
-          >
-        </li>
-        <li>
-          <a
-            href={site.redes.tiktok.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-body-md text-on-surface-variant hover:text-on-surface"
-            >TikTok {site.redes.tiktok.nick}</a
-          >
-        </li>
+      <ul class="mt-4 flex flex-col gap-3">
+        {
+          redes.map((red) => (
+            <li>
+              <a
+                href={red.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 text-body-md text-on-surface-variant hover:text-on-surface"
+              >
+                <IconoRed red={red.red} class="size-5 shrink-0" />
+                <span>
+                  {red.nombre} {red.nick}
+                </span>
+              </a>
+            </li>
+          ))
+        }
       </ul>
     </div>
   </div>

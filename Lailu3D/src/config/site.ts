@@ -6,8 +6,8 @@ export const site = {
 
   /** Numero de contacto. `wa` es el formato que exige wa.me: solo digitos. */
   whatsapp: {
-    wa: '593993645060',
-    display: '+593 99 364 5060',
+    wa: '593994016900',
+    display: '+593 99 401 6900',
   },
 
   /**
@@ -20,9 +20,15 @@ export const site = {
   envioNacional: true,
   pais: { nombre: 'Ecuador', codigo: 'EC' },
 
+  /**
+   * `nombre` es la marca de la red, no texto traducible: por eso vive aqui y no
+   * en i18n. La clave de cada entrada es la que pide `IconoRed` para elegir el
+   * glifo, asi que renombrarla deja el footer sin icono.
+   */
   redes: {
-    instagram: { nick: '@lailu3d', url: 'https://instagram.com/lailu3d' },
-    tiktok: { nick: '@lailu3d', url: 'https://tiktok.com/@lailu3d' },
+    instagram: { nombre: 'Instagram', nick: '@lailu3d', url: 'https://instagram.com/lailu3d' },
+    tiktok: { nombre: 'TikTok', nick: '@lailu3d', url: 'https://tiktok.com/@lailu3d' },
+    facebook: { nombre: 'Facebook', nick: '@lailu3d', url: 'https://www.facebook.com/profile.php?id=61594428453973&locale=es_LA' },
   },
 } as const;
 
