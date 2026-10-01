@@ -18,7 +18,7 @@ const ancla = (id: string) => (enHome ? `#${id}` : `${inicio}#${id}`);
 const enlaces = [
   { texto: txt.nav.servicios, href: ancla('servicios') },
   { texto: txt.nav.catalogo, href: rutaLocalizada('/productos', idioma) },
-  { texto: txt.nav.trabajos, href: ancla('trabajos') },
+  { texto: txt.nav.trabajos, href: rutaLocalizada('/trabajos', idioma) },
   { texto: txt.nav.comoFunciona, href: ancla('como-funciona') },
 ];
 

@@ -98,81 +98,7 @@ export const en: typeof es = {
       titulo: 'Some of the jobs we have done',
       descripcion:
         'Pieces that came out of our workshop. If you want something along these lines, send us the reference and we will quote it on WhatsApp.',
-      avePersonalizada: {
-        titulo: 'Eagle printed from a custom 3D model',
-        categoria: 'Custom model',
-        alt: 'Figure of an eagle with open wings on a rock base, printed in grey PLA',
-      },
-      litofaniaEncendida: {
-        titulo: 'Lithophane lit up',
-        categoria: 'Lithophane',
-        alt: 'Backlit lithophane showing the portrait of a rabbit',
-      },
-      litofaniaApagada: {
-        titulo: 'The same piece, with no light behind it',
-        categoria: 'Lithophane',
-        alt: 'Unlit lithophane: the portrait reads as a white relief',
-      },
-      bateria: {
-        titulo: 'Drum kit keychain',
-        categoria: 'Keychain',
-        alt: 'Keychain of a drum kit printed in black PLA',
-      },
-      cubo: {
-        titulo: 'Articulated infinity cube',
-        categoria: 'Figure',
-        alt: 'Infinity cube printed in green PLA, articulated and screwless',
-      },
-      guante: {
-        titulo: 'MMA glove keychain',
-        categoria: 'Keychain',
-        alt: 'Keychain shaped like an MMA glove printed in black PLA',
-      },
-      mancuerna: {
-        titulo: 'Dumbbell keychain',
-        categoria: 'Keychain',
-        alt: 'Dumbbell keychain printed in grey and black PLA',
-      },
-      shaker: {
-        titulo: 'Shaker bottle keychain',
-        categoria: 'Keychain',
-        alt: 'Keychain shaped like a shaker bottle printed in green and white PLA',
-      },
-      disco: {
-        titulo: 'Gym plate keychain',
-        categoria: 'Keychain',
-        alt: 'Keychain of a 20 kg weight plate printed in black PLA',
-      },
-      pesaRusa: {
-        titulo: 'Kettlebell keychains',
-        categoria: 'Keychain',
-        alt: 'Three kettlebell keychains printed in white and black PLA',
-      },
-      cuboInfinitoTriangulos: {
-        titulo: 'Infinity cube with triangle relief',
-        categoria: 'Completed work',
-        alt: 'Infinity cube printed in turquoise PLA with raised triangles on each face',
-      },
-      estrellaFlexible: {
-        titulo: 'Flexible star with articulated mesh',
-        categoria: 'Completed work',
-        alt: 'Flexible star printed in lilac PLA, made of interlocking links and with a smiling face',
-      },
-      exhibidorModular: {
-        titulo: 'Modular rod display stand',
-        categoria: 'Completed work',
-        alt: 'Standing display printed in white PLA, assembled from modules with five metal rods',
-      },
-      trompoEspiral: {
-        titulo: 'Star spiral spinning top',
-        categoria: 'Completed work',
-        alt: 'Star-shaped spiral spinning top printed in lilac PLA, seen from above',
-      },
-      dragonArticulado: {
-        titulo: 'Articulated dragon',
-        categoria: 'Completed work',
-        alt: 'Articulated dragon printed in black PLA with white horns and spines',
-      },
+      cta: 'See all our work',
     },
     cta: {
       titulo: 'Got an idea in your head?',
@@ -181,6 +107,98 @@ export const en: typeof es = {
       primario: 'Quote my idea',
       secundario: 'Message us on WhatsApp',
       cobertura: 'We deliver anywhere in Ecuador',
+    },
+  },
+
+  trabajos: {
+    meta: {
+      titulo: 'Completed work',
+      descripcion:
+        'Gallery of 3D printed pieces from our workshop in Loja and Cuenca: figures, keychains, lithophanes and custom models.',
+    },
+    etiqueta: 'Work',
+    titulo: 'Completed work',
+    descripcion:
+      'Everything that has come out of our workshop, newest first. If you want something along these lines, send us the reference and we will quote it on WhatsApp.',
+    ctaTitulo: 'Want something similar?',
+    ctaTexto: 'Tell us the idea, the approximate size and a reference. We will reply with a quote.',
+    ctaBoton: 'Quote my idea',
+    piezas: {
+        avePersonalizada: {
+          titulo: 'Eagle printed from a custom 3D model',
+          categoria: 'Custom model',
+          alt: 'Figure of an eagle with open wings on a rock base, printed in grey PLA',
+        },
+        litofaniaEncendida: {
+          titulo: 'Lithophane lit up',
+          categoria: 'Lithophane',
+          alt: 'Backlit lithophane showing the portrait of a rabbit',
+        },
+        litofaniaApagada: {
+          titulo: 'The same piece, with no light behind it',
+          categoria: 'Lithophane',
+          alt: 'Unlit lithophane: the portrait reads as a white relief',
+        },
+        bateria: {
+          titulo: 'Drum kit keychain',
+          categoria: 'Keychain',
+          alt: 'Keychain of a drum kit printed in black PLA',
+        },
+        cubo: {
+          titulo: 'Articulated infinity cube',
+          categoria: 'Figure',
+          alt: 'Infinity cube printed in green PLA, articulated and screwless',
+        },
+        guante: {
+          titulo: 'MMA glove keychain',
+          categoria: 'Keychain',
+          alt: 'Keychain shaped like an MMA glove printed in black PLA',
+        },
+        mancuerna: {
+          titulo: 'Dumbbell keychain',
+          categoria: 'Keychain',
+          alt: 'Dumbbell keychain printed in grey and black PLA',
+        },
+        shaker: {
+          titulo: 'Shaker bottle keychain',
+          categoria: 'Keychain',
+          alt: 'Keychain shaped like a shaker bottle printed in green and white PLA',
+        },
+        disco: {
+          titulo: 'Gym plate keychain',
+          categoria: 'Keychain',
+          alt: 'Keychain of a 20 kg weight plate printed in black PLA',
+        },
+        pesaRusa: {
+          titulo: 'Kettlebell keychains',
+          categoria: 'Keychain',
+          alt: 'Three kettlebell keychains printed in white and black PLA',
+        },
+        cuboInfinitoTriangulos: {
+          titulo: 'Infinity cube with triangle relief',
+          categoria: 'Completed work',
+          alt: 'Infinity cube printed in turquoise PLA with raised triangles on each face',
+        },
+        estrellaFlexible: {
+          titulo: 'Flexible star with articulated mesh',
+          categoria: 'Completed work',
+          alt: 'Flexible star printed in lilac PLA, made of interlocking links and with a smiling face',
+        },
+        exhibidorModular: {
+          titulo: 'Modular rod display stand',
+          categoria: 'Completed work',
+          alt: 'Standing display printed in white PLA, assembled from modules with five metal rods',
+        },
+        trompoEspiral: {
+          titulo: 'Star spiral spinning top',
+          categoria: 'Completed work',
+          alt: 'Star-shaped spiral spinning top printed in lilac PLA, seen from above',
+        },
+        dragonArticulado: {
+          titulo: 'Articulated dragon',
+          categoria: 'Completed work',
+          alt: 'Articulated dragon printed in black PLA with white horns and spines',
+        },
     },
   },
 

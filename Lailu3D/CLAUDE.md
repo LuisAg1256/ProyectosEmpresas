@@ -146,10 +146,18 @@ color claro se perdería, así que por encima de cierta luminancia la bobina se
 dibuja con contorno propio y la hebra a doble trazo.
 
 Las fotografías de trabajos entregados viven aparte, en `src/assets/trabajos/`, y
-las importa [`PaginaInicio.astro`](src/components/paginas/PaginaInicio.astro): el
-diccionario de i18n solo guarda el título, la categoría y el `alt`. Van recortadas
-a cuadrado 1400 px porque la galería es `aspect-square`; los originales son HEIC
-de iPhone y están fuera del repo, en `../ReferenciasImagenes/`.
+se registran una sola vez en [`src/lib/trabajos.ts`](src/lib/trabajos.ts), **en
+orden de subida**. No se guarda la fecha: la posición en `registro` es la fecha.
+`/trabajos` muestra todo el registro y la landing muestra los últimos
+`TRABAJOS_EN_INICIO` (6), los dos con lo más reciente primero. Las dos usan
+`TarjetaTrabajo.astro`. El diccionario de i18n solo guarda el título, la
+categoría y el `alt`, en `trabajos.piezas`. Van recortadas
+a cuadrado porque la galería es `aspect-square`: 1400 px como tope, y nunca se
+amplían (una foto de WhatsApp de 896 px queda en 896, la galería solo sirve 400 y
+800). Los originales están fuera del sitio, en `../ReferenciasImagenes/`. Las fotos
+nuevas se publican con la skill `/push-img` (`../.claude/skills/push-img/`), que
+toma `Listas_prod/`, recorta, registra los textos, compila y mueve el original a
+`Produccion/`.
 
 ## Comandos
 

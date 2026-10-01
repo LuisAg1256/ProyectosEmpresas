@@ -100,81 +100,7 @@ export const es = {
       titulo: 'Algunos encargos que hemos hecho',
       descripcion:
         'Piezas que salieron de nuestro taller. Si quieres algo parecido, mándanos la referencia y te lo cotizamos por WhatsApp.',
-      avePersonalizada: {
-        titulo: 'Águila impresa desde un modelo 3D personalizado',
-        categoria: 'Modelo personalizado',
-        alt: 'Figura de un águila con las alas abiertas sobre una base de roca, impresa en PLA gris',
-      },
-      litofaniaEncendida: {
-        titulo: 'Litofanía iluminada',
-        categoria: 'Litofanía',
-        alt: 'Litofanía retroiluminada con el retrato de un conejo',
-      },
-      litofaniaApagada: {
-        titulo: 'La misma pieza, sin luz detrás',
-        categoria: 'Litofanía',
-        alt: 'Litofanía apagada: el retrato se ve como un relieve blanco',
-      },
-      bateria: {
-        titulo: 'Llavero de batería',
-        categoria: 'Llavero',
-        alt: 'Llavero de una batería musical impresa en PLA negro',
-      },
-      cubo: {
-        titulo: 'Cubo infinito articulado',
-        categoria: 'Figura',
-        alt: 'Cubo infinito impreso en PLA verde, articulado y sin tornillos',
-      },
-      guante: {
-        titulo: 'Llavero de guante de MMA',
-        categoria: 'Llavero',
-        alt: 'Llavero con forma de guante de MMA impreso en PLA negro',
-      },
-      mancuerna: {
-        titulo: 'Llavero de mancuerna',
-        categoria: 'Llavero',
-        alt: 'Llavero de mancuerna impreso en PLA gris y negro',
-      },
-      shaker: {
-        titulo: 'Llavero de shaker',
-        categoria: 'Llavero',
-        alt: 'Llavero con forma de shaker impreso en PLA verde y blanco',
-      },
-      disco: {
-        titulo: 'Llavero disco de gimnasio',
-        categoria: 'Llavero',
-        alt: 'Llavero de disco de pesas de 20 kg impreso en PLA negro',
-      },
-      pesaRusa: {
-        titulo: 'Llaveros de pesa rusa',
-        categoria: 'Llavero',
-        alt: 'Tres llaveros de pesa rusa impresos en PLA blanco y negro',
-      },
-      cuboInfinitoTriangulos: {
-        titulo: 'Cubo infinito con relieve de triángulos',
-        categoria: 'Trabajos realizados',
-        alt: 'Cubo infinito impreso en PLA turquesa con triángulos en relieve en cada cara',
-      },
-      estrellaFlexible: {
-        titulo: 'Estrella flexible de malla articulada',
-        categoria: 'Trabajos realizados',
-        alt: 'Estrella flexible impresa en PLA lila, formada por eslabones entrelazados y con carita sonriente',
-      },
-      exhibidorModular: {
-        titulo: 'Exhibidor modular de varillas',
-        categoria: 'Trabajos realizados',
-        alt: 'Exhibidor de pie impreso en PLA blanco, armado por módulos y con cinco varillas metálicas',
-      },
-      trompoEspiral: {
-        titulo: 'Trompo en espiral de estrella',
-        categoria: 'Trabajos realizados',
-        alt: 'Trompo en espiral con forma de estrella, impreso en PLA lila y visto desde arriba',
-      },
-      dragonArticulado: {
-        titulo: 'Dragón articulado',
-        categoria: 'Trabajos realizados',
-        alt: 'Dragón articulado impreso en PLA negro, con cuernos y espinas blancos',
-      },
+      cta: 'Ver todos los trabajos',
     },
     cta: {
       titulo: '¿Tienes una idea en la cabeza?',
@@ -187,6 +113,99 @@ export const es = {
   },
 
   /** Copia de cada servicio. El orden y los slugs viven en `lib/servicios.ts`. */
+  trabajos: {
+    meta: {
+      titulo: 'Trabajos realizados',
+      descripcion:
+        'Galería de piezas impresas en 3D que salieron de nuestro taller en Loja y Cuenca: figuras, llaveros, litofanías y modelos personalizados.',
+    },
+    etiqueta: 'Trabajos',
+    titulo: 'Trabajos realizados',
+    descripcion:
+      'Todo lo que ha salido de nuestro taller, de lo más reciente a lo más antiguo. Si quieres algo parecido, mándanos la referencia y te lo cotizamos por WhatsApp.',
+    ctaTitulo: '¿Quieres algo parecido?',
+    ctaTexto: 'Cuéntanos la idea, la medida aproximada y una referencia. Te respondemos con la cotización.',
+    ctaBoton: 'Cotizar mi idea',
+    /** Una entrada por foto de la galería. El orden lo fija `src/lib/trabajos.ts`. */
+    piezas: {
+        avePersonalizada: {
+          titulo: 'Águila impresa desde un modelo 3D personalizado',
+          categoria: 'Modelo personalizado',
+          alt: 'Figura de un águila con las alas abiertas sobre una base de roca, impresa en PLA gris',
+        },
+        litofaniaEncendida: {
+          titulo: 'Litofanía iluminada',
+          categoria: 'Litofanía',
+          alt: 'Litofanía retroiluminada con el retrato de un conejo',
+        },
+        litofaniaApagada: {
+          titulo: 'La misma pieza, sin luz detrás',
+          categoria: 'Litofanía',
+          alt: 'Litofanía apagada: el retrato se ve como un relieve blanco',
+        },
+        bateria: {
+          titulo: 'Llavero de batería',
+          categoria: 'Llavero',
+          alt: 'Llavero de una batería musical impresa en PLA negro',
+        },
+        cubo: {
+          titulo: 'Cubo infinito articulado',
+          categoria: 'Figura',
+          alt: 'Cubo infinito impreso en PLA verde, articulado y sin tornillos',
+        },
+        guante: {
+          titulo: 'Llavero de guante de MMA',
+          categoria: 'Llavero',
+          alt: 'Llavero con forma de guante de MMA impreso en PLA negro',
+        },
+        mancuerna: {
+          titulo: 'Llavero de mancuerna',
+          categoria: 'Llavero',
+          alt: 'Llavero de mancuerna impreso en PLA gris y negro',
+        },
+        shaker: {
+          titulo: 'Llavero de shaker',
+          categoria: 'Llavero',
+          alt: 'Llavero con forma de shaker impreso en PLA verde y blanco',
+        },
+        disco: {
+          titulo: 'Llavero disco de gimnasio',
+          categoria: 'Llavero',
+          alt: 'Llavero de disco de pesas de 20 kg impreso en PLA negro',
+        },
+        pesaRusa: {
+          titulo: 'Llaveros de pesa rusa',
+          categoria: 'Llavero',
+          alt: 'Tres llaveros de pesa rusa impresos en PLA blanco y negro',
+        },
+        cuboInfinitoTriangulos: {
+          titulo: 'Cubo infinito con relieve de triángulos',
+          categoria: 'Trabajos realizados',
+          alt: 'Cubo infinito impreso en PLA turquesa con triángulos en relieve en cada cara',
+        },
+        estrellaFlexible: {
+          titulo: 'Estrella flexible de malla articulada',
+          categoria: 'Trabajos realizados',
+          alt: 'Estrella flexible impresa en PLA lila, formada por eslabones entrelazados y con carita sonriente',
+        },
+        exhibidorModular: {
+          titulo: 'Exhibidor modular de varillas',
+          categoria: 'Trabajos realizados',
+          alt: 'Exhibidor de pie impreso en PLA blanco, armado por módulos y con cinco varillas metálicas',
+        },
+        trompoEspiral: {
+          titulo: 'Trompo en espiral de estrella',
+          categoria: 'Trabajos realizados',
+          alt: 'Trompo en espiral con forma de estrella, impreso en PLA lila y visto desde arriba',
+        },
+        dragonArticulado: {
+          titulo: 'Dragón articulado',
+          categoria: 'Trabajos realizados',
+          alt: 'Dragón articulado impreso en PLA negro, con cuernos y espinas blancos',
+        },
+    },
+  },
+
   servicios: {
     'impresion-3d': {
       titulo: 'Impresión 3D personalizada',

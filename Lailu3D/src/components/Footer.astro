@@ -27,7 +27,7 @@ const redes = (Object.keys(site.redes) as Red[]).map((red) => ({
 const enlaces = [
   { texto: txt.nav.servicios, href: `${inicio}#servicios` },
   { texto: txt.nav.catalogo, href: rutaLocalizada('/productos', idioma) },
-  { texto: txt.nav.trabajos, href: `${inicio}#trabajos` },
+  { texto: txt.nav.trabajos, href: rutaLocalizada('/trabajos', idioma) },
   { texto: txt.nav.comoFunciona, href: `${inicio}#como-funciona` },
   { texto: txt.nav.cotizar, href: rutaLocalizada('/cotizar', idioma) },
 ];

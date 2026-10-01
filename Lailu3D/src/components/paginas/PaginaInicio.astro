@@ -1,32 +1,18 @@
 ---
 import { getCollection } from 'astro:content';
-import { Image } from 'astro:assets';
 import logoMark from '../../assets/brand/logo-mark.svg';
-import avePersonalizada from '../../assets/trabajos/ave-personalizada.jpg';
-import litofaniaEncendida from '../../assets/trabajos/litofania-encendida.jpg';
-import litofaniaApagada from '../../assets/trabajos/litofania-apagada.jpg';
-import bateria from '../../assets/trabajos/llavero-bateria.jpg';
-import cubo from '../../assets/trabajos/cubo-infinito.jpg';
-import guante from '../../assets/trabajos/llavero-guante.jpg';
-import mancuerna from '../../assets/trabajos/llavero-mancuerna.jpg';
-import shaker from '../../assets/trabajos/llavero-shaker.jpg';
-import disco from '../../assets/trabajos/llavero-disco-gimnasio.jpg';
-import pesaRusa from '../../assets/trabajos/llavero-pesa-rusa.jpg';
-import cuboInfinitoTriangulos from '../../assets/trabajos/cubo-infinito-triangulos.jpg';
-import estrellaFlexible from '../../assets/trabajos/estrella-flexible.jpg';
-import exhibidorModular from '../../assets/trabajos/exhibidor-modular.jpg';
-import trompoEspiral from '../../assets/trabajos/trompo-espiral.jpg';
-import dragonArticulado from '../../assets/trabajos/dragon-articulado.jpg';
 import Layout from '../../layouts/Layout.astro';
 import Seccion from '../ui/Seccion.astro';
 import Tarjeta from '../ui/Tarjeta.astro';
 import Boton from '../ui/Boton.astro';
 import Chip from '../ui/Chip.astro';
 import TarjetaProducto from '../TarjetaProducto.astro';
+import TarjetaTrabajo from '../TarjetaTrabajo.astro';
 import IconoWhatsApp from '../ui/IconoWhatsApp.astro';
 import JsonLd from '../JsonLd.astro';
 import { site, type Idioma } from '../../config/site';
 import { slugsServicio } from '../../lib/servicios';
+import { trabajos, TRABAJOS_EN_INICIO } from '../../lib/trabajos';
 import { waGeneral } from '../../lib/whatsapp';
 import { t, rutaLocalizada } from '../../i18n';
 import { negocio } from '../../lib/jsonld';
@@ -59,27 +45,8 @@ const pasos = [
   { numero: '03', ...txt.inicio.pasos.producimos },
 ];
 
-/**
- * Galeria de trabajos entregados. La foto vive aqui porque i18n solo guarda
- * texto; el titulo, la categoria y el alt salen del diccionario.
- */
-const trabajos = [
-  { imagen: avePersonalizada, ...txt.inicio.trabajos.avePersonalizada },
-  { imagen: litofaniaEncendida, ...txt.inicio.trabajos.litofaniaEncendida },
-  { imagen: litofaniaApagada, ...txt.inicio.trabajos.litofaniaApagada },
-  { imagen: bateria, ...txt.inicio.trabajos.bateria },
-  { imagen: cubo, ...txt.inicio.trabajos.cubo },
-  { imagen: guante, ...txt.inicio.trabajos.guante },
-  { imagen: mancuerna, ...txt.inicio.trabajos.mancuerna },
-  { imagen: shaker, ...txt.inicio.trabajos.shaker },
-  { imagen: disco, ...txt.inicio.trabajos.disco },
-  { imagen: pesaRusa, ...txt.inicio.trabajos.pesaRusa },
-  { imagen: cuboInfinitoTriangulos, ...txt.inicio.trabajos.cuboInfinitoTriangulos },
-  { imagen: estrellaFlexible, ...txt.inicio.trabajos.estrellaFlexible },
-  { imagen: exhibidorModular, ...txt.inicio.trabajos.exhibidorModular },
-  { imagen: trompoEspiral, ...txt.inicio.trabajos.trompoEspiral },
-  { imagen: dragonArticulado, ...txt.inicio.trabajos.dragonArticulado },
-];
+/** Los ultimos trabajos subidos. La galeria completa vive en `/trabajos`. */
+const recientes = trabajos(idioma).slice(0, TRABAJOS_EN_INICIO);
 
 const waIdea = waGeneral(idioma, ruta('/'));
 ---
@@ -301,30 +268,14 @@ const waIdea = waGeneral(idioma, ruta('/'));
     descripcion={txt.inicio.trabajos.descripcion}
   >
     <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        trabajos.map((trabajo) => (
-          <li class="elev-1 flex flex-col overflow-hidden rounded-lg">
-            <div class="aspect-square bg-surface-container">
-              <Image
-                src={trabajo.imagen}
-                alt={trabajo.alt}
-                widths={[400, 800]}
-                sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 90vw"
-                loading="lazy"
-                decoding="async"
-                class="size-full object-cover"
-              />
-            </div>
-            <div class="border-t border-outline-variant p-5">
-              <p class="font-display text-label-sm uppercase text-on-surface-variant">
-                {trabajo.categoria}
-              </p>
-              <p class="mt-1 text-body-md text-on-surface">{trabajo.titulo}</p>
-            </div>
-          </li>
-        ))
-      }
+      {recientes.map((trabajo) => <TarjetaTrabajo trabajo={trabajo} />)}
     </ul>
+
+    <div class="mt-10">
+      <Boton href={ruta('/trabajos')} variante="secondary">
+        {txt.inicio.trabajos.cta}
+      </Boton>
+    </div>
   </Seccion>
 
   {/* --- CTA final --- */}

@@ -1,0 +1,40 @@
+---
+import { Image } from 'astro:assets';
+import type { Trabajo } from '../lib/trabajos';
+
+/**
+ * Tarjeta de la galeria de trabajos. La comparten la landing (los recientes) y
+ * `/trabajos` (todos), para que las dos se vean igual.
+ */
+interface Props {
+  trabajo: Trabajo;
+  /**
+   * Carga inmediata para las tarjetas de la primera fila de una pagina que
+   * empieza por la galeria. En la landing quedan bajo el pliegue: diferidas.
+   */
+  prioridad?: boolean;
+}
+
+const { trabajo, prioridad = false } = Astro.props;
+---
+
+<li class="elev-1 flex flex-col overflow-hidden rounded-lg">
+  <div class="aspect-square bg-surface-container">
+    <Image
+      src={trabajo.imagen}
+      alt={trabajo.alt}
+      widths={[400, 800]}
+      sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 90vw"
+      loading={prioridad ? 'eager' : 'lazy'}
+      fetchpriority={prioridad ? 'high' : undefined}
+      decoding="async"
+      class="size-full object-cover"
+    />
+  </div>
+  <div class="border-t border-outline-variant p-5">
+    <p class="font-display text-label-sm uppercase text-on-surface-variant">
+      {trabajo.categoria}
+    </p>
+    <p class="mt-1 text-body-md text-on-surface">{trabajo.titulo}</p>
+  </div>
+</li>

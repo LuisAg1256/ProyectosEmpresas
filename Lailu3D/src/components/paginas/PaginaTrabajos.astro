@@ -1,0 +1,51 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Seccion from '../ui/Seccion.astro';
+import Boton from '../ui/Boton.astro';
+import TarjetaTrabajo from '../TarjetaTrabajo.astro';
+import type { Idioma } from '../../config/site';
+import { trabajos } from '../../lib/trabajos';
+import { t, rutaLocalizada } from '../../i18n';
+
+/** Galeria completa, compartida por `/trabajos` y `/en/trabajos`. */
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const txt = t(idioma);
+const lista = trabajos(idioma);
+---
+
+<Layout titulo={txt.trabajos.meta.titulo} descripcion={txt.trabajos.meta.descripcion}>
+  <Seccion
+    etiqueta={txt.trabajos.etiqueta}
+    titulo={txt.trabajos.titulo}
+    descripcion={txt.trabajos.descripcion}
+    nivelTitulo={1}
+  >
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        lista.map((trabajo, i) => (
+          <TarjetaTrabajo trabajo={trabajo} prioridad={i < 3} />
+        ))
+      }
+    </ul>
+
+    <div
+      class="elev-1 mt-12 flex flex-col items-start gap-4 rounded-lg p-6 md:flex-row md:items-center md:justify-between"
+    >
+      <div>
+        <h2 class="text-headline-sm text-on-surface">
+          {txt.trabajos.ctaTitulo}
+        </h2>
+        <p class="mt-1 text-body-md text-on-surface-variant">
+          {txt.trabajos.ctaTexto}
+        </p>
+      </div>
+      <Boton href={rutaLocalizada('/cotizar', idioma)}>
+        {txt.trabajos.ctaBoton}
+      </Boton>
+    </div>
+  </Seccion>
+</Layout>
