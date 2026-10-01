@@ -150,6 +150,31 @@ export const es = {
         categoria: 'Llavero',
         alt: 'Tres llaveros de pesa rusa impresos en PLA blanco y negro',
       },
+      cuboInfinitoTriangulos: {
+        titulo: 'Cubo infinito con relieve de triángulos',
+        categoria: 'Trabajos realizados',
+        alt: 'Cubo infinito impreso en PLA turquesa con triángulos en relieve en cada cara',
+      },
+      estrellaFlexible: {
+        titulo: 'Estrella flexible de malla articulada',
+        categoria: 'Trabajos realizados',
+        alt: 'Estrella flexible impresa en PLA lila, formada por eslabones entrelazados y con carita sonriente',
+      },
+      exhibidorModular: {
+        titulo: 'Exhibidor modular de varillas',
+        categoria: 'Trabajos realizados',
+        alt: 'Exhibidor de pie impreso en PLA blanco, armado por módulos y con cinco varillas metálicas',
+      },
+      trompoEspiral: {
+        titulo: 'Trompo en espiral de estrella',
+        categoria: 'Trabajos realizados',
+        alt: 'Trompo en espiral con forma de estrella, impreso en PLA lila y visto desde arriba',
+      },
+      dragonArticulado: {
+        titulo: 'Dragón articulado',
+        categoria: 'Trabajos realizados',
+        alt: 'Dragón articulado impreso en PLA negro, con cuernos y espinas blancos',
+      },
     },
     cta: {
       titulo: '¿Tienes una idea en la cabeza?',

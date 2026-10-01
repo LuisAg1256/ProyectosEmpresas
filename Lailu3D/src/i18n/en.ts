@@ -148,6 +148,31 @@ export const en: typeof es = {
         categoria: 'Keychain',
         alt: 'Three kettlebell keychains printed in white and black PLA',
       },
+      cuboInfinitoTriangulos: {
+        titulo: 'Infinity cube with triangle relief',
+        categoria: 'Completed work',
+        alt: 'Infinity cube printed in turquoise PLA with raised triangles on each face',
+      },
+      estrellaFlexible: {
+        titulo: 'Flexible star with articulated mesh',
+        categoria: 'Completed work',
+        alt: 'Flexible star printed in lilac PLA, made of interlocking links and with a smiling face',
+      },
+      exhibidorModular: {
+        titulo: 'Modular rod display stand',
+        categoria: 'Completed work',
+        alt: 'Standing display printed in white PLA, assembled from modules with five metal rods',
+      },
+      trompoEspiral: {
+        titulo: 'Star spiral spinning top',
+        categoria: 'Completed work',
+        alt: 'Star-shaped spiral spinning top printed in lilac PLA, seen from above',
+      },
+      dragonArticulado: {
+        titulo: 'Articulated dragon',
+        categoria: 'Completed work',
+        alt: 'Articulated dragon printed in black PLA with white horns and spines',
+      },
     },
     cta: {
       titulo: 'Got an idea in your head?',
