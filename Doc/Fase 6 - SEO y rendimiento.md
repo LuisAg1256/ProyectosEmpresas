@@ -41,7 +41,7 @@ En `src/lib/jsonld.ts`, con una regla: **solo se declara lo que el visitante
 puede leer en pantalla**.
 
 - **`LocalBusiness`** en el home (en los dos idiomas), con teléfono, redes,
-  `areaServed` (Loja y Cuenca) y los cuatro servicios como `makesOffer`.
+  `areaServed` (Ecuador) y los cuatro servicios como `makesOffer`.
 - **`Product`** en cada ficha, con `sku`, marca, material, color, peso y
   `offers`.
 - **`BreadcrumbList`** con las mismas migas que se ven en la página.
