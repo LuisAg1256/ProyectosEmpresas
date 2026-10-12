@@ -303,7 +303,7 @@ en las secciones.
 | 2 | Negro del footer | `ink #0E0F11`. |
 | 3 | Foto del hero | `ave-personalizada` (el águila): es la pieza más vistosa y es un *modelo personalizado*, el núcleo del negocio. Cambiarla es cambiar un `import` en `PaginaInicio.astro`. |
 | 4 | Cifras del hero | Solo derivadas del código: piezas en la galería (`trabajos().length`), talleres (`site.sucursales.length`) y la pieza mínima (1). |
-| 5 | Mayúsculas | Solo en etiquetas técnicas. |
+| 5 | Mayúsculas | Solo en etiquetas técnicas. | 
 
 ### Cambios respecto al plan
 
