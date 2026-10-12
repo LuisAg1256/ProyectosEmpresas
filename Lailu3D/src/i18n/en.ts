@@ -39,7 +39,9 @@ export const en: typeof es = {
     },
     hero: {
       region: 'We deliver anywhere in Ecuador',
-      titulo: 'What you imagine, made real.',
+      estado: 'Workshop running',
+      titulo: 'What you imagine,',
+      enfasis: 'made real.',
       texto:
         'Custom 3D printing, laser engraving and cutting. Bring an idea, a sketch or a photo; we turn it into a real object.',
       ctaPrimario: 'Quote my idea',
@@ -58,18 +60,36 @@ export const en: typeof es = {
       entrega: 'Delivery',
       entregaValor: 'Anywhere in Ecuador',
     },
+    datos: {
+      piezas: 'Pieces in the archive',
+      talleres: 'Own workshops',
+      minimo: 'Minimum pieces per order',
+    },
+    franja: {
+      etiqueta: 'Workshop capabilities',
+      items: [
+        'FDM printing',
+        'Bambu Lab PLA',
+        'Laser engraving',
+        'Laser cutting',
+        '3D modelling',
+        'Lithophanes',
+      ],
+    },
     servicios: {
       etiqueta: 'Services',
       titulo: 'What we make',
       descripcion:
         'Every job is quoted on the piece, the material and the production time. Write to us and we give you a concrete price.',
       cta: 'Quote this service',
+      meta: 'Price on request',
     },
     pasos: {
       etiqueta: 'How it works',
       titulo: 'From idea to object, in three steps',
       descripcion:
         'We do not publish fixed prices because no two pieces are alike. This is what happens when you write to us.',
+      meta: 'All over WhatsApp',
       idea: {
         titulo: 'Tell us the idea',
         texto:
@@ -92,6 +112,7 @@ export const en: typeof es = {
       descripcion:
         'Filaments and pieces with a reference price. Ordered over WhatsApp, with the product code already in the message.',
       cta: 'See the whole catalogue',
+      meta: 'Reference price · USD',
     },
     trabajos: {
       etiqueta: 'Work',
@@ -99,6 +120,7 @@ export const en: typeof es = {
       descripcion:
         'Pieces that came out of our workshop. If you want something along these lines, send us the reference and we will quote it on WhatsApp.',
       cta: 'See all our work',
+      meta: 'Most recent first',
     },
     cta: {
       titulo: 'Got an idea in your head?',
@@ -107,6 +129,8 @@ export const en: typeof es = {
       primario: 'Quote my idea',
       secundario: 'Message us on WhatsApp',
       cobertura: 'We deliver anywhere in Ecuador',
+      etiqueta: 'Quotes over WhatsApp',
+      elige: 'Or start from a service',
     },
   },
 
@@ -330,6 +354,7 @@ export const en: typeof es = {
     region: 'We deliver anywhere in Ecuador',
     sitio: 'Site',
     contacto: 'Contact',
+    redes: 'Social',
     derechos: 'All rights reserved.',
     aviso: 'Quotes and orders over WhatsApp. This site does not process online payments.',
   },

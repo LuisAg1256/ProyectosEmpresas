@@ -1,0 +1,45 @@
+---
+/**
+ * Glifos del menu principal, en el mismo trazo de 1.5 sobre 24x24 que
+ * [`IconoServicio`](./IconoServicio.astro). Heredan `currentColor`: el menu los
+ * tine de cobre al pasar el cursor. Son decorativos; el texto del enlace es la
+ * etiqueta accesible.
+ */
+export type ClaveNav = 'servicios' | 'catalogo' | 'trabajos' | 'comoFunciona' | 'cotizar';
+
+interface Props {
+  clave: ClaveNav;
+  class?: string;
+}
+
+const { clave, class: clase = 'size-4' } = Astro.props;
+
+const trazos: Record<ClaveNav, string> = {
+  /* Capas apiladas: impresion capa por capa. */
+  servicios: 'M12 3 3 7.5l9 4.5 9-4.5L12 3ZM3 12l9 4.5 9-4.5M3 16.5 12 21l9-4.5',
+  /* Bobina de filamento: el catalogo es de filamentos. */
+  catalogo:
+    'M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16ZM12 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM20 12h2.5',
+  /* Marco de foto: la galeria de trabajos. */
+  trabajos:
+    'M4 5h16v14H4V5ZM4 15.5l4.5-4.5 4 4 2.5-2.5 5 5M15.5 7.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z',
+  /* Recorrido con dos hitos: de la idea a la pieza. */
+  comoFunciona:
+    'M5 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM19 5a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM7 17h7.5a3 3 0 0 0 0-6h-5a3 3 0 0 1 0-6H17',
+  /* Bocadillo con lineas: la cotizacion sale por WhatsApp. */
+  cotizar: 'M4 5h16v11H9l-5 4V5ZM8 9h8M8 12h5',
+};
+---
+
+<svg
+  class={clase}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.5"
+  stroke-linejoin="round"
+  stroke-linecap="round"
+  aria-hidden="true"
+>
+  <path d={trazos[clave]}></path>
+</svg>

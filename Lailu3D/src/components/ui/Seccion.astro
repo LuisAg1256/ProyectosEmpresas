@@ -8,6 +8,13 @@ interface Props {
   id?: string;
   /** Etiqueta corta en mayusculas sobre el titulo. */
   etiqueta?: string;
+  /** Numeracion tecnica delante de la etiqueta (`01`). */
+  indice?: string;
+  /**
+   * Dato tipo placa grabada, alineado a la derecha del encabezado en
+   * escritorio. Solo datos ciertos: es texto, no decoracion.
+   */
+  meta?: string;
   titulo?: string;
   descripcion?: string;
   /**
@@ -26,6 +33,8 @@ interface Props {
 const {
   id,
   etiqueta,
+  indice,
+  meta,
   titulo,
   descripcion,
   nivelTitulo = 2,
@@ -56,19 +65,34 @@ const Titulo = `h${nivelTitulo}` as 'h1' | 'h2';
   <div class={`mx-auto ${anchos[ancho]}`}>
     {
       (etiqueta || titulo || descripcion) && (
-        <header class={`mb-10 ${centrado ? 'mx-auto max-w-2xl text-center' : 'max-w-2xl'}`}>
-          {etiqueta && (
-            <p class="mb-3 font-display text-label-md uppercase text-primary">
-              {etiqueta}
+        <header
+          class={`revelar mb-10 md:mb-14 ${centrado ? 'mx-auto max-w-2xl text-center' : 'flex flex-col gap-6 md:flex-row md:items-end md:justify-between'}`}
+        >
+          <div class={centrado ? '' : 'max-w-2xl'}>
+            {etiqueta && (
+              <p class={`mb-3 flex items-center gap-3 font-display text-label-md uppercase text-primary ${centrado ? 'justify-center' : ''}`}>
+                {indice && (
+                  <>
+                    <span class="tabular">{indice}</span>
+                    <span class="h-px w-6 bg-copper" aria-hidden="true" />
+                  </>
+                )}
+                {etiqueta}
+              </p>
+            )}
+            {titulo && (
+              <Titulo class="text-headline-lg-mobile md:text-headline-lg text-on-surface">
+                {titulo}
+              </Titulo>
+            )}
+            {descripcion && (
+              <p class="mt-4 text-body-lg text-on-surface-variant">{descripcion}</p>
+            )}
+          </div>
+          {meta && !centrado && (
+            <p class="shrink-0 font-display text-label-sm uppercase text-on-surface-variant md:pb-1.5">
+              {meta}
             </p>
-          )}
-          {titulo && (
-            <Titulo class="text-headline-lg-mobile md:text-headline-lg text-on-surface">
-              {titulo}
-            </Titulo>
-          )}
-          {descripcion && (
-            <p class="mt-4 text-body-lg text-on-surface-variant">{descripcion}</p>
           )}
         </header>
       )

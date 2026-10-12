@@ -12,7 +12,13 @@ interface Props {
    * utilidades del mismo color compiten por orden de hoja de estilos, no por
    * orden de escritura en el atributo.
    */
-  variante?: 'primary' | 'secondary' | 'ghost' | 'inverso' | 'inverso-outline';
+  variante?:
+    | 'primary'
+    | 'secondary'
+    | 'ghost'
+    | 'inverso'
+    | 'inverso-outline'
+    | 'tinta';
   tamano?: 'md' | 'lg';
   href?: string;
   tipo?: 'button' | 'submit';
@@ -33,19 +39,24 @@ const {
 } = Astro.props;
 
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-[4px] font-display font-medium leading-none whitespace-nowrap transition-colors duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-1 focus-visible:ring-offset-background disabled:opacity-40 disabled:pointer-events-none';
+  'inline-flex items-center justify-center gap-2 rounded-[4px] font-display font-medium leading-none whitespace-nowrap transition-colors duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-offset-1 disabled:opacity-40 disabled:pointer-events-none';
+
+/**
+ * El color del anillo de foco va en cada variante y no en la base: dos
+ * `ring-*` compiten por orden de hoja (alfabetico), y `ring-primary` le ganaba
+ * a `ring-copper` en la variante `tinta`.
+ */
+const anilloClaro = 'focus-visible:ring-primary focus-visible:ring-offset-background';
 
 const variantes = {
-  primary:
-    'bg-primary text-on-primary hover:bg-primary-container active:bg-on-primary-fixed-variant',
-  secondary:
-    'bg-surface-lowest text-on-surface border border-outline-variant hover:border-primary hover:bg-surface-low',
-  ghost:
-    'bg-transparent text-on-surface-variant hover:text-on-surface hover:bg-surface-container',
-  inverso:
-    'bg-surface-lowest text-primary hover:bg-surface-low active:bg-surface-container',
-  'inverso-outline':
-    'bg-transparent text-on-primary border border-primary-fixed hover:bg-primary-container',
+  primary: `bg-primary text-on-primary hover:bg-primary-container active:bg-on-primary-fixed-variant ${anilloClaro}`,
+  secondary: `bg-surface-lowest text-on-surface border border-outline-variant hover:border-primary hover:bg-surface-low ${anilloClaro}`,
+  ghost: `bg-transparent text-on-surface-variant hover:text-on-surface hover:bg-surface-container ${anilloClaro}`,
+  inverso: `bg-surface-lowest text-primary hover:bg-surface-low active:bg-surface-container ${anilloClaro}`,
+  'inverso-outline': `bg-transparent text-on-primary border border-primary-fixed hover:bg-primary-container ${anilloClaro}`,
+  /** Sobre el negro del footer. El cobre ahi da 6,39:1, asi que puede ser texto. */
+  tinta:
+    'bg-transparent text-ink-strong border border-copper/60 hover:bg-copper hover:border-copper hover:text-ink focus-visible:ring-copper focus-visible:ring-offset-ink',
 } as const;
 
 /** 15px y 17px: el tamaño va en valor explícito para no pelear con el peso del token tipográfico. */

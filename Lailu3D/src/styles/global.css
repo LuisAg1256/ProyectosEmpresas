@@ -57,32 +57,55 @@
 
 /*
  * Sistema de diseño "Precision Industrial Studio".
- * Fuente de verdad: Master/DESIGN.md (frontmatter YAML).
- * El sitio es solo modo claro: no hay variantes dark.
+ * Fuente de verdad: Master/DESIGN.md + la pantalla de Stitch (Master/code.html).
+ * Las superficies siguen el hueso cálido de Stitch y de la prosa de DESIGN.md,
+ * no el gris lila del frontmatter (ver Doc/Fase 8 - Mejora de diseno.md).
+ * No hay modo oscuro: el footer es una superficie oscura fija (`ink-*`).
  */
 @theme {
-  /* --- Superficies --- */
-  --color-surface: #faf9fd;
-  --color-surface-dim: #dbd9dd;
-  --color-surface-bright: #faf9fd;
+  /* --- Superficies (hueso cálido) --- */
+  --color-surface: #fbf9f5;
+  --color-surface-dim: #e2ddd5;
+  --color-surface-bright: #fbf9f5;
   --color-surface-lowest: #ffffff;
-  --color-surface-low: #f4f3f7;
-  --color-surface-container: #efedf1;
-  --color-surface-high: #e9e7ec;
-  --color-surface-highest: #e3e2e6;
-  --color-surface-variant: #e3e2e6;
-  --color-background: #faf9fd;
+  --color-surface-low: #f5f2eb;
+  --color-surface-container: #efebe2;
+  --color-surface-high: #e8e4dc;
+  --color-surface-highest: #e2ddd5;
+  --color-surface-variant: #e2ddd5;
+  --color-background: #fbf9f5;
 
   /* --- Tintas --- */
-  --color-on-surface: #1a1b1e;
+  --color-on-surface: #18191c;
   --color-on-surface-variant: #524439;
-  --color-on-background: #1a1b1e;
+  --color-on-background: #18191c;
   --color-inverse-surface: #2f3033;
   --color-inverse-on-surface: #f2f0f4;
 
   /* --- Bordes --- */
   --color-outline: #857467;
-  --color-outline-variant: #d8c3b4;
+  --color-outline-variant: #e5e0d8;
+
+  /*
+   * --- Cobre de Stitch ---
+   * Solo decorativo sobre claro (2,86:1 contra el hueso: no sirve como texto) y
+   * libre sobre `ink` (6,39:1). El texto cobre sobre claro sigue siendo `primary`.
+   */
+  --color-copper: #c8873f;
+  --color-copper-hover: #b87333;
+
+  /* --- Tinta del footer (superficie oscura fija) --- */
+  --color-ink: #0e0f11;
+  --color-ink-raised: #16171a;
+  --color-ink-line: #2c2f36;
+  /* 6,94:1 sobre `ink`. El #78736B de Stitch da 4,08:1 y no pasa. */
+  --color-ink-text: #a09b92;
+  --color-ink-strong: #f2f0ec;
+
+  /* --- Banda cálida del cierre (degradado de Stitch) --- */
+  --color-sand-1: #f7f2e8;
+  --color-sand-2: #efe6d6;
+  --color-sand-3: #e9dec9;
 
   /* --- Cobre (acción principal) --- */
   --color-primary: #894d0d;
@@ -223,6 +246,130 @@
 /* Lecturas numéricas sin salto de ancho (medidas, precios, mm). */
 @utility tabular {
   font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Filete que se desvanece en los extremos, en vez de una línea de borde a borde.
+ * Toma el color de `currentColor`: se tiñe con `text-*`.
+ */
+@utility hairline-fade {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, currentColor 50%, transparent);
+}
+
+/*
+ * Textura de grano. Rompe las bandas que los degradados oscuros muestran en
+ * pantallas de 8 bits. SVG en línea: ninguna petición de red.
+ */
+@utility grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/*
+ * Resplandor cobrizo del footer: dos focos radiales, arriba a la izquierda y
+ * abajo a la derecha. Es el `bg-primary/20 blur-3xl` de Stitch, llevado al
+ * negro, donde sí se ve.
+ */
+@utility aurora {
+  background-image:
+    radial-gradient(
+      55% 45% at 12% 18%,
+      color-mix(in srgb, var(--color-copper) 24%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      45% 50% at 92% 95%,
+      color-mix(in srgb, var(--color-copper) 13%, transparent),
+      transparent 70%
+    );
+}
+
+/* Resplandor de la banda de cierre: un solo foco, arriba y al centro. */
+@utility halo {
+  background-image: radial-gradient(
+    40% 60% at 50% 0%,
+    color-mix(in srgb, var(--color-copper) 28%, transparent),
+    transparent 75%
+  );
+}
+
+/*
+ * Cuadrícula de cama de impresión detrás del hero (el "CNC bed" de DESIGN.md).
+ * La máscara radial la desvanece hacia los bordes: se intuye, no se impone.
+ */
+@utility cuadricula {
+  background-image:
+    linear-gradient(var(--color-outline-variant) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-outline-variant) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 30% 40%, #000 20%, transparent 75%);
+}
+
+/* Numeral en contorno cobre (línea de tiempo de "Cómo funciona"). */
+@utility trazo {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-copper);
+}
+
+/*
+ * Regla de medición: la firma visual del sitio ("Dimension Rulers" en
+ * DESIGN.md). Marca fina cada 8px y marca larga cada 40px. Se tiñe con
+ * `text-*` y se dimensiona con `h-*`.
+ */
+@utility regla {
+  background-image:
+    linear-gradient(90deg, currentColor 1px, transparent 1px),
+    linear-gradient(90deg, currentColor 1px, transparent 1px);
+  background-size:
+    40px 100%,
+    8px 45%;
+  background-repeat: repeat-x;
+  background-position:
+    0 0,
+    0 0;
+}
+
+/*
+ * Entrada al hacer scroll, solo con CSS (el sitio no lleva JavaScript fuera del
+ * cotizador). Sin soporte de `animation-timeline` el contenido ya está visible:
+ * no hay estado intermedio oculto que dependa de un script.
+ */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility revelar {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: aparecer linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+  }
+}
+
+/* Punto de estado con pulso suave (insignia "taller activo"). */
+@keyframes pulso {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-copper) 55%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-copper) 0%, transparent);
+  }
+}
+
+@utility pulso {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: pulso 2.4s ease-in-out infinite;
+  }
 }
 
 @layer base {

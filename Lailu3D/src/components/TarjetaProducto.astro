@@ -33,20 +33,34 @@ const Nombre = `h${nivelTitulo}` as 'h2' | 'h3';
 
 <a
   href={ruta}
-  class="elev-2 group flex flex-col overflow-hidden rounded-lg transition-colors hover:border-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+  class="elev-2 group flex flex-col overflow-hidden rounded-lg transition-[border-color,box-shadow,translate] duration-300 hover:-translate-y-0.5 hover:border-copper/60 hover:shadow-[0_16px_40px_-12px_color-mix(in_srgb,var(--color-primary)_20%,transparent)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:hover:translate-y-0"
 >
-  <div class="aspect-square bg-surface-container">
+  {/* Bandeja hundida con regla de medicion al pie: la pieza "sobre la cama". */}
+  <div class="relative aspect-square overflow-hidden bg-surface-low">
     <Image
       src={data.imagen}
       alt={alt}
       width={400}
       height={400}
-      class="size-full object-contain p-4"
+      class="size-full object-contain p-6 transition-transform duration-500 ease-out group-hover:scale-[1.04]"
     />
+    <div class="regla absolute inset-x-4 bottom-3 h-1.5 text-outline-variant" aria-hidden="true"></div>
   </div>
 
   <div class="flex flex-1 flex-col border-t border-outline-variant p-5">
-    <Badge estado={data.disponibilidad} idioma={idioma} />
+    <div class="flex items-center justify-between gap-3">
+      <Badge estado={data.disponibilidad} idioma={idioma} />
+      {
+        data.color && (
+          <span
+            class="size-3 shrink-0 rounded-[2px] border border-outline-variant"
+            style={`background-color: ${data.color.hex}`}
+            title={data.color.nombre[idioma]}
+            aria-hidden="true"
+          />
+        )
+      }
+    </div>
 
     <Nombre class="mt-2 text-headline-sm text-on-surface">
       {data.nombre[idioma]}

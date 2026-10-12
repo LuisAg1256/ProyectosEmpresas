@@ -41,7 +41,10 @@ export const es = {
     },
     hero: {
       region: 'Envíos a todo el Ecuador',
-      titulo: 'Lo que imaginas, fabricado.',
+      estado: 'Taller activo',
+      /** El h1 va en dos partes: la segunda se destaca en cobre. */
+      titulo: 'Lo que imaginas,',
+      enfasis: 'fabricado.',
       texto:
         'Impresión 3D personalizada, grabado y corte láser. Traes una idea, un boceto o una foto; nosotros la convertimos en una pieza real.',
       ctaPrimario: 'Cotizar mi idea',
@@ -60,18 +63,40 @@ export const es = {
       entrega: 'Entrega',
       entregaValor: 'Todo el Ecuador',
     },
+    /**
+     * Micro-datos del hero. Las cifras salen del código (galería, talleres),
+     * nunca se escriben a mano: así no se publica un número que no es cierto.
+     */
+    datos: {
+      piezas: 'Piezas en el archivo',
+      talleres: 'Talleres propios',
+      minimo: 'Pieza mínima por pedido',
+    },
+    franja: {
+      etiqueta: 'Capacidades del taller',
+      items: [
+        'Impresión FDM',
+        'PLA Bambu Lab',
+        'Grabado láser',
+        'Corte láser',
+        'Modelado 3D',
+        'Litofanías',
+      ],
+    },
     servicios: {
       etiqueta: 'Servicios',
       titulo: 'Qué fabricamos',
       descripcion:
         'Cada trabajo se cotiza según la pieza, el material y el tiempo de producción. Escríbenos y te damos un precio concreto.',
       cta: 'Cotizar este servicio',
+      meta: 'Precio bajo cotización',
     },
     pasos: {
       etiqueta: 'Cómo funciona',
       titulo: 'De la idea a la pieza, en tres pasos',
       descripcion:
         'No publicamos precios fijos porque ninguna pieza es igual a otra. Esto es lo que pasa cuando nos escribes.',
+      meta: 'Todo por WhatsApp',
       idea: {
         titulo: 'Cuéntanos la idea',
         texto:
@@ -94,6 +119,7 @@ export const es = {
       descripcion:
         'Filamentos y piezas con precio referencial. Se piden por WhatsApp, con el código del producto ya cargado en el mensaje.',
       cta: 'Ver todo el catálogo',
+      meta: 'Precio referencial · USD',
     },
     trabajos: {
       etiqueta: 'Trabajos',
@@ -101,6 +127,7 @@ export const es = {
       descripcion:
         'Piezas que salieron de nuestro taller. Si quieres algo parecido, mándanos la referencia y te lo cotizamos por WhatsApp.',
       cta: 'Ver todos los trabajos',
+      meta: 'Lo más reciente primero',
     },
     cta: {
       titulo: '¿Tienes una idea en la cabeza?',
@@ -109,6 +136,8 @@ export const es = {
       primario: 'Cotizar mi idea',
       secundario: 'Escribir por WhatsApp',
       cobertura: 'Envíos a todo el Ecuador',
+      etiqueta: 'Cotización por WhatsApp',
+      elige: 'O empieza por un servicio',
     },
   },
 
@@ -334,6 +363,7 @@ export const es = {
     region: 'Envíos a todo el Ecuador',
     sitio: 'Sitio',
     contacto: 'Contacto',
+    redes: 'Redes',
     derechos: 'Todos los derechos reservados.',
     aviso: 'Cotizaciones y pedidos por WhatsApp. El sitio no procesa pagos en línea.',
   },

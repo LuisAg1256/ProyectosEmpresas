@@ -3,6 +3,7 @@ import logo from '../assets/brand/logo-horizontal.svg';
 import { site, idiomaPorDefecto, type Idioma } from '../config/site';
 import { waGeneral } from '../lib/whatsapp';
 import { t, rutaLocalizada } from '../i18n';
+import Boton from './ui/Boton.astro';
 import IconoWhatsApp from './ui/IconoWhatsApp.astro';
 import IconoRed from './ui/IconoRed.astro';
 
@@ -33,81 +34,126 @@ const enlaces = [
 ];
 ---
 
-<footer class="border-t border-outline-variant bg-surface-low">
+{/*
+  Footer negro con difuminados (Fase 8). Es una superficie oscura fija, no un
+  modo oscuro. Capas, de abajo arriba: base `ink`, resplandor cobrizo, grano,
+  puente superior (la pagina se funde en el negro) y la marca gigante. Todas son
+  decorativas y van con `aria-hidden`; el contenido va por encima.
+
+  El puente parte de `background` porque todas las paginas terminan sobre el
+  fondo base. Si una pagina nueva acaba en otra superficie, se vera la costura.
+*/}
+<footer class="relative isolate overflow-hidden bg-ink text-ink-text">
+  <div class="aurora pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
   <div
-    class="mx-auto grid max-w-7xl gap-10 px-margin-mobile py-12 md:grid-cols-3 md:px-margin"
+    class="grain pointer-events-none absolute inset-0 -z-10 opacity-[0.07] mix-blend-overlay"
+    aria-hidden="true"
   >
-    <div>
-      <img src={logo.src} width={logo.width} height={logo.height} alt="Lailu3D" loading="lazy" decoding="async" class="h-8 w-auto" />
-      <p class="mt-4 max-w-xs text-body-md text-on-surface-variant">
-        {txt.footer.descripcion}
-      </p>
-      <p class="mt-4 font-display text-label-sm uppercase text-on-surface-variant">
-        {site.sucursales.join(' · ')} — {txt.footer.region}
-      </p>
+  </div>
+  <div
+    class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-28 bg-linear-to-b from-background to-transparent md:h-40"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="mx-auto max-w-7xl px-margin-mobile pt-36 md:px-margin md:pt-52">
+    <div class="grid gap-12 pb-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div class="flex flex-col gap-5">
+        <img
+          src={logo.src}
+          width={logo.width}
+          height={logo.height}
+          alt="Lailu3D"
+          loading="lazy"
+          decoding="async"
+          class="h-9 w-auto self-start"
+        />
+        <p class="max-w-xs text-body-md">{txt.footer.descripcion}</p>
+        <p
+          class="inline-flex items-center gap-2 self-start rounded-[4px] border border-ink-line bg-ink-raised/70 px-3 py-1.5 font-display text-label-sm uppercase text-copper"
+        >
+          <span class="pulso size-1.5 rounded-full bg-copper" aria-hidden="true"></span>
+          {site.sucursales.join(' · ')} — {txt.footer.region}
+        </p>
+      </div>
+
+      <nav aria-label={txt.footer.sitio}>
+        <p class="font-display text-label-md uppercase text-ink-strong">
+          {txt.footer.sitio}
+        </p>
+        <ul class="mt-5 flex flex-col gap-3">
+          {
+            enlaces.map((enlace) => (
+              <li>
+                <a
+                  href={enlace.href}
+                  class="text-body-md transition-colors duration-200 hover:text-copper"
+                >
+                  {enlace.texto}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div>
+        <p class="font-display text-label-md uppercase text-ink-strong">
+          {txt.footer.contacto}
+        </p>
+        {/* El unico camino de conversion del negocio: va como boton, no como enlace suelto. */}
+        <Boton href={wa} externo variante="tinta" tamano="lg" class="mt-5">
+          <IconoWhatsApp class="size-5" />
+          <span class="tabular">{site.whatsapp.display}</span>
+        </Boton>
+        <p class="mt-4 max-w-xs text-body-sm">{txt.footer.aviso}</p>
+      </div>
+
+      <div>
+        <p class="font-display text-label-md uppercase text-ink-strong">
+          {txt.footer.redes}
+        </p>
+        <ul class="mt-5 flex gap-2">
+          {
+            redes.map((red) => (
+              <li>
+                <a
+                  href={red.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${red.nombre} ${red.nick}`}
+                  title={`${red.nombre} ${red.nick}`}
+                  class="flex size-10 items-center justify-center rounded-lg border border-ink-line bg-ink-raised text-ink-text transition-colors duration-200 hover:border-copper hover:text-copper focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-copper"
+                >
+                  <IconoRed red={red.red} class="size-[18px]" />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-4 text-body-sm">{redes[0]?.nick}</p>
+      </div>
     </div>
 
-    <div>
-      <p class="font-display text-label-md uppercase text-on-surface-variant">
-        {txt.footer.sitio}
-      </p>
-      <ul class="mt-4 flex flex-col gap-2">
-        {
-          enlaces.map((enlace) => (
-            <li>
-              <a
-                href={enlace.href}
-                class="text-body-md text-on-surface-variant hover:text-on-surface"
-              >
-                {enlace.texto}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+    <div class="hairline-fade text-white/15" aria-hidden="true"></div>
 
-    <div>
-      <p class="font-display text-label-md uppercase text-on-surface-variant">
-        {txt.footer.contacto}
+    <div
+      class="flex flex-col gap-2 py-6 text-body-sm md:flex-row md:items-center md:justify-between"
+    >
+      <p>© {anio} {site.nombre}. {txt.footer.derechos}</p>
+      <p class="font-display text-label-sm uppercase">
+        {site.sucursales.join(' · ')} · {site.pais.nombre}
       </p>
-      <a
-        href={wa}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="mt-4 inline-flex items-center gap-2 text-body-lg text-on-surface hover:text-primary"
-      >
-        <IconoWhatsApp class="size-5" />
-        <span class="tabular">{site.whatsapp.display}</span>
-      </a>
-      <ul class="mt-4 flex flex-col gap-3">
-        {
-          redes.map((red) => (
-            <li>
-              <a
-                href={red.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 text-body-md text-on-surface-variant hover:text-on-surface"
-              >
-                <IconoRed red={red.red} class="size-5 shrink-0" />
-                <span>
-                  {red.nombre} {red.nick}
-                </span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
     </div>
   </div>
 
-  <div class="border-t border-outline-variant">
-    <div
-      class="mx-auto flex max-w-7xl flex-col gap-2 px-margin-mobile py-6 text-body-sm text-on-surface-variant md:flex-row md:items-center md:justify-between md:px-margin"
+  {/* La firma: regla de medicion y la marca gigante que se desvanece hacia abajo. */}
+  <div aria-hidden="true" class="select-none">
+    <div class="regla mx-auto h-2 max-w-7xl text-white/10"></div>
+    <p
+      class="-mb-[0.18em] bg-linear-to-b from-white/14 via-white/5 to-transparent bg-clip-text text-center font-display text-[clamp(4.5rem,21vw,19rem)] leading-none font-bold tracking-[-0.05em] text-transparent"
     >
-      <p>© {anio} {site.nombre}. {txt.footer.derechos}</p>
-      <p>{txt.footer.aviso}</p>
-    </div>
+      LAILU3D
+    </p>
   </div>
 </footer>

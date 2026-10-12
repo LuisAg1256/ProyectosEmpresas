@@ -5,6 +5,7 @@ import { waGeneral } from '../lib/whatsapp';
 import { t, rutaLocalizada } from '../i18n';
 import Boton from './ui/Boton.astro';
 import IconoWhatsApp from './ui/IconoWhatsApp.astro';
+import IconoNav, { type ClaveNav } from './ui/IconoNav.astro';
 
 const idioma = (Astro.currentLocale ?? idiomaPorDefecto) as Idioma;
 const txt = t(idioma);
@@ -15,11 +16,34 @@ const enHome = rutaActual === inicio || rutaActual === `${inicio}/`;
 /** Los anclas de la landing funcionan desde cualquier ruta. */
 const ancla = (id: string) => (enHome ? `#${id}` : `${inicio}#${id}`);
 
-const enlaces = [
-  { texto: txt.nav.servicios, href: ancla('servicios') },
-  { texto: txt.nav.catalogo, href: rutaLocalizada('/productos', idioma) },
-  { texto: txt.nav.trabajos, href: rutaLocalizada('/trabajos', idioma) },
-  { texto: txt.nav.comoFunciona, href: ancla('como-funciona') },
+/**
+ * `actual` marca la seccion en la que se esta: las paginas propias (catalogo y
+ * sus fichas, trabajos). Las anclas de la landing no se marcan, porque sin
+ * JavaScript no se sabe hasta donde ha bajado el visitante.
+ */
+const esActual = (destino: string) =>
+  rutaActual === destino || rutaActual.startsWith(`${destino}/`);
+
+const enlaces: { clave: ClaveNav; texto: string; href: string; actual: boolean }[] = [
+  { clave: 'servicios', texto: txt.nav.servicios, href: ancla('servicios'), actual: false },
+  {
+    clave: 'catalogo',
+    texto: txt.nav.catalogo,
+    href: rutaLocalizada('/productos', idioma),
+    actual: esActual(rutaLocalizada('/productos', idioma)),
+  },
+  {
+    clave: 'trabajos',
+    texto: txt.nav.trabajos,
+    href: rutaLocalizada('/trabajos', idioma),
+    actual: esActual(rutaLocalizada('/trabajos', idioma)),
+  },
+  {
+    clave: 'comoFunciona',
+    texto: txt.nav.comoFunciona,
+    href: ancla('como-funciona'),
+    actual: false,
+  },
 ];
 
 /**
@@ -50,13 +74,31 @@ const wa = waGeneral(idioma, rutaActual);
       <img src={logo.src} width={logo.width} height={logo.height} alt="Lailu3D" class="h-7 w-auto md:h-8" />
     </a>
 
-    <nav aria-label={txt.nav.principal} class="hidden items-center gap-6 md:flex">
+    {/*
+      Los iconos aparecen desde `lg`: entre 768 y 1024 px el menu, el selector
+      de idioma y el boton de cotizar no caben con ellos.
+    */}
+    <nav aria-label={txt.nav.principal} class="hidden items-center gap-6 md:flex lg:gap-7">
       {
         enlaces.map((enlace) => (
           <a
             href={enlace.href}
-            class="text-body-md text-on-surface-variant transition-colors hover:text-on-surface"
+            aria-current={enlace.actual ? 'page' : undefined}
+            class:list={[
+              'group relative inline-flex items-center gap-1.5 py-1 text-body-md transition-colors hover:text-on-surface',
+              'after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:bg-copper after:transition-transform after:duration-300 hover:after:scale-x-100',
+              enlace.actual
+                ? 'text-on-surface after:scale-x-100'
+                : 'text-on-surface-variant after:scale-x-0',
+            ]}
           >
+            <IconoNav
+              clave={enlace.clave}
+              class:list={[
+                'hidden size-4 transition-[color,translate] duration-300 group-hover:-translate-y-px group-hover:text-copper lg:block motion-reduce:group-hover:translate-y-0',
+                enlace.actual ? 'text-copper' : 'text-outline',
+              ]}
+            />
             {enlace.texto}
           </a>
         ))
@@ -94,7 +136,10 @@ const wa = waGeneral(idioma, rutaActual);
         menu. Ojo, `hidden` no lo ocultaria: `Boton` trae `inline-flex` en su
         base y Tailwind emite esa utilidad despues de `.hidden`.
       */}
-      <Boton href={rutaLocalizada('/cotizar', idioma)}>{txt.nav.cotizar}</Boton>
+      <Boton href={rutaLocalizada('/cotizar', idioma)}>
+        <IconoNav clave="cotizar" class="hidden size-4 sm:block" />
+        {txt.nav.cotizar}
+      </Boton>
 
       <details class="relative md:hidden" name="menu-movil">
         <summary
@@ -115,14 +160,21 @@ const wa = waGeneral(idioma, rutaActual);
 
         <nav
           aria-label={txt.nav.principalMovil}
-          class="elev-3 absolute right-0 z-50 mt-2 flex w-56 flex-col rounded-lg p-2"
+          class="elev-3 absolute right-0 z-50 mt-2 flex w-60 flex-col rounded-lg p-2"
         >
           {
             enlaces.map((enlace) => (
               <a
                 href={enlace.href}
-                class="rounded-[4px] px-3 py-2 text-body-md text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface"
+                aria-current={enlace.actual ? 'page' : undefined}
+                class:list={[
+                  'group flex items-center gap-3 rounded-[4px] px-2 py-1.5 text-body-md transition-colors hover:bg-surface-low hover:text-on-surface',
+                  enlace.actual ? 'bg-surface-low text-on-surface' : 'text-on-surface-variant',
+                ]}
               >
+                <span class="flex size-8 shrink-0 items-center justify-center rounded-[4px] border border-copper/25 bg-copper/10 text-primary">
+                  <IconoNav clave={enlace.clave} />
+                </span>
                 {enlace.texto}
               </a>
             ))
@@ -132,9 +184,11 @@ const wa = waGeneral(idioma, rutaActual);
             href={wa}
             target="_blank"
             rel="noopener noreferrer"
-            class="mt-1 flex items-center gap-2 rounded-[4px] border-t border-outline-variant px-3 py-2 text-body-md text-primary"
+            class="mt-1 flex items-center gap-3 border-t border-outline-variant px-2 pt-2.5 pb-1.5 text-body-md text-primary"
           >
-            <IconoWhatsApp class="size-4" />
+            <span class="flex size-8 shrink-0 items-center justify-center rounded-[4px] bg-primary text-on-primary">
+              <IconoWhatsApp class="size-4" />
+            </span>
             {txt.nav.escribirWhatsApp}
           </a>
 

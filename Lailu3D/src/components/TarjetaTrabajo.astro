@@ -5,6 +5,10 @@ import type { Trabajo } from '../lib/trabajos';
 /**
  * Tarjeta de la galeria de trabajos. La comparten la landing (los recientes) y
  * `/trabajos` (todos), para que las dos se vean igual.
+ *
+ * Foto a sangre con velo grafito y el texto encima (galeria de Stitch). En
+ * Stitch el texto solo aparece al pasar el cursor; aqui queda siempre visible,
+ * porque en movil no hay hover y en escritorio el titulo es la informacion.
  */
 interface Props {
   trabajo: Trabajo;
@@ -13,28 +17,47 @@ interface Props {
    * empieza por la galeria. En la landing quedan bajo el pliegue: diferidas.
    */
   prioridad?: boolean;
+  /** Celda doble del mosaico de la landing: pide una imagen mas grande. */
+  destacada?: boolean;
+  class?: string;
 }
 
-const { trabajo, prioridad = false } = Astro.props;
+const { trabajo, prioridad = false, destacada = false, class: clase = '' } = Astro.props;
+
+const sizes = destacada
+  ? '(min-width: 1024px) 44rem, 90vw'
+  : '(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 90vw';
 ---
 
-<li class="elev-1 flex flex-col overflow-hidden rounded-lg">
-  <div class="aspect-square bg-surface-container">
-    <Image
-      src={trabajo.imagen}
-      alt={trabajo.alt}
-      widths={[400, 800]}
-      sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 90vw"
-      loading={prioridad ? 'eager' : 'lazy'}
-      fetchpriority={prioridad ? 'high' : undefined}
-      decoding="async"
-      class="size-full object-cover"
-    />
+<li
+  class={`revelar group relative isolate aspect-square overflow-hidden rounded-xl border border-outline-variant bg-surface-container ${clase}`}
+>
+  <Image
+    src={trabajo.imagen}
+    alt={trabajo.alt}
+    widths={destacada ? [800, 1400] : [400, 800]}
+    sizes={sizes}
+    loading={prioridad ? 'eager' : 'lazy'}
+    fetchpriority={prioridad ? 'high' : undefined}
+    decoding="async"
+    class="absolute inset-0 -z-10 size-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+  />
+  <div
+    class="absolute inset-0 -z-10 bg-linear-to-t from-ink/85 via-ink/20 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100"
+    aria-hidden="true"
+  >
   </div>
-  <div class="border-t border-outline-variant p-5">
-    <p class="font-display text-label-sm uppercase text-on-surface-variant">
+  <div class="flex h-full flex-col justify-end p-4 md:p-6">
+    <p class="font-display text-label-sm uppercase text-copper">
       {trabajo.categoria}
     </p>
-    <p class="mt-1 text-body-md text-on-surface">{trabajo.titulo}</p>
+    <p
+      class:list={[
+        'mt-1 font-display text-white',
+        destacada ? 'text-headline-sm md:text-headline-md' : 'text-[15px] leading-5 font-medium md:text-[17px] md:leading-6',
+      ]}
+    >
+      {trabajo.titulo}
+    </p>
   </div>
 </li>

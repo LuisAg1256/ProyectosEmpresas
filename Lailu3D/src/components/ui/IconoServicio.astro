@@ -1,0 +1,40 @@
+---
+/**
+ * Glifo de cada servicio, en trazo fino de 1.5 sobre 24x24. Hereda el color del
+ * texto (`currentColor`). Va en linea y no como fuente de iconos: Material
+ * Symbols, que usa Stitch, seria otra peticion externa.
+ */
+import type { SlugServicio } from '../../lib/servicios';
+
+interface Props {
+  servicio: SlugServicio;
+  class?: string;
+}
+
+const { servicio, class: clase = 'size-5' } = Astro.props;
+
+const trazos: Record<SlugServicio, string> = {
+  /* Cubo isometrico: la pieza. */
+  'impresion-3d': 'M12 3 4 7.5v9L12 21l8-4.5v-9L12 3ZM4 7.5 12 12l8-4.5M12 12v9',
+  /* Mira de enfoque: el haz del laser. */
+  laser: 'M12 2v5M12 17v5M2 12h5M17 12h5M12 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z',
+  /* Lapiz sobre trazo: modelado desde un boceto. */
+  modelado: 'M4 20h4L19 9l-4-4L4 16v4ZM13 7l4 4M14 20h6',
+  /* Bobina vista de frente: venta de filamentos (el slug es historico). */
+  litofania:
+    'M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16ZM12 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM20 12h2.5',
+};
+---
+
+<svg
+  class={clase}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.5"
+  stroke-linejoin="round"
+  stroke-linecap="round"
+  aria-hidden="true"
+>
+  <path d={trazos[servicio]}></path>
+</svg>

@@ -69,20 +69,38 @@ Plan de trabajo: [`../Doc/Plan de desarrollo - Lailu3D.md`](../Doc/Plan%20de%20d
 ## Sistema de diseño
 
 Fuente de verdad: [`../Master/DESIGN.md`](../Master/DESIGN.md) — "Precision
-Industrial Studio". Traducido a tokens de Tailwind 4 en el bloque `@theme` de
-[`src/styles/global.css`](src/styles/global.css).
+Industrial Studio" — y la pantalla de Stitch
+([`../Master/code.html`](../Master/code.html)). Traducido a tokens de Tailwind 4
+en el bloque `@theme` de [`src/styles/global.css`](src/styles/global.css). El
+rediseño de la Fase 8 está explicado en
+[`../Doc/Fase 8 - Mejora de diseno.md`](../Doc/Fase%208%20-%20Mejora%20de%20diseno.md).
 
 Trampas conocidas:
 
-- **Solo modo claro.** No hay variante oscura ni toggle. No añadir clases `dark:`.
+- **Sin modo oscuro.** No hay variante oscura ni toggle. No añadir clases `dark:`.
+  El footer es negro, pero es una **superficie oscura fija** con sus propios
+  tokens (`ink`, `ink-raised`, `ink-line`, `ink-text`, `ink-strong`), no un modo.
+- **Superficies en hueso cálido** (`#fbf9f5`), como Stitch y la prosa de
+  DESIGN.md. El frontmatter de DESIGN.md trae un gris lila que ya no se usa.
 - **Nunca escribir hex en un componente.** Solo clases de token: `bg-primary`,
   `text-on-surface-variant`, `border-outline-variant`.
 - **Los pasos de espaciado `xs`–`xl` de DESIGN.md no se declaran como tokens
   nombrados**: chocarían con `max-w-sm/md/lg/xl` de Tailwind. Se usa la escala
   numérica, que da los mismos valores del módulo de 8pt: `xs`=`1`, `sm`=`2`,
   `md`=`4`, `lg`=`6`, `xl`=`10`. Sí están nombrados `gutter` y `margin`.
-- **La prosa de DESIGN.md menciona un cobre `#B87333` que se ignora.** El valor
-  válido es el del frontmatter YAML: `primary: #894d0d`.
+- **Dos cobres, dos funciones.** `primary` (`#894d0d`, 6,38:1 sobre hueso) es el
+  de todo lo que se lee sobre claro: texto, enlaces, relleno de botón. `copper`
+  (`#c8873f`, el de Stitch) da 2,86:1 sobre hueso: sobre claro **solo decora**
+  (puntos, filetes, iconos, resplandores). Sobre `ink` da 6,39:1 y sí puede ser
+  texto. No poner texto blanco sobre `copper` (3:1).
+- **El footer arranca fundiéndose desde `background`**: todas las páginas
+  terminan sobre el fondo base. Una página que acabe en otra superficie mostrará
+  la costura del degradado.
+- **Utilidades propias** en `global.css`: `regla` (marcas de mm, la firma
+  visual), `cuadricula`, `aurora`, `halo`, `grain`, `hairline-fade`, `trazo`,
+  `pulso` y `revelar` (entrada al hacer scroll con `animation-timeline`, sin
+  JavaScript; sin soporte, el contenido ya está visible). Las animaciones se
+  apagan con `prefers-reduced-motion`.
 - **Elevación por capas tonales**, no por sombras pesadas: utilidades `elev-1`,
   `elev-2`, `elev-3`.
 - **Los botones y los inputs nunca son pill.** Radio de 4px, escrito como
@@ -106,8 +124,10 @@ Trampas conocidas:
   estilos, no el del atributo. Caso real: `<Boton class="hidden sm:inline-flex">`
   **no** oculta nada, porque Tailwind emite `.inline-flex` (que trae la base de
   `Boton`) después de `.hidden`. Cuando haga falta un aspecto distinto, se añade
-  una variante al componente —`inverso`, `inverso-outline`— en vez de pelear
-  desde fuera.
+  una variante al componente —`inverso`, `inverso-outline`, `tinta`— en vez de
+  pelear desde fuera. Por lo mismo, el color del anillo de foco de `Boton` va en
+  cada variante y no en la base: `ring-primary` le ganaba a `ring-copper` por
+  orden alfabético.
 
 ## SEO y rendimiento
 

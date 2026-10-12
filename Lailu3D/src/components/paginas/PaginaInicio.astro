@@ -1,17 +1,18 @@
 ---
 import { getCollection } from 'astro:content';
-import logoMark from '../../assets/brand/logo-mark.svg';
+import { Image } from 'astro:assets';
+import fotoHero from '../../assets/trabajos/ave-personalizada.jpg';
 import Layout from '../../layouts/Layout.astro';
 import Seccion from '../ui/Seccion.astro';
-import Tarjeta from '../ui/Tarjeta.astro';
 import Boton from '../ui/Boton.astro';
 import Chip from '../ui/Chip.astro';
+import IconoServicio from '../ui/IconoServicio.astro';
 import TarjetaProducto from '../TarjetaProducto.astro';
 import TarjetaTrabajo from '../TarjetaTrabajo.astro';
 import IconoWhatsApp from '../ui/IconoWhatsApp.astro';
 import JsonLd from '../JsonLd.astro';
 import { site, type Idioma } from '../../config/site';
-import { slugsServicio } from '../../lib/servicios';
+import { slugsServicio, type SlugServicio } from '../../lib/servicios';
 import { trabajos, TRABAJOS_EN_INICIO } from '../../lib/trabajos';
 import { waGeneral } from '../../lib/whatsapp';
 import { t, rutaLocalizada } from '../../i18n';
@@ -30,14 +31,21 @@ const { idioma } = Astro.props;
 const txt = t(idioma);
 const ruta = (destino: string) => rutaLocalizada(destino, idioma);
 
+const catalogo = await getCollection('productos');
+
 /**
  * Destacados del catalogo. Se marcan con `destacado: true` en el frontmatter
  * del producto: la landing no mantiene su propia lista.
  */
-const destacados = (await getCollection('productos'))
+const destacados = catalogo
   .filter((p) => p.data.destacado)
   .sort((a, b) => a.data.orden - b.data.orden)
   .slice(0, 4);
+
+/** Colores publicados, para las muestras de la tarjeta de filamentos. */
+const muestras = [...catalogo]
+  .sort((a, b) => a.data.orden - b.data.orden)
+  .flatMap((p) => (p.data.color ? [{ hex: p.data.color.hex, nombre: p.data.color.nombre[idioma] }] : []));
 
 const pasos = [
   { numero: '01', ...txt.inicio.pasos.idea },
@@ -45,8 +53,32 @@ const pasos = [
   { numero: '03', ...txt.inicio.pasos.producimos },
 ];
 
+const galeria = trabajos(idioma);
 /** Los ultimos trabajos subidos. La galeria completa vive en `/trabajos`. */
-const recientes = trabajos(idioma).slice(0, TRABAJOS_EN_INICIO);
+const recientes = galeria.slice(0, TRABAJOS_EN_INICIO);
+
+/**
+ * Micro-datos del hero. Todos salen del codigo: si la galeria crece, la cifra
+ * crece sola, y no hay manera de publicar un numero inventado.
+ * El minimo es el mismo dato que `panel.cantidadValor` ("1 pieza").
+ */
+const datos = [
+  { valor: String(galeria.length), etiqueta: txt.inicio.datos.piezas, cobre: false },
+  { valor: String(site.sucursales.length), etiqueta: txt.inicio.datos.talleres, cobre: true },
+  { valor: '1', etiqueta: txt.inicio.datos.minimo, cobre: false },
+];
+
+const piezaHero = txt.trabajos.piezas.avePersonalizada;
+
+/**
+ * Mosaico de servicios: en escritorio, la primera y la ultima tarjeta ocupan
+ * dos columnas y las del medio una. Literales completos, para que Tailwind las
+ * genere.
+ */
+const anchas: Partial<Record<SlugServicio, true>> = {
+  'impresion-3d': true,
+  litofania: true,
+};
 
 const waIdea = waGeneral(idioma, ruta('/'));
 ---
@@ -58,19 +90,24 @@ const waIdea = waGeneral(idioma, ruta('/'));
   <JsonLd datos={negocio(idioma)} />
 
   {/* --- Hero --- */}
-  <section class="px-margin-mobile py-16 md:px-margin md:py-24">
-    <div
-      class="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[1.1fr_0.9fr]"
-    >
-      <div>
-        <p class="font-display text-label-md uppercase text-primary">
-          {site.sucursales.join(' · ')} — {txt.inicio.hero.region}
+  <section class="relative isolate overflow-hidden px-margin-mobile pt-12 pb-16 md:px-margin md:pt-20 md:pb-24">
+    <div class="cuadricula pointer-events-none absolute inset-0 -z-10 opacity-60" aria-hidden="true"></div>
+
+    <div class="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-12 lg:gap-10">
+      <div class="lg:col-span-7">
+        <p
+          class="inline-flex items-center gap-2 rounded-[4px] border border-outline-variant bg-surface-lowest px-3 py-1.5 font-display text-label-sm uppercase text-primary shadow-[0_1px_2px_color-mix(in_srgb,var(--color-on-surface)_6%,transparent)]"
+        >
+          <span class="pulso size-1.5 rounded-full bg-copper" aria-hidden="true"></span>
+          {txt.inicio.hero.estado} · {site.sucursales.join(' · ')}
         </p>
 
-        <h1
-          class="mt-4 text-display-lg-mobile md:text-display-lg text-on-surface"
-        >
+        <h1 class="mt-6 text-display-lg-mobile md:text-display-lg text-on-surface">
           {txt.inicio.hero.titulo}
+          {/* Sin cursiva: Space Grotesk no la tiene y el navegador la falsearia. */}
+          <span class="block bg-linear-to-r from-primary to-copper-hover bg-clip-text text-transparent">
+            {txt.inicio.hero.enfasis}
+          </span>
         </h1>
 
         <p class="mt-6 max-w-xl text-body-lg text-on-surface-variant">
@@ -86,149 +123,216 @@ const waIdea = waGeneral(idioma, ruta('/'));
           </Boton>
         </div>
 
-        <p class="mt-6 text-body-sm text-on-surface-variant">
+        <p class="mt-5 text-body-sm text-on-surface-variant">
           {txt.inicio.hero.nota}
         </p>
-      </div>
 
-      {/* Panel técnico: sustituye a la foto de portada hasta tener material real. */}
-      <div class="elev-2 rounded-xl p-6 md:p-8">
-        <div class="flex items-center justify-between gap-4">
-          <p class="font-display text-label-md uppercase text-on-surface-variant">
-            {txt.inicio.panel.etiqueta}
-          </p>
-          <span
-            class="inline-flex items-center gap-1.5 font-display text-label-sm uppercase text-on-surface-variant"
-          >
-            <span class="size-1.5 rounded-full bg-primary" aria-hidden="true"
-            ></span>
-            {txt.inicio.panel.estado}
-          </span>
-        </div>
-
-        <div
-          class="mt-6 flex items-center justify-center rounded-lg bg-surface-container py-10"
-        >
-          <img
-            src={logoMark.src}
-            width={logoMark.width}
-            height={logoMark.height}
-            alt="Lailu3D"
-            class="h-32 w-auto md:h-40"
-          />
-        </div>
-
-        <dl
-          class="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-outline-variant pt-6"
-        >
-          <div>
-            <dt
-              class="font-display text-label-sm uppercase text-on-surface-variant"
-            >
-              {txt.inicio.panel.tecnologia}
-            </dt>
-            <dd class="mt-1 text-body-md text-on-surface">
-              {txt.inicio.panel.tecnologiaValor}
-            </dd>
-          </div>
-          <div>
-            <dt
-              class="font-display text-label-sm uppercase text-on-surface-variant"
-            >
-              {txt.inicio.panel.material}
-            </dt>
-            <dd class="mt-1 text-body-md text-on-surface">
-              {txt.inicio.panel.materialValor}
-            </dd>
-          </div>
-          <div>
-            <dt
-              class="font-display text-label-sm uppercase text-on-surface-variant"
-            >
-              {txt.inicio.panel.cantidad}
-            </dt>
-            <dd class="mt-1 text-body-md text-on-surface tabular">
-              {txt.inicio.panel.cantidadValor}
-            </dd>
-          </div>
-          <div>
-            <dt
-              class="font-display text-label-sm uppercase text-on-surface-variant"
-            >
-              {txt.inicio.panel.entrega}
-            </dt>
-            <dd class="mt-1 text-body-md text-on-surface">
-              {txt.inicio.panel.entregaValor}
-            </dd>
-          </div>
+        <dl class="mt-10 grid max-w-xl grid-cols-3 border-t border-outline-variant pt-6">
+          {
+            datos.map((dato, i) => (
+              <div class:list={['flex flex-col-reverse gap-1', i > 0 && 'border-l border-outline-variant pl-4 md:pl-6', i < datos.length - 1 && 'pr-4']}>
+                <dt class="font-display text-label-sm uppercase text-on-surface-variant">
+                  {dato.etiqueta}
+                </dt>
+                <dd
+                  class:list={[
+                    'font-display text-headline-md md:text-[32px] md:leading-10 font-semibold tabular',
+                    dato.cobre ? 'text-primary' : 'text-on-surface',
+                  ]}
+                >
+                  {dato.valor}
+                </dd>
+              </div>
+            ))
+          }
         </dl>
       </div>
+
+      {/* Foto de una pieza real con insignia flotante de vidrio (hero de Stitch). */}
+      <figure class="lg:col-span-5">
+        <div class="elev-3 group relative overflow-hidden rounded-xl">
+          <Image
+            src={fotoHero}
+            alt={piezaHero.alt}
+            widths={[480, 720, 960]}
+            sizes="(min-width: 1024px) 28rem, 90vw"
+            loading="eager"
+            fetchpriority="high"
+            class="aspect-[4/5] w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.04]"
+          />
+          <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-ink/55 via-transparent to-transparent" aria-hidden="true"></div>
+
+          <p
+            class="absolute top-4 left-4 rounded-[4px] border border-outline-variant bg-surface-lowest/90 px-2.5 py-1 font-display text-label-sm uppercase text-primary backdrop-blur-md"
+          >
+            {piezaHero.categoria}
+          </p>
+
+          <div
+            class="absolute inset-x-3 bottom-3 rounded-lg border border-outline-variant bg-surface-lowest/92 p-4 backdrop-blur-md md:inset-x-4 md:bottom-4"
+          >
+            <p class="font-display text-[15px] leading-5 font-medium text-on-surface">
+              {piezaHero.titulo}
+            </p>
+            <dl class="mt-3 grid grid-cols-3 gap-3 border-t border-outline-variant pt-3">
+              <div>
+                <dt class="font-display text-label-sm uppercase text-on-surface-variant">{txt.inicio.panel.material}</dt>
+                <dd class="mt-0.5 text-body-sm text-on-surface">{txt.inicio.panel.materialValor}</dd>
+              </div>
+              <div>
+                <dt class="font-display text-label-sm uppercase text-on-surface-variant">{txt.inicio.panel.cantidad}</dt>
+                <dd class="mt-0.5 text-body-sm text-on-surface tabular">{txt.inicio.panel.cantidadValor}</dd>
+              </div>
+              <div>
+                <dt class="font-display text-label-sm uppercase text-on-surface-variant">{txt.inicio.panel.entrega}</dt>
+                <dd class="mt-0.5 text-body-sm text-on-surface">{txt.inicio.panel.entregaValor}</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+        <div class="regla mx-1 mt-3 h-2 text-outline" aria-hidden="true"></div>
+      </figure>
+    </div>
+  </section>
+
+  {/* --- Franja de capacidades (en Stitch, franja de clientes: aqui no se inventan) --- */}
+  <section
+    class="border-y border-outline-variant bg-surface-low px-margin-mobile py-5 md:px-margin"
+    aria-label={txt.inicio.franja.etiqueta}
+  >
+    <div class="mx-auto flex max-w-6xl flex-col gap-3 md:flex-row md:items-center md:gap-8">
+      <p class="shrink-0 font-display text-label-sm uppercase text-on-surface-variant">
+        {txt.inicio.franja.etiqueta}
+      </p>
+      <span class="hidden h-4 w-px bg-outline-variant md:block" aria-hidden="true"></span>
+      <ul class="flex flex-wrap items-center gap-x-5 gap-y-2">
+        {
+          txt.inicio.franja.items.map((item) => (
+            <li class="inline-flex items-center gap-2 font-display text-[15px] leading-6 font-medium text-on-surface">
+              <span class="size-1 rounded-full bg-copper" aria-hidden="true" />
+              {item}
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 
   {/* --- Servicios --- */}
   <Seccion
     id="servicios"
+    indice="01"
     etiqueta={txt.inicio.servicios.etiqueta}
     titulo={txt.inicio.servicios.titulo}
     descripcion={txt.inicio.servicios.descripcion}
-    fondo="alterno"
+    meta={txt.inicio.servicios.meta}
   >
-    <div class="grid gap-6 md:grid-cols-2">
+    <ul class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
       {
-        slugsServicio.map((slug) => {
+        slugsServicio.map((slug, i) => {
           const servicio = txt.servicios[slug];
+          const ancha = anchas[slug] === true;
           return (
-            <Tarjeta class="flex flex-col">
-              <h3 class="text-headline-sm text-on-surface">{servicio.titulo}</h3>
-              <p class="mt-3 flex-1 text-body-md text-on-surface-variant">
-                {servicio.texto}
-              </p>
+            <li class:list={['revelar', ancha && 'lg:col-span-2']}>
+              {/* El cotizador llega con el servicio ya elegido. */}
+              <a
+                href={`${ruta('/cotizar')}?servicio=${slug}`}
+                class="group relative isolate flex h-full flex-col overflow-hidden rounded-xl border border-outline-variant bg-surface-lowest p-6 transition-[border-color,box-shadow] duration-300 hover:border-copper/60 hover:shadow-[0_16px_40px_-12px_color-mix(in_srgb,var(--color-primary)_18%,transparent)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background md:p-8"
+              >
+                {slug === 'impresion-3d' && (
+                  <div
+                    class="pointer-events-none absolute inset-y-0 right-0 -z-10 hidden w-1/2 [mask-image:linear-gradient(to_right,transparent,black_55%)] lg:block"
+                    aria-hidden="true"
+                  >
+                    <Image
+                      src={recientes[0]?.imagen ?? fotoHero}
+                      alt=""
+                      widths={[400, 800]}
+                      sizes="24rem"
+                      loading="lazy"
+                      class="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                  </div>
+                )}
 
-              <div class="mt-5 flex flex-wrap gap-2">
-                {servicio.chips.map((chip) => (
-                  <Chip>{chip}</Chip>
-                ))}
-              </div>
+                <div class="flex items-start justify-between gap-4">
+                  <span class="flex size-11 items-center justify-center rounded-lg border border-copper/25 bg-copper/10 text-primary">
+                    <IconoServicio servicio={slug} class="size-[22px]" />
+                  </span>
+                  <span class:list={['font-display text-label-sm uppercase tabular', slug === 'impresion-3d' ? 'text-on-surface-variant lg:hidden' : 'text-on-surface-variant']}>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                </div>
 
-              <div class="mt-6">
-                {/* El cotizador llega con el servicio ya elegido. */}
-                <Boton
-                  href={`${ruta('/cotizar')}?servicio=${slug}`}
-                  variante="secondary"
-                >
+                <h3 class:list={['mt-6 text-on-surface', ancha ? 'text-headline-sm md:text-headline-md' : 'text-headline-sm', slug === 'impresion-3d' && 'lg:max-w-[50%]']}>
+                  {servicio.titulo}
+                </h3>
+                <p class:list={['mt-3 flex-1 text-body-md text-on-surface-variant', slug === 'impresion-3d' ? 'lg:max-w-[50%]' : 'max-w-md']}>
+                  {servicio.texto}
+                </p>
+
+                {slug === 'litofania' && muestras.length > 0 && (
+                  <ul class="mt-5 flex flex-wrap gap-2" aria-hidden="true">
+                    {muestras.map((m) => (
+                      <li
+                        class="size-7 rounded-[4px] border border-outline-variant"
+                        style={`background-color: ${m.hex}`}
+                        title={m.nombre}
+                      />
+                    ))}
+                  </ul>
+                )}
+
+                <div class:list={['mt-5 flex flex-wrap gap-2', slug === 'impresion-3d' && 'lg:max-w-[50%]']}>
+                  {servicio.chips.map((chip) => (
+                    <Chip>{chip}</Chip>
+                  ))}
+                </div>
+
+                <span class="mt-6 inline-flex items-center gap-2 font-display text-[15px] leading-5 font-medium text-primary">
                   {txt.inicio.servicios.cta}
-                </Boton>
-              </div>
-            </Tarjeta>
+                  <svg class="size-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="square" />
+                  </svg>
+                </span>
+              </a>
+            </li>
           );
         })
       }
-    </div>
+    </ul>
   </Seccion>
 
-  {/* --- Cómo funciona --- */}
+  {/* --- Cómo funciona: linea de tiempo --- */}
   <Seccion
     id="como-funciona"
+    indice="02"
     etiqueta={txt.inicio.pasos.etiqueta}
     titulo={txt.inicio.pasos.titulo}
     descripcion={txt.inicio.pasos.descripcion}
+    meta={txt.inicio.pasos.meta}
+    fondo="alterno"
   >
-    <ol class="grid gap-6 md:grid-cols-3">
+    <ol class="grid gap-10 md:grid-cols-3 md:gap-8">
       {
-        pasos.map((paso) => (
-          <li>
-            <Tarjeta elevacion={1} class="h-full">
-              <p class="font-display text-headline-md text-primary tabular">
-                {paso.numero}
-              </p>
-              <h3 class="mt-3 text-headline-sm text-on-surface">
-                {paso.titulo}
-              </h3>
-              <p class="mt-2 text-body-md text-on-surface-variant">
-                {paso.texto}
-              </p>
-            </Tarjeta>
+        pasos.map((paso, i) => (
+          <li class="revelar group relative">
+            <div class="flex items-center gap-3" aria-hidden="true">
+              <span class="size-3 shrink-0 rounded-full border-2 border-copper bg-surface-low transition-colors duration-300 group-hover:bg-copper" />
+              {i < pasos.length - 1 && (
+                <span class="hidden h-px flex-1 bg-linear-to-r from-copper/60 to-outline-variant md:block" />
+              )}
+            </div>
+            <p class="trazo mt-6 font-display text-[64px] leading-none font-semibold tracking-[-0.04em] tabular" aria-hidden="true">
+              {paso.numero}
+            </p>
+            <h3 class="mt-4 text-headline-sm text-on-surface">
+              <span class="sr-only">{paso.numero}. </span>
+              {paso.titulo}
+            </h3>
+            <p class="mt-2 max-w-sm text-body-md text-on-surface-variant">
+              {paso.texto}
+            </p>
           </li>
         ))
       }
@@ -240,14 +344,17 @@ const waIdea = waGeneral(idioma, ruta('/'));
     destacados.length > 0 && (
       <Seccion
         id="catalogo"
+        indice="03"
         etiqueta={txt.inicio.destacados.etiqueta}
         titulo={txt.inicio.destacados.titulo}
         descripcion={txt.inicio.destacados.descripcion}
-        fondo="alterno"
+        meta={txt.inicio.destacados.meta}
       >
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {destacados.map((producto) => (
-            <TarjetaProducto producto={producto} idioma={idioma} />
+            <div class="revelar grid">
+              <TarjetaProducto producto={producto} idioma={idioma} />
+            </div>
           ))}
         </div>
 
@@ -260,15 +367,31 @@ const waIdea = waGeneral(idioma, ruta('/'));
     )
   }
 
-  {/* --- Trabajos previos --- */}
+  {/* --- Trabajos previos: mosaico, la mas reciente en grande --- */}
   <Seccion
     id="trabajos"
+    indice={destacados.length > 0 ? '04' : '03'}
     etiqueta={txt.inicio.trabajos.etiqueta}
     titulo={txt.inicio.trabajos.titulo}
     descripcion={txt.inicio.trabajos.descripcion}
+    meta={txt.inicio.trabajos.meta}
+    fondo="alterno"
   >
-    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {recientes.map((trabajo) => <TarjetaTrabajo trabajo={trabajo} />)}
+    {/*
+      Seis piezas en tres columnas: la primera ocupa 2x2 y el resto rellena.
+      En dos columnas quedarian cinco celdas tras la grande, y la ultima sola:
+      por debajo de `lg` se oculta la sexta.
+    */}
+    <ul class="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-3">
+      {
+        recientes.map((trabajo, i) => (
+          <TarjetaTrabajo
+            trabajo={trabajo}
+            destacada={i === 0}
+            class:list={[i === 0 && 'col-span-2 row-span-2', i === 5 && 'max-lg:hidden']}
+          />
+        ))
+      }
     </ul>
 
     <div class="mt-10">
@@ -278,30 +401,61 @@ const waIdea = waGeneral(idioma, ruta('/'));
     </div>
   </Seccion>
 
-  {/* --- CTA final --- */}
-  <section class="px-margin-mobile pb-20 md:px-margin">
+  {/* --- CTA final: banda calida con halo cobrizo (cierre de Stitch) --- */}
+  <section class="px-margin-mobile py-16 md:px-margin md:py-24">
     <div
-      class="mx-auto max-w-6xl rounded-xl bg-primary px-6 py-12 text-center md:px-16 md:py-16"
+      class="revelar relative isolate mx-auto max-w-6xl overflow-hidden rounded-xl border border-outline-variant bg-linear-to-b from-sand-1 via-sand-2 to-sand-3 px-6 py-14 text-center md:px-16 md:py-20"
     >
-      <h2 class="text-headline-lg-mobile md:text-headline-lg text-on-primary">
+      <div class="halo pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
+      <div class="regla pointer-events-none absolute inset-x-8 bottom-4 h-2 text-outline-variant" aria-hidden="true"></div>
+
+      <p class="font-display text-label-md uppercase text-primary">
+        {txt.inicio.cta.etiqueta}
+      </p>
+      <h2 class="mx-auto mt-4 max-w-3xl text-headline-lg-mobile md:text-display-lg text-on-surface">
         {txt.inicio.cta.titulo}
       </h2>
-      <p class="mx-auto mt-4 max-w-2xl text-body-lg text-primary-fixed">
+      <p class="mx-auto mt-5 max-w-2xl text-body-lg text-on-surface-variant">
         {txt.inicio.cta.texto}
       </p>
 
       <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <Boton href={ruta('/cotizar')} variante="inverso" tamano="lg">
+        <Boton href={ruta('/cotizar')} tamano="lg">
           {txt.inicio.cta.primario}
         </Boton>
         {/* Salida directa para quien solo quiere preguntar algo suelto. */}
-        <Boton href={waIdea} externo variante="inverso-outline" tamano="lg">
+        <Boton href={waIdea} externo variante="secondary" tamano="lg">
           <IconoWhatsApp class="size-5" />
           {txt.inicio.cta.secundario}
         </Boton>
       </div>
 
-      <p class="mt-6 text-body-sm text-primary-fixed">
+      {/*
+        En Stitch aqui va un formulario de nombre y correo. Este sitio no tiene
+        backend: en su lugar, atajos al cotizador con el servicio ya elegido.
+      */}
+      <div class="mx-auto mt-10 max-w-3xl border-t border-outline-variant/80 pt-6">
+        <p class="font-display text-label-sm uppercase text-on-surface-variant">
+          {txt.inicio.cta.elige}
+        </p>
+        <ul class="mt-4 flex flex-wrap justify-center gap-2">
+          {
+            slugsServicio.map((slug) => (
+              <li>
+                <a
+                  href={`${ruta('/cotizar')}?servicio=${slug}`}
+                  class="inline-flex items-center gap-2 rounded-[4px] border border-outline-variant bg-surface-lowest/70 px-3 py-2 text-body-sm text-on-surface transition-colors hover:border-copper hover:bg-surface-lowest"
+                >
+                  <IconoServicio servicio={slug} class="size-4 text-primary" />
+                  {txt.servicios[slug].titulo}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <p class="mt-8 text-body-sm text-on-surface-variant tabular">
         {site.whatsapp.display} · {txt.inicio.cta.cobertura}
       </p>
     </div>
