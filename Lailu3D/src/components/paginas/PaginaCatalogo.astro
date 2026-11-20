@@ -48,7 +48,7 @@ const reglasFiltro = [
 ].join('\n');
 
 const claseFiltro =
-  'inline-flex cursor-pointer items-center gap-1.5 rounded-[4px] border border-outline-variant bg-surface-lowest px-4 py-2 font-display text-label-md uppercase text-on-surface-variant transition-colors hover:border-primary';
+  'inline-flex shrink-0 cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-[4px] border border-outline-variant bg-surface-lowest px-4 py-2 font-display text-label-md uppercase text-on-surface-variant transition-colors hover:border-primary';
 ---
 
 <Layout titulo={txt.catalogo.meta.titulo} descripcion={txt.catalogo.meta.descripcion}>
@@ -59,8 +59,14 @@ const claseFiltro =
     nivelTitulo={1}
   >
     <div id="catalogo">
+      {/*
+        Barra de filtros fija bajo la cabecera (h-16) mientras se recorre la
+        grilla: con decenas de piezas, volver arriba para cambiar de categoria
+        era lo mas incomodo. En movil es una sola fila que se desliza de lado
+        en vez de cuatro filas de pastillas; sale a sangre hasta el borde.
+      */}
       {hayFiltro && (
-      <div class="flex flex-wrap items-center gap-2">
+      <div class="sticky top-16 z-30 -mx-margin-mobile flex items-center gap-2 overflow-x-auto border-b border-outline-variant bg-background/95 px-margin-mobile py-3 backdrop-blur-sm [scrollbar-width:none] md:mx-0 md:flex-wrap md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden">
         <input
           type="radio"
           id="cat-todos"
@@ -97,7 +103,7 @@ const claseFiltro =
       </div>
       )}
 
-      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="mt-6 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
         {
           productos.map((producto) => (
             <div data-categoria={producto.data.categoria}>

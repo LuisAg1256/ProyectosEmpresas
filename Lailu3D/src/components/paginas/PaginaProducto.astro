@@ -31,6 +31,27 @@ const ruta = Astro.url.pathname;
 const wa = waProducto(data, ruta, idioma);
 const alt = data.imagenAlt?.[idioma] ?? data.nombre[idioma];
 const esFoto = data.imagen.format !== 'svg';
+const conPrecio = data.precio !== null;
+
+/**
+ * Fotos de la ficha: la principal y su galeria. Con mas de una, las miniaturas
+ * son radios y la foto grande cambia con `:has()`, sin JavaScript. Sin soporte
+ * de `:has()` se queda la principal, que es lo mismo que habia antes.
+ */
+const fotos = [
+  { imagen: data.imagen, alt },
+  ...data.galeria.map((foto) => ({ imagen: foto.imagen, alt: foto.alt[idioma] })),
+];
+const reglasGaleria = [
+  `#galeria [data-foto]:not([data-foto="0"]){opacity:0}`,
+  ...fotos.slice(1).map(
+    (_, i) =>
+      `#galeria:has(#foto-${i + 1}:checked) [data-foto="${i + 1}"]{opacity:1}` +
+      `#galeria:has(#foto-${i + 1}:checked) [data-foto="0"]{opacity:0}`,
+  ),
+  `#galeria input:checked + label{outline:2px solid var(--color-primary);outline-offset:2px}`,
+  `#galeria input:focus-visible + label{outline:2px solid var(--color-copper);outline-offset:2px}`,
+].join('\n');
 
 /** Ficha tecnica: solo se listan los campos que el producto realmente declara. */
 const especificaciones = [
@@ -84,7 +105,8 @@ const relacionados = (await getCollection('productos'))
   .slice(0, 4);
 ---
 
-<Layout titulo={data.nombre[idioma]} descripcion={data.resumen[idioma]}>
+{/* El boton flotante tambien manda el producto, no un saludo generico. */}
+<Layout titulo={data.nombre[idioma]} descripcion={data.resumen[idioma]} whatsapp={wa}>
   <JsonLd datos={productoJsonLd(producto, idioma, ruta)} />
   <JsonLd datos={migasJsonLd} />
 
@@ -109,8 +131,8 @@ const relacionados = (await getCollection('productos'))
       </nav>
 
       <div class="grid gap-10 md:grid-cols-2 md:gap-12">
-        <div>
-          <div class="elev-2 overflow-hidden rounded-lg bg-surface-container">
+        <div id="galeria">
+          <div class="elev-2 relative overflow-hidden rounded-lg bg-surface-container">
             {/*
               Es el elemento LCP de la ficha. `<Image>` marca lazy por defecto,
               con lo que el navegador no la pide hasta hacer el layout: aqui va
@@ -119,15 +141,21 @@ const relacionados = (await getCollection('productos'))
             */}
             {
               esFoto ? (
-                <Image
-                  src={data.imagen}
-                  alt={alt}
-                  widths={[400, 800]}
-                  sizes="(min-width: 768px) 36rem, 90vw"
-                  loading="eager"
-                  fetchpriority="high"
-                  class="aspect-square size-full object-cover"
-                />
+                fotos.map((foto, i) => (
+                  <Image
+                    src={foto.imagen}
+                    alt={foto.alt}
+                    widths={[400, 800]}
+                    sizes="(min-width: 768px) 36rem, 90vw"
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    fetchpriority={i === 0 ? 'high' : undefined}
+                    data-foto={i}
+                    class:list={[
+                      'aspect-square size-full object-cover transition-opacity duration-300',
+                      i > 0 && 'absolute inset-0',
+                    ]}
+                  />
+                ))
               ) : (
                 <Image
                   src={data.imagen}
@@ -143,20 +171,35 @@ const relacionados = (await getCollection('productos'))
           </div>
 
           {
-            data.galeria.length > 0 && (
-              <ul class="mt-4 grid grid-cols-3 gap-4">
-                {data.galeria.map((foto) => (
-                  <li class="elev-1 overflow-hidden rounded-lg bg-surface-container">
-                    <Image
-                      src={foto.imagen}
-                      alt={foto.alt[idioma]}
-                      widths={[400, 800]}
-                      sizes="(min-width: 768px) 12rem, 30vw"
-                      class="aspect-square size-full object-cover"
-                    />
-                  </li>
-                ))}
-              </ul>
+            fotos.length > 1 && (
+              <fieldset class="mt-4">
+                <legend class="sr-only">{txt.producto.fotos}</legend>
+                <div class="grid grid-cols-4 gap-3">
+                  {fotos.map((foto, i) => (
+                    <div>
+                      <input
+                        type="radio"
+                        id={`foto-${i}`}
+                        name="foto"
+                        class="sr-only"
+                        checked={i === 0}
+                      />
+                      <label
+                        for={`foto-${i}`}
+                        class="elev-1 block cursor-pointer overflow-hidden rounded-lg bg-surface-container transition-opacity hover:opacity-90"
+                      >
+                        <Image
+                          src={foto.imagen}
+                          alt={foto.alt}
+                          widths={[200, 400]}
+                          sizes="(min-width: 768px) 8rem, 22vw"
+                          class="aspect-square size-full object-cover"
+                        />
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </fieldset>
             )
           }
         </div>
@@ -182,6 +225,8 @@ const relacionados = (await getCollection('productos'))
           </p>
 
           <div class="mt-6 flex flex-wrap gap-2">
+            {/* Una pieza bajo cotizacion no tiene ficha tecnica: van sus condiciones. */}
+            {!conPrecio && txt.producto.condicionesPieza.map((texto) => <Chip>{texto}</Chip>)}
             {data.material && <Chip>{data.material}</Chip>}
             {
               data.color && (
@@ -197,7 +242,7 @@ const relacionados = (await getCollection('productos'))
               {txt.producto.pedir}
             </Boton>
             <p class="mt-3 text-body-sm text-on-surface-variant">
-              {txt.producto.notaPedir}
+              {conPrecio ? txt.producto.notaPedir : txt.producto.notaCotizar}
             </p>
           </div>
 
@@ -239,7 +284,7 @@ const relacionados = (await getCollection('productos'))
             <h2 class="text-headline-md text-on-surface">
               {txt.producto.relacionados}
             </h2>
-            <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="mt-6 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
               {relacionados.map((otro) => (
                 <TarjetaProducto producto={otro} idioma={idioma} />
               ))}
@@ -249,4 +294,5 @@ const relacionados = (await getCollection('productos'))
       }
     </div>
   </div>
+  {fotos.length > 1 && <style is:inline set:html={reglasGaleria}></style>}
 </Layout>

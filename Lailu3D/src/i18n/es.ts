@@ -274,6 +274,7 @@ export const es = {
     descripcion:
       'Cada pieza se cotiza según tamaño, color y personalización. El pedido se cierra por WhatsApp: al pulsar el botón de una ficha, el mensaje sale con el nombre, el código y el enlace del producto.',
     todos: 'Todos',
+    verFicha: 'Ver ficha',
     ctaTitulo: '¿No está lo que buscas?',
     ctaTexto: 'Fabricamos piezas a medida. Cuéntanos la idea y te cotizamos.',
     ctaBoton: 'Cotizar una pieza',
@@ -298,6 +299,10 @@ export const es = {
     pedir: 'Pedir por WhatsApp',
     notaPedir:
       'Se abre WhatsApp con el nombre, el código y el enlace de este producto ya escritos. Confirmamos disponibilidad y coordinamos la entrega por ahí.',
+    notaCotizar:
+      'Se abre WhatsApp con el nombre, el código y el enlace de esta pieza ya escritos. Te confirmamos precio, colores y tiempo de entrega por ahí.',
+    condicionesPieza: ['Color a elección', 'Envíos a todo Ecuador'],
+    fotos: 'Fotos del producto',
     descripcion: 'Descripción',
     relacionados: 'Otros de la misma categoría',
     especificaciones: {

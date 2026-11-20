@@ -36,7 +36,7 @@ const wa = waFilamentos(idioma, Astro.url.pathname);
     descripcion={txt.filamentos.descripcion}
     nivelTitulo={1}
   >
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
       {
         filamentos.map((producto) => (
           <TarjetaProducto producto={producto} idioma={idioma} nivelTitulo={2} />

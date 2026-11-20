@@ -13,6 +13,11 @@ interface Props {
   imagenOg?: string;
   /** Rutas de trabajo (kit de componentes) que no deben indexarse. */
   noindex?: boolean;
+  /**
+   * Enlace del boton flotante de WhatsApp. Por defecto, el saludo general con
+   * la URL de la pagina; una ficha pasa el de su producto.
+   */
+  whatsapp?: string;
 }
 
 const {
@@ -20,6 +25,7 @@ const {
   descripcion,
   imagenOg = '/og.png',
   noindex = false,
+  whatsapp,
 } = Astro.props;
 
 const idioma = (Astro.currentLocale ?? idiomaPorDefecto) as Idioma;
@@ -126,6 +132,6 @@ const alternativas = noindex
     </main>
 
     <Footer />
-    <BotonWhatsAppFlotante />
+    <BotonWhatsAppFlotante href={whatsapp} />
   </body>
 </html>

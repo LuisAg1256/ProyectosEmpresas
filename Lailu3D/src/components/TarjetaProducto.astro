@@ -2,8 +2,8 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { idiomaPorDefecto, type Idioma } from '../config/site';
-import { formatearPrecio } from '../lib/formato';
-import { rutaLocalizada } from '../i18n';
+import { formatearPrecio, categorias } from '../lib/formato';
+import { t, rutaLocalizada } from '../i18n';
 import Badge from './ui/Badge.astro';
 
 /**
@@ -36,6 +36,14 @@ const Nombre = `h${nivelTitulo}` as 'h2' | 'h3';
  * sangre, como en la galeria de trabajos.
  */
 const esFoto = data.imagen.format !== 'svg';
+
+/**
+ * Con precio (filamentos) la tarjeta lleva estado y precio grande. Sin precio
+ * (piezas bajo pedido, todas iguales) el estado no distingue nada: arriba va la
+ * categoria y abajo "Bajo cotizacion" discreto con la invitacion a la ficha.
+ */
+const conPrecio = data.precio !== null;
+const txt = t(idioma);
 ---
 
 <a
@@ -50,7 +58,7 @@ const esFoto = data.imagen.format !== 'svg';
           src={data.imagen}
           alt={alt}
           widths={[400, 800]}
-          sizes="(min-width: 1024px) 18rem, (min-width: 640px) 45vw, 90vw"
+          sizes="(min-width: 1024px) 18rem, 45vw"
           class="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
         />
       ) : (
@@ -68,9 +76,21 @@ const esFoto = data.imagen.format !== 'svg';
     }
   </div>
 
-  <div class="flex flex-1 flex-col border-t border-outline-variant p-5">
+  {/*
+    En movil la grilla va a dos columnas: el cuerpo se compacta y el resumen
+    se oculta (el nombre y la foto bastan para decidir si abrir la ficha).
+  */}
+  <div class="flex flex-1 flex-col border-t border-outline-variant p-3 sm:p-5">
     <div class="flex items-center justify-between gap-3">
-      <Badge estado={data.disponibilidad} idioma={idioma} />
+      {
+        conPrecio ? (
+          <Badge estado={data.disponibilidad} idioma={idioma} />
+        ) : (
+          <p class="truncate font-display text-label-sm uppercase text-primary">
+            {categorias[data.categoria][idioma]}
+          </p>
+        )
+      }
       {
         data.color && (
           <span
@@ -83,16 +103,39 @@ const esFoto = data.imagen.format !== 'svg';
       }
     </div>
 
-    <Nombre class="mt-2 text-headline-sm text-on-surface">
+    <Nombre class="mt-1.5 text-[15px] leading-5 font-medium text-on-surface sm:mt-2 sm:text-headline-sm">
       {data.nombre[idioma]}
     </Nombre>
 
-    <p class="mt-2 flex-1 text-body-sm text-on-surface-variant">
+    <p class="mt-2 hidden flex-1 text-body-sm text-on-surface-variant sm:block">
       {data.resumen[idioma]}
     </p>
 
-    <p class="mt-4 font-display text-headline-sm text-primary tabular">
-      {formatearPrecio(data.precio, idioma)}
-    </p>
+    {
+      conPrecio ? (
+        <p class="mt-auto pt-3 font-display text-[17px] leading-6 font-medium text-primary tabular sm:pt-4 sm:text-headline-sm">
+          {formatearPrecio(data.precio, idioma)}
+        </p>
+      ) : (
+        <p class="mt-auto flex items-center justify-between gap-2 pt-3 sm:pt-4">
+          <span class="font-display text-label-sm uppercase text-on-surface-variant">
+            {formatearPrecio(data.precio, idioma)}
+          </span>
+          <span class="inline-flex items-center gap-1 font-display text-[14px] leading-5 font-medium text-primary">
+            <span class="hidden sm:inline">{txt.catalogo.verFicha}</span>
+            <svg
+              class="size-4 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:group-hover:translate-x-0"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              aria-hidden="true"
+            >
+              <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="square" />
+            </svg>
+          </span>
+        </p>
+      )
+    }
   </div>
 </a>

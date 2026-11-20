@@ -265,6 +265,7 @@ export const en: typeof es = {
     descripcion:
       'Each piece is quoted by size, colour and personalisation. Orders are closed over WhatsApp: press the button on a product page and the message goes out with its name, code and link.',
     todos: 'All',
+    verFicha: 'View',
     ctaTitulo: 'Not finding what you need?',
     ctaTexto: 'We make pieces to measure. Tell us the idea and we will quote it.',
     ctaBoton: 'Quote a piece',
@@ -289,6 +290,10 @@ export const en: typeof es = {
     pedir: 'Order on WhatsApp',
     notaPedir:
       'WhatsApp opens with the name, the code and the link of this product already written. We confirm availability and arrange delivery there.',
+    notaCotizar:
+      'WhatsApp opens with the name, the code and the link of this piece already written. We confirm price, colours and delivery time there.',
+    condicionesPieza: ['Colour of your choice', 'Ships across Ecuador'],
+    fotos: 'Product photos',
     descripcion: 'Description',
     relacionados: 'More in the same category',
     especificaciones: {

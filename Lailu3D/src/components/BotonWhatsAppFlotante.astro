@@ -8,8 +8,13 @@ import IconoWhatsApp from './ui/IconoWhatsApp.astro';
  * Acceso permanente al canal de venta. Lleva la URL de la pagina actual dentro
  * del mensaje, asi el encargado sabe desde donde escribio el cliente.
  */
+interface Props {
+  /** Enlace ya armado en `lib/whatsapp.ts` (p. ej. el de una ficha). */
+  href?: string;
+}
+
 const idioma = (Astro.currentLocale ?? idiomaPorDefecto) as Idioma;
-const wa = waGeneral(idioma, Astro.url.pathname);
+const wa = Astro.props.href ?? waGeneral(idioma, Astro.url.pathname);
 const txt = t(idioma);
 ---
 
