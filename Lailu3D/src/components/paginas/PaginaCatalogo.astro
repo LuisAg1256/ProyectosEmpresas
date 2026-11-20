@@ -16,9 +16,10 @@ interface Props {
 const { idioma } = Astro.props;
 const txt = t(idioma);
 
-const productos = (await getCollection('productos')).sort(
-  (a, b) => a.data.orden - b.data.orden,
-);
+/** Los filamentos tienen su propia pagina (`/filamentos`): aqui no entran. */
+const productos = (await getCollection('productos'))
+  .filter((p) => p.data.categoria !== 'filamento')
+  .sort((a, b) => a.data.orden - b.data.orden);
 
 /** Solo se ofrecen los filtros de categorias que hoy tienen producto. */
 const presentes = [...new Set(productos.map((p) => p.data.categoria))] as Categoria[];

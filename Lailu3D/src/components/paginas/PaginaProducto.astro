@@ -30,6 +30,7 @@ const ruta = Astro.url.pathname;
 /** El mensaje sale con nombre, codigo y URL absoluta de esta misma ficha. */
 const wa = waProducto(data, ruta, idioma);
 const alt = data.imagenAlt?.[idioma] ?? data.nombre[idioma];
+const esFoto = data.imagen.format !== 'svg';
 
 /** Ficha tecnica: solo se listan los campos que el producto realmente declara. */
 const especificaciones = [
@@ -61,10 +62,19 @@ const parrafos = data.descripcion[idioma]
   .map((p) => p.trim())
   .filter(Boolean);
 
+/**
+ * Pagina madre de la ficha: un filamento cuelga de `/filamentos`, el resto del
+ * catalogo. La URL de la ficha es la misma para los dos.
+ */
+const madre =
+  data.categoria === 'filamento'
+    ? { nombre: txt.nav.filamentos, ruta: rutaLocalizada('/filamentos', idioma) }
+    : { nombre: txt.nav.catalogo, ruta: rutaLocalizada('/productos', idioma) };
+
 /** Las mismas migas que se ven en pantalla, para el buscador. */
 const migasJsonLd = migas([
   { nombre: txt.nav.inicio, ruta: rutaLocalizada('/', idioma) },
-  { nombre: txt.nav.catalogo, ruta: rutaLocalizada('/productos', idioma) },
+  madre,
   { nombre: data.nombre[idioma], ruta },
 ]);
 
@@ -89,11 +99,8 @@ const relacionados = (await getCollection('productos'))
           </li>
           <li aria-hidden="true">/</li>
           <li>
-            <a
-              href={rutaLocalizada('/productos', idioma)}
-              class="hover:text-on-surface"
-            >
-              {txt.nav.catalogo}
+            <a href={madre.ruta} class="hover:text-on-surface">
+              {madre.nombre}
             </a>
           </li>
           <li aria-hidden="true">/</li>
@@ -102,21 +109,56 @@ const relacionados = (await getCollection('productos'))
       </nav>
 
       <div class="grid gap-10 md:grid-cols-2 md:gap-12">
-        <div class="elev-2 overflow-hidden rounded-lg bg-surface-container">
-          {/*
-            Es el elemento LCP de la ficha. `<Image>` marca lazy por defecto,
-            con lo que el navegador no la pide hasta hacer el layout: aqui va
-            explicitamente `eager` y con prioridad alta.
-          */}
-          <Image
-            src={data.imagen}
-            alt={alt}
-            width={800}
-            height={800}
-            loading="eager"
-            fetchpriority="high"
-            class="aspect-square size-full object-contain p-8"
-          />
+        <div>
+          <div class="elev-2 overflow-hidden rounded-lg bg-surface-container">
+            {/*
+              Es el elemento LCP de la ficha. `<Image>` marca lazy por defecto,
+              con lo que el navegador no la pide hasta hacer el layout: aqui va
+              explicitamente `eager` y con prioridad alta. La foto de una pieza
+              impresa va a sangre; el SVG de una bobina, contenido y con aire.
+            */}
+            {
+              esFoto ? (
+                <Image
+                  src={data.imagen}
+                  alt={alt}
+                  widths={[400, 800]}
+                  sizes="(min-width: 768px) 36rem, 90vw"
+                  loading="eager"
+                  fetchpriority="high"
+                  class="aspect-square size-full object-cover"
+                />
+              ) : (
+                <Image
+                  src={data.imagen}
+                  alt={alt}
+                  width={800}
+                  height={800}
+                  loading="eager"
+                  fetchpriority="high"
+                  class="aspect-square size-full object-contain p-8"
+                />
+              )
+            }
+          </div>
+
+          {
+            data.galeria.length > 0 && (
+              <ul class="mt-4 grid grid-cols-3 gap-4">
+                {data.galeria.map((foto) => (
+                  <li class="elev-1 overflow-hidden rounded-lg bg-surface-container">
+                    <Image
+                      src={foto.imagen}
+                      alt={foto.alt[idioma]}
+                      widths={[400, 800]}
+                      sizes="(min-width: 768px) 12rem, 30vw"
+                      class="aspect-square size-full object-cover"
+                    />
+                  </li>
+                ))}
+              </ul>
+            )
+          }
         </div>
 
         <div>

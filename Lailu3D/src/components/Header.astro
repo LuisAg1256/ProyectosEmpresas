@@ -24,13 +24,27 @@ const ancla = (id: string) => (enHome ? `#${id}` : `${inicio}#${id}`);
 const esActual = (destino: string) =>
   rutaActual === destino || rutaActual.startsWith(`${destino}/`);
 
+/**
+ * Las fichas de filamento viven en `/productos/filamento-*` igual que el resto,
+ * pero pertenecen a la seccion Filamentos: el prefijo del slug lo dice.
+ */
+const enFichaFilamento = rutaActual.startsWith(
+  `${rutaLocalizada('/productos', idioma)}/filamento-`,
+);
+
 const enlaces: { clave: ClaveNav; texto: string; href: string; actual: boolean }[] = [
   { clave: 'servicios', texto: txt.nav.servicios, href: ancla('servicios'), actual: false },
   {
     clave: 'catalogo',
     texto: txt.nav.catalogo,
     href: rutaLocalizada('/productos', idioma),
-    actual: esActual(rutaLocalizada('/productos', idioma)),
+    actual: esActual(rutaLocalizada('/productos', idioma)) && !enFichaFilamento,
+  },
+  {
+    clave: 'filamentos',
+    texto: txt.nav.filamentos,
+    href: rutaLocalizada('/filamentos', idioma),
+    actual: esActual(rutaLocalizada('/filamentos', idioma)) || enFichaFilamento,
   },
   {
     clave: 'trabajos',
@@ -75,17 +89,18 @@ const wa = waGeneral(idioma, rutaActual);
     </a>
 
     {/*
-      Los iconos aparecen desde `lg`: entre 768 y 1024 px el menu, el selector
-      de idioma y el boton de cotizar no caben con ellos.
+      Con cinco enlaces (Filamentos tiene el suyo) el menu solo cabe completo
+      desde `lg`; por debajo va el desplegable. Los iconos, desde `xl`: entre
+      1024 y 1280 px no caben junto al selector de idioma y el boton de cotizar.
     */}
-    <nav aria-label={txt.nav.principal} class="hidden items-center gap-6 md:flex lg:gap-7">
+    <nav aria-label={txt.nav.principal} class="hidden items-center gap-5 lg:flex xl:gap-7">
       {
         enlaces.map((enlace) => (
           <a
             href={enlace.href}
             aria-current={enlace.actual ? 'page' : undefined}
             class:list={[
-              'group relative inline-flex items-center gap-1.5 py-1 text-body-md transition-colors hover:text-on-surface',
+              'group relative inline-flex items-center gap-1.5 py-1 text-body-md whitespace-nowrap transition-colors hover:text-on-surface',
               'after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:bg-copper after:transition-transform after:duration-300 hover:after:scale-x-100',
               enlace.actual
                 ? 'text-on-surface after:scale-x-100'
@@ -95,7 +110,7 @@ const wa = waGeneral(idioma, rutaActual);
             <IconoNav
               clave={enlace.clave}
               class:list={[
-                'hidden size-4 transition-[color,translate] duration-300 group-hover:-translate-y-px group-hover:text-copper lg:block motion-reduce:group-hover:translate-y-0',
+                'hidden size-4 transition-[color,translate] duration-300 group-hover:-translate-y-px group-hover:text-copper xl:block motion-reduce:group-hover:translate-y-0',
                 enlace.actual ? 'text-copper' : 'text-outline',
               ]}
             />
@@ -141,7 +156,7 @@ const wa = waGeneral(idioma, rutaActual);
         {txt.nav.cotizar}
       </Boton>
 
-      <details class="relative md:hidden" name="menu-movil">
+      <details class="relative lg:hidden" name="menu-movil">
         <summary
           class="flex size-10 cursor-pointer items-center justify-center rounded-[4px] border border-outline-variant bg-surface-lowest text-on-surface marker:content-none [&::-webkit-details-marker]:hidden"
           aria-label={txt.nav.abrirMenu}

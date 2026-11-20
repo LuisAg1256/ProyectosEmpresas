@@ -29,6 +29,13 @@ const { data } = producto;
 const ruta = rutaLocalizada(`/productos/${producto.id}`, idioma);
 const alt = data.imagenAlt?.[idioma] ?? data.nombre[idioma];
 const Nombre = `h${nivelTitulo}` as 'h2' | 'h3';
+
+/**
+ * Los filamentos llevan un SVG de bobina: va contenido, con aire y la regla al
+ * pie. Las piezas impresas llevan foto (ya cuadrada desde el origen): va a
+ * sangre, como en la galeria de trabajos.
+ */
+const esFoto = data.imagen.format !== 'svg';
 ---
 
 <a
@@ -37,14 +44,28 @@ const Nombre = `h${nivelTitulo}` as 'h2' | 'h3';
 >
   {/* Bandeja hundida con regla de medicion al pie: la pieza "sobre la cama". */}
   <div class="relative aspect-square overflow-hidden bg-surface-low">
-    <Image
-      src={data.imagen}
-      alt={alt}
-      width={400}
-      height={400}
-      class="size-full object-contain p-6 transition-transform duration-500 ease-out group-hover:scale-[1.04]"
-    />
-    <div class="regla absolute inset-x-4 bottom-3 h-1.5 text-outline-variant" aria-hidden="true"></div>
+    {
+      esFoto ? (
+        <Image
+          src={data.imagen}
+          alt={alt}
+          widths={[400, 800]}
+          sizes="(min-width: 1024px) 18rem, (min-width: 640px) 45vw, 90vw"
+          class="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+        />
+      ) : (
+        <>
+          <Image
+            src={data.imagen}
+            alt={alt}
+            width={400}
+            height={400}
+            class="size-full object-contain p-6 transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+          />
+          <div class="regla absolute inset-x-4 bottom-3 h-1.5 text-outline-variant" aria-hidden="true" />
+        </>
+      )
+    }
   </div>
 
   <div class="flex flex-1 flex-col border-t border-outline-variant p-5">

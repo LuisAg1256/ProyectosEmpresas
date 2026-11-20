@@ -90,7 +90,9 @@ export function producto(
     name: data.nombre[idioma],
     description: data.resumen[idioma],
     sku: data.sku,
-    image: [absoluta(data.imagen.src)],
+    image: [data.imagen, ...data.galeria.map((foto) => foto.imagen)].map(
+      (imagen) => absoluta(imagen.src),
+    ),
     url,
     ...(data.marca ? { brand: { '@type': 'Brand', name: data.marca } } : {}),
     ...(data.material ? { material: data.material } : {}),

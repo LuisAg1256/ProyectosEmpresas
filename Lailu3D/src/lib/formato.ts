@@ -29,6 +29,10 @@ export const categorias = {
   figura: { es: 'Figuras', en: 'Figures' },
   llavero: { es: 'Llaveros', en: 'Keychains' },
   lampara: { es: 'Lámparas', en: 'Lamps' },
+  navidad: { es: 'Navidad', en: 'Christmas' },
+  personalizado: { es: 'Personalizados', en: 'Personalised' },
+  hogar: { es: 'Hogar y oficina', en: 'Home & office' },
+  taller: { es: 'Taller y gamers', en: 'Workshop & gaming' },
 } as const;
 
 export type Categoria = keyof typeof categorias;

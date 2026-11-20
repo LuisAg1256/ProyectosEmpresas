@@ -18,6 +18,7 @@ export const es = {
     inicio: 'Inicio',
     servicios: 'Servicios',
     catalogo: 'Catálogo',
+    filamentos: 'Filamentos',
     trabajos: 'Trabajos',
     comoFunciona: 'Cómo funciona',
     cotizar: 'Cotizar',
@@ -118,7 +119,7 @@ export const es = {
       titulo: 'Productos listos para pedir',
       descripcion:
         'Filamentos y piezas con precio referencial. Se piden por WhatsApp, con el código del producto ya cargado en el mensaje.',
-      cta: 'Ver todo el catálogo',
+      cta: 'Ver todos los filamentos',
       meta: 'Precio referencial · USD',
     },
     trabajos: {
@@ -266,16 +267,31 @@ export const es = {
     meta: {
       titulo: 'Catálogo',
       descripcion:
-        'Filamentos PLA, figuras, llaveros y lámparas personalizadas. Precio referencial, pedido por WhatsApp y envíos a todo el Ecuador.',
+        'Decoración navideña, regalos personalizados, organizadores para el hogar, llaveros y lámparas impresos en 3D. Pedido por WhatsApp y envíos a todo el Ecuador.',
     },
     etiqueta: 'Catálogo',
-    titulo: 'Productos y filamentos',
+    titulo: 'Piezas impresas para pedir',
     descripcion:
-      'Precios referenciales en USD. El pedido se cierra por WhatsApp: al pulsar el botón de una ficha, el mensaje sale con el nombre, el código y el enlace del producto.',
+      'Cada pieza se cotiza según tamaño, color y personalización. El pedido se cierra por WhatsApp: al pulsar el botón de una ficha, el mensaje sale con el nombre, el código y el enlace del producto.',
     todos: 'Todos',
     ctaTitulo: '¿No está lo que buscas?',
     ctaTexto: 'Fabricamos piezas a medida. Cuéntanos la idea y te cotizamos.',
     ctaBoton: 'Cotizar una pieza',
+  },
+
+  filamentos: {
+    meta: {
+      titulo: 'Filamentos',
+      descripcion:
+        'Filamentos Bambu Lab PLA de 1 kg con precio referencial. Pedido por WhatsApp y envíos a todo el Ecuador.',
+    },
+    etiqueta: 'Filamentos',
+    titulo: 'Filamentos para impresión 3D',
+    descripcion:
+      'Bobinas Bambu Lab de 1 kg y 1.75 mm. Precios referenciales en USD: al pulsar el botón de una ficha, el mensaje de WhatsApp sale con el nombre, el código y el enlace del filamento.',
+    ctaTitulo: '¿Buscas otro color o material?',
+    ctaTexto: 'Trabajamos con el catálogo completo de Bambu Lab. Dinos cuál necesitas y te confirmamos precio y disponibilidad.',
+    ctaBoton: 'Preguntar por WhatsApp',
   },
 
   producto: {

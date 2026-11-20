@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Seccion from '../ui/Seccion.astro';
+import Boton from '../ui/Boton.astro';
+import IconoWhatsApp from '../ui/IconoWhatsApp.astro';
+import TarjetaProducto from '../TarjetaProducto.astro';
+import type { Idioma } from '../../config/site';
+import { waFilamentos } from '../../lib/whatsapp';
+import { t } from '../../i18n';
+
+/**
+ * Filamentos a la venta, compartido por `/filamentos` y `/en/filamentos`. Sale
+ * de la misma coleccion que el catalogo (categoria `filamento`), que a su vez
+ * los deja fuera: cada producto vive en una sola de las dos paginas. Las fichas
+ * siguen en `/productos/<slug>`.
+ */
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const txt = t(idioma);
+
+const filamentos = (await getCollection('productos'))
+  .filter((p) => p.data.categoria === 'filamento')
+  .sort((a, b) => a.data.orden - b.data.orden);
+
+const wa = waFilamentos(idioma, Astro.url.pathname);
+---
+
+<Layout titulo={txt.filamentos.meta.titulo} descripcion={txt.filamentos.meta.descripcion}>
+  <Seccion
+    etiqueta={txt.filamentos.etiqueta}
+    titulo={txt.filamentos.titulo}
+    descripcion={txt.filamentos.descripcion}
+    nivelTitulo={1}
+  >
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        filamentos.map((producto) => (
+          <TarjetaProducto producto={producto} idioma={idioma} nivelTitulo={2} />
+        ))
+      }
+    </div>
+
+    <div
+      class="elev-1 mt-12 flex flex-col items-start gap-4 rounded-lg p-6 md:flex-row md:items-center md:justify-between"
+    >
+      <div>
+        <h2 class="text-headline-sm text-on-surface">
+          {txt.filamentos.ctaTitulo}
+        </h2>
+        <p class="mt-1 text-body-md text-on-surface-variant">
+          {txt.filamentos.ctaTexto}
+        </p>
+      </div>
+      <Boton href={wa} externo>
+        <IconoWhatsApp class="size-4" />
+        {txt.filamentos.ctaBoton}
+      </Boton>
+    </div>
+  </Seccion>
+</Layout>

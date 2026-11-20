@@ -43,6 +43,22 @@ export function waGeneral(
   return enlace(cuerpo);
 }
 
+/**
+ * Enlace de la pagina de filamentos para pedir un color o material que no esta
+ * publicado. Lleva la URL de la pagina, como todo mensaje.
+ */
+export function waFilamentos(
+  idioma: Idioma = idiomaPorDefecto,
+  ruta = '/filamentos',
+): string {
+  const url = new URL(ruta, site.url).href;
+  const cuerpo =
+    idioma === 'en'
+      ? `Hi Lailu3D! I'm looking for a filament that isn't on the website.\n\n• Page: ${url}\n• Colour / material: `
+      : `¡Hola Lailu3D! Busco un filamento que no está en la web.\n\n• Página: ${url}\n• Color / material: `;
+  return enlace(cuerpo);
+}
+
 export type DatosCotizacion = {
   descripcion: string;
   /** Nombre visible del servicio, no el slug: va tal cual en el mensaje. */

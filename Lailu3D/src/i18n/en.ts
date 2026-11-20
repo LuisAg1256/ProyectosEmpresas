@@ -16,6 +16,7 @@ export const en: typeof es = {
     inicio: 'Home',
     servicios: 'Services',
     catalogo: 'Catalogue',
+    filamentos: 'Filaments',
     trabajos: 'Work',
     comoFunciona: 'How it works',
     cotizar: 'Get a quote',
@@ -111,7 +112,7 @@ export const en: typeof es = {
       titulo: 'Products ready to order',
       descripcion:
         'Filaments and pieces with a reference price. Ordered over WhatsApp, with the product code already in the message.',
-      cta: 'See the whole catalogue',
+      cta: 'See all filaments',
       meta: 'Reference price · USD',
     },
     trabajos: {
@@ -257,16 +258,31 @@ export const en: typeof es = {
     meta: {
       titulo: 'Catalogue',
       descripcion:
-        'PLA filaments, figures, keychains and custom lamps. Reference prices, ordering over WhatsApp and delivery anywhere in Ecuador.',
+        '3D printed Christmas décor, personalised gifts, home organisers, keychains and lamps. Ordering over WhatsApp and delivery anywhere in Ecuador.',
     },
     etiqueta: 'Catalogue',
-    titulo: 'Products and filaments',
+    titulo: 'Printed pieces to order',
     descripcion:
-      'Reference prices in USD. Orders are closed over WhatsApp: press the button on a product page and the message goes out with its name, code and link.',
+      'Each piece is quoted by size, colour and personalisation. Orders are closed over WhatsApp: press the button on a product page and the message goes out with its name, code and link.',
     todos: 'All',
     ctaTitulo: 'Not finding what you need?',
     ctaTexto: 'We make pieces to measure. Tell us the idea and we will quote it.',
     ctaBoton: 'Quote a piece',
+  },
+
+  filamentos: {
+    meta: {
+      titulo: 'Filaments',
+      descripcion:
+        'Bambu Lab PLA filaments, 1 kg spools with a reference price. Ordering over WhatsApp and delivery anywhere in Ecuador.',
+    },
+    etiqueta: 'Filaments',
+    titulo: 'Filaments for 3D printing',
+    descripcion:
+      'Bambu Lab 1 kg, 1.75 mm spools. Reference prices in USD: press the button on a product page and the WhatsApp message goes out with the filament name, code and link.',
+    ctaTitulo: 'Looking for another colour or material?',
+    ctaTexto: 'We work with the full Bambu Lab catalogue. Tell us which one you need and we will confirm price and availability.',
+    ctaBoton: 'Ask on WhatsApp',
   },
 
   producto: {

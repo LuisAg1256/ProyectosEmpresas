@@ -5,7 +5,13 @@
  * tine de cobre al pasar el cursor. Son decorativos; el texto del enlace es la
  * etiqueta accesible.
  */
-export type ClaveNav = 'servicios' | 'catalogo' | 'trabajos' | 'comoFunciona' | 'cotizar';
+export type ClaveNav =
+  | 'servicios'
+  | 'catalogo'
+  | 'filamentos'
+  | 'trabajos'
+  | 'comoFunciona'
+  | 'cotizar';
 
 interface Props {
   clave: ClaveNav;
@@ -17,8 +23,10 @@ const { clave, class: clase = 'size-4' } = Astro.props;
 const trazos: Record<ClaveNav, string> = {
   /* Capas apiladas: impresion capa por capa. */
   servicios: 'M12 3 3 7.5l9 4.5 9-4.5L12 3ZM3 12l9 4.5 9-4.5M3 16.5 12 21l9-4.5',
-  /* Bobina de filamento: el catalogo es de filamentos. */
-  catalogo:
+  /* Caja abierta en perspectiva: piezas impresas listas para pedir. */
+  catalogo: 'M12 3 4 7.5v9L12 21l8-4.5v-9L12 3ZM4 7.5l8 4.5 8-4.5M12 12v9',
+  /* Bobina con la hebra saliendo. */
+  filamentos:
     'M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16ZM12 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM20 12h2.5',
   /* Marco de foto: la galeria de trabajos. */
   trabajos:
